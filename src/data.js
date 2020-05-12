@@ -23,6 +23,7 @@ const patterns= [
     {
         id: 1,
         contributor: 1,
+        name: "Pattern1",
         description: "description1",
         craft: "knit",
         yarn_weight: "worsted",
@@ -34,6 +35,7 @@ const patterns= [
     {
         id: 2,
         contributor: 1,
+        name: "Pattern2",
         description: "description2",
         craft: "crochet",
         yarn_weight: "worsted",
@@ -45,6 +47,7 @@ const patterns= [
     {
         id: 3,
         contributor: 2,
+        name: "Pattern3",
         description: "description3",
         craft: "crochet",
         yarn_weight: "worsted",

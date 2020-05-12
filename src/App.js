@@ -12,7 +12,7 @@ import TwistedContext from './Context';
 // import LoginPage from './Components/Login/LoginPage';
 // import RegistrationPage from './Components/Registration/RegistrationForm';
 import NotFoundPage from './Components/NotFoundPage/NotFoundPage';
-
+import PatternEdit from './Components/PatternEdit/PatternEdit';
 
 
 class App extends Component {
@@ -61,6 +61,11 @@ class App extends Component {
       exact path={'/account'}
       component={Account} 
       />
+      <Route
+        exact path={'/pattern/:id/edit'}
+        component={PatternEdit}
+        />
+      }
         {/* <PublicOnlyRoute
           path={'/login'}
           component={LoginPage}
