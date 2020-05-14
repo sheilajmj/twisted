@@ -13,21 +13,6 @@ import TwistedContext from './Context';
 // import RegistrationPage from './Components/Registration/RegistrationForm';
 import NotFoundPage from './Components/NotFoundPage/NotFoundPage';
 import PatternEdit from './Components/PatternEdit/PatternEdit';
-// import * from 'firebase';
-
-// let firebaseConfig = {
-//   apiKey: "AIzaSyAGvBDaSnAskURl9pxXg9fx-CfBqYWaex8",
-//   authDomain: "twisted-9a506.firebaseapp.com",
-//   databaseURL: "https://twisted-9a506.firebaseio.com",
-//   projectId: "twisted-9a506",
-//   storageBucket: "twisted-9a506.appspot.com",
-//   messagingSenderId: "694555486749",
-//   appId: "1:694555486749:web:4a5a4e6df97e4dd35334f4",
-//   measurementId: "G-RMZ2NZJRJ0"
-// };
-// // Initialize Firebase
-// firebase.initializeApp(firebaseConfig);
-// firebase.analytics();
 
 
 class App extends Component {
