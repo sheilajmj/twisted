@@ -235,6 +235,10 @@ ul{
     width: 100%;
     padding: 0px;
 }
+.welcome{
+  width: 100%;
+  align-content: center;
+}
 
 .coll-div li{
   display: block;
@@ -243,4 +247,8 @@ ul{
 
 .coll-div{
   width: 100%;
+}
+
+.fav-icon{
+  width: 60px;
 }
