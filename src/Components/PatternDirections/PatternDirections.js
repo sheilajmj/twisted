@@ -40,7 +40,7 @@ export default class PatternDirections extends Component {
                             >
                                 <Page pageNumber={pageNumber} />
                             </Document>
-                            <p>Page {pageNumber} of {numPages}</p>
+                            <p className="pdf-pg">Page {pageNumber} of {numPages}</p>
                         </div>
                     </>) : null}
             </div>

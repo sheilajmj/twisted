@@ -23,7 +23,7 @@ class Comment extends Component {
         <div className="comment-form">
         <form onSubmit={() => this.handleSubmit()}>
         <label for="comment">New Comment:</label>
-        <textarea rows="4" cols="50" id="comment" name="comment"/>
+        <textarea rows="4" cols="40" id="comment" name="comment"/>
         <button type="submit">Post Comment</button>
         </form>
         </div>

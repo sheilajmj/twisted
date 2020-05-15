@@ -17,7 +17,7 @@ class CommentPanel extends Component{
 
     render() {
         return (
-            <div>
+            <div className="coll-div">
                 <div className="collapsible-header" onClick ={((e) =>{this.togglePanel(e)})}>Comments</div>
                 {this.state.open ? (<div><Comment /></div>) : null}
                 </div>

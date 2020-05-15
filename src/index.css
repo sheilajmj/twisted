@@ -252,3 +252,15 @@ ul{
 .fav-icon{
   width: 60px;
 }
+
+.react-pdf__Document, .pdf-pg{
+  display:none;
+}
+
+@media screen and (min-width: 550px) {
+
+  .react-pdf__Document, .pdf-pg{
+    display:block;
+  }
+
+}
