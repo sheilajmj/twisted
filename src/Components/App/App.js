@@ -65,7 +65,7 @@ class App extends Component {
           component={Home}
         />
         <Route
-          exact path={'/patterns/:uid/:id'}
+          path={'/patterns/:uid'}
           component={PatternPanel}
           />
       {/* <PrivateOnlyRoute       

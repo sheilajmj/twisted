@@ -159,7 +159,7 @@ class AddPattern extends Component {
         let { author_name, pattern_name, description, craft, yarn_weight, needle_size } = this.state.newPattern;
         let { image_file_URL, image_file_name, pdf_file_name, pdf_file_URL, contributor_user_id, thumbnail_image_file_URL, thumbnail_image_file_name } = this.state
         
-        this.props.firebase.patterns().push({
+      let newPattern = {
           author_name,
           pattern_name,
           description,
@@ -173,12 +173,19 @@ class AddPattern extends Component {
           contributor_user_id,
           image_file_URL,
           pdf_file_URL
+        }
+
+        this.props.firebase.patterns().push(newPattern)
+        
+        .then((response)=> {
+          let pattern_id = response.key
+          this.props.firebase.db.ref(`/patterns/${pattern_id}`).update({pattern_id: pattern_id})
+            return (response)  
         })
           .then(() => {
             this.setState({...INITIAL_STATE})
             this.props.history.push('/account/' + this.props.uid + '/contributions')
-            
-          })  
+          })                      
           .catch(function (error) {
             console.error("Error writing document: ", error);
           });

@@ -39,17 +39,17 @@ class PatternDirections extends Component {
 
     render() {
         const { pageNumber, numPages } = this.state;
-
+        let pattern = this.props.pattern
         return (
             <div className="coll-div">
                 <div className="collapsible-header" onClick={((e) => { this.togglePanel(e) })}>Pattern Instructions</div>                
                 {this.state.open && this.state.authUser ? (
                     <>
-                        <div>embeded PDF here -- only for those who are signed in</div>
-                        <a href="https://twistedknit.s3-us-west-1.amazonaws.com/DemoPDF.pdf" target="_blank" rel="noopener noreferrer">Open, Print, or Download File</a>
+                        <div>Click the link to print or save the pattern directions</div>
+                        <a href={`${pattern.pdf_file_URL}`} target="_blank" rel="noopener noreferrer">Open, Print, or Download File</a>
                         <div>
                             <Document
-                                file={DemoPDF}
+                                file={pattern.pdf_file_URL}
                                 onLoadSuccess={this.onDocumentLoadSuccess}
                             >
                                 <Page pageNumber={pageNumber} />
