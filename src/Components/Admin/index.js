@@ -42,21 +42,23 @@ class AdminPage extends Component {
     return (
       <div>
         <h1>Admin</h1>
-        <p>The admin page is accessible by every signed in admin user.</p>
+        <p>User Data</p>
       {loading && <div> Loading ...</div>}
+      <div className="flex-container-column-lg">
       <UserList users = {users} />
+      </div>
       </div>
     );
   }
 }
 
 const UserList = ({ users }) => (
-    <ul>
+    <ul className="user-list">
         {users.map(user => (
-            <li key={user.uid}>
-                <span><strong>ID:</strong>{user.uid}</span>
-                 <span><strong>E-Mail:</strong>{user.email}</span>
-            <span><strong>Username:</strong>{user.username}</span>
+            <li key={user.uid} className="ta-l pad-sm flex-item-md">
+                <div><strong>ID: </strong>{user.uid}</div>
+                 <div><strong>E-Mail:  </strong>{user.email}</div>
+            <div><strong>Username:  </strong>{user.username}</div>
             </li>
         ))}
     </ul>

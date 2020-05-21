@@ -60,13 +60,13 @@ class FavoriteIcon extends Component {
       let data = snapshot.val()
 
       if (data) {
-        // let totalFavAccounts = Object.values(data)
+        let totalFavAccounts = Object.values(data)
         let count = 0
-        // let totalTrue = totalFavAccounts.forEach(val => {
-        //   if (val === true) {
-        //     count++
-        //   }
-        // })
+        let totalTrue = totalFavAccounts.forEach(val => {
+          if (val === true) {
+            count++
+          }
+        })
         this.setState({ count: count })
       }
     })

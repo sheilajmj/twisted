@@ -50,8 +50,8 @@ class PatternCard extends Component {
               return (
                     <div className="flex-item">
                         <div  onClick={() => { this.context.history.push(`${this.state.userId}` ? signedPath : unsignedPath)}}>
-                            {pattern.pattern_name}
-                        <img src={pattern.thumbnail_image_file_URL} alt="placeholder" />
+                          <strong>  {pattern.pattern_name}</strong>
+                        <br /><img src={pattern.thumbnail_image_file_URL} alt="placeholder" /><br />
                         <div>{this.state.contributor_name}</div>
                         </div>
                         <FavoriteIcon pattern_id={pattern.pattern_id} pattern_contributor={this.state.contributor_name} userId={this.props.userId} />

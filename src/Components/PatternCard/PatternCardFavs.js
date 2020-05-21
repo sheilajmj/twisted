@@ -18,7 +18,7 @@ class PatternCardFavs extends Component {
     }
 
 
-    
+
     handleGetPatterns = (data) => {
         let patternArray = []
         let patterns = data.map(pattern => {
@@ -26,18 +26,18 @@ class PatternCardFavs extends Component {
                 let patternData = snapshot.val()
                 patternArray.push(patternData)
             })
-            this.setState({ patternListArray: patternArray }, () => {this.handleGetPatternReturn(patternArray)})
+            this.setState({ patternListArray: patternArray }, () => { this.handleGetPatternReturn(patternArray) })
             this.setState({ dataLoaded: true })
             return patternArray;
         })
-  
+
         return patterns
     }
-    
+
 
     handleGetPatternArray = (data) => {
         let getFavsTrueFromData = Object.keys(data).filter(key => data[key] === true);
-            this.setState({ patternIds: getFavsTrueFromData }, () => {this.handleGetPatterns(getFavsTrueFromData)})            
+        this.setState({ patternIds: getFavsTrueFromData }, () => { this.handleGetPatterns(getFavsTrueFromData) })
     }
 
     handleSetUserId = () => {
@@ -58,11 +58,11 @@ class PatternCardFavs extends Component {
     }
 
     handleGetPatternReturn = (patternArray) => {
-            let patterns = patternArray.map((pattern) => {
-                console.log("HERE?", pattern);
-                return pattern;
-            })
-console.log(patterns, "patterns?")
+        let patterns = patternArray.map((pattern) => {
+            console.log("HERE?", pattern);
+            return pattern;
+        })
+        console.log(patterns, "patterns?")
         //this.handleGetContributorName(pattern.contributor_user_id);
         // return (
         //     <div className="flex-item">
@@ -91,7 +91,7 @@ console.log(patterns, "patterns?")
         })
     }
 
-   
+
 
 
     componentDidMount = () => {
