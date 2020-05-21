@@ -6,11 +6,10 @@ const SignOutButton = ({ firebase }) => {
 
    function handleClick (){ 
     firebase.auth.signOut()
-    window.location.href = '/home'
    }
 
     return(
-    <Link  onClick={() => {handleClick()}}>Sign Out</Link>
+    <Link to={'/home'} onClick={() => {handleClick()}}>Sign Out</Link>
     )
  }
 

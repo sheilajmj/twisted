@@ -21,7 +21,6 @@ class PatternCard extends Component {
     }
 
     handleGetPatternArray = () => {
-        console.log(this.props, "context IN PATTERNCARD")
         this.props.firebase.patterns().on("value", (snapshot) => {
             let patternListArray = Object.values(snapshot.val())
             this.setState({ patternListArray: patternListArray })
@@ -71,7 +70,6 @@ class PatternCard extends Component {
 
 
     render() {
-        console.log(this.state)
         return (
             <section className='PatternCard flex-container'>
                 <div className="flex-container">

@@ -38,7 +38,7 @@ class App extends Component {
         <TwistedContext.Provider value={contextValue}>
           <main className='app'>
             <Navigation />
-            <hr />
+            
             <Switch>
               <Route
                 exact path={'/'}
@@ -72,7 +72,7 @@ class App extends Component {
               />
 
               <Route
-                path={'/patterns/:uid'}
+                exact path={'/patterns/:uid'}
                 component={PatternPanel}
               />
               <Route

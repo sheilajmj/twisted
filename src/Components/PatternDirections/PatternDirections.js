@@ -3,7 +3,6 @@ import { Document, Page } from 'react-pdf';
 import { pdfjs } from 'react-pdf';
 import { withFirebase } from '../Firebase';
 import SignIn from '../Signin'; 
-import DemoPDF from '../../sample-files/DemoPDF.pdf'
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 

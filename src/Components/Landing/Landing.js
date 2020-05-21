@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Context from '../../Context'
-import PatternCard from '../PatternCard/PatternCardEdit';
+// import PatternCard from '../PatternCard/PatternCardEdit';
 
 
 class LandingPage extends Component {

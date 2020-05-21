@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PatternDetail from '../PatternDetail/PatternDetail';
 import PatternDirections from '../PatternDirections/PatternDirections';
 import FavoriteIcon from '../FavoriteIcon/FavoriteIcon';
-import CommentPanel from '../CommentPanel/CommentPanel';
+// import CommentPanel from '../CommentPanel/CommentPanel';
 import { withFirebase } from '../Firebase';
 import Context from '../../Context';
 

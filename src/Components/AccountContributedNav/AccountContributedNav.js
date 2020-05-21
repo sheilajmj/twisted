@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Context from '../../Context';
-import { patterns } from '../../data';
-import { AuthUserContext } from '../Session';
-import FavoriteIcon from '../FavoriteIcon/FavoriteIcon';
+// import { patterns } from '../../data';
+// import { AuthUserContext } from '../Session';
+// import FavoriteIcon from '../FavoriteIcon/FavoriteIcon';
 import { withFirebase } from '../Firebase';
 import { Link } from 'react-router-dom';
 

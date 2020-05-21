@@ -20,13 +20,13 @@ class AccountNavigationMain extends Component {
             <div className="container">
                 <ul>
                     <li>
-                        <Link to={`/account/${this.props.userId}/favorites`} userId={`${this.props.userId}`}>Favorites</Link>
+                        <Link to={`/account/${this.props.userId}/favorites`}>Favorites</Link>
                     </li>
                     <li>
-                        <Link to={`/account/${this.props.userId}/contributed`} userId={`${this.props.userId}`}>Contributed</Link>
+                        <Link to={`/account/${this.props.userId}/contributed`}>Contributed</Link>
                     </li>
                     <li>
-                        <Link to={`/account/${this.props.userId}/account`} userId={`${this.props.userId}`}>Account</Link>
+                        <Link to={`/account/${this.props.userId}/account`}>Account</Link>
                     </li>
                 </ul>
             </div>
