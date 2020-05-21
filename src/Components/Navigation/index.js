@@ -9,45 +9,80 @@ import * as ROLES from '../../constants/roles';
 const Navigation = () => (
     <div>
         <AuthUserContext.Consumer>
-            {authUser => 
-            authUser ? (
-            <NavigationAuth authUser={authUser} />) : <NavigationNonAuth />}
+            {authUser =>
+                authUser ? (
+                    <NavigationAuth authUser={authUser} />) : <NavigationNonAuth />}
         </AuthUserContext.Consumer>
     </div>
 );
 
 const NavigationAuth = ({ authUser }) => (
-    <ul>
-         <li>
-            <Link to = {ROUTES.Landing}>Landing</Link>
-        </li>
-        <li>
-            <Link to = {ROUTES.Home}>Home</Link>
-        </li>
-        <li>
-            <Link to = {ROUTES.Account + '/' + `${authUser.uid}`}>Account</Link>
-        </li>
-        {!!authUser.roles[ROLES.ADMIN] && (
-                <li>
-                    <Link to={ROUTES.Admin}>Admin</Link>
-                </li>     
-        )}
-       
-        <li>
-            <SignOutButton />
-        </li>
-    </ul>
+    (<>
+        <div className="nav-link-wrap">
+            <div className="flex-blank"></div>
+            <div className="flex-blank"></div>
+            <div className="nav-div">
+                <ul className="align-center">
+                    <li>
+                        <Link to={ROUTES.Landing} className="nav-link">Landing</Link>
+                    </li>
+                    <li>
+                        <Link to={`/${authUser.uid}` + '/home'} className="nav-link">Home</Link>
+                    </li>
+                    <li>
+                        <Link to={ROUTES.Account + '/' + `${authUser.uid}`} className="nav-link">Account</Link>
+                    </li>
+                    {!!authUser.roles[ROLES.ADMIN] && (
+                        <li>
+                            <Link to={ROUTES.Admin} className="nav-link">Admin</Link>
+                        </li>
+                    )}
+
+                    <li>
+                        <SignOutButton />
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <section className='header bkg-color-lt'>
+            <div className='app-title-wrap l-font'>
+                <img className="logo" src={require('../../Assets/SVG/logo.svg')} alt="logo" />
+               <h1 className="app-title-h"><a href={`/${authUser.uid}` + '/home'} className='header l-font app-title color-p'>Twisted</a></h1>
+            </div>
+        </section>
+
+    </>
+    )
 );
 
 const NavigationNonAuth = () => (
-    <ul>
-        <li>
-            <Link to = {ROUTES.Landing}>Landing</Link>
-        </li>
-        <li>
-            <Link to = {ROUTES.Sign_In}>Sign In</Link>
-        </li>
-    </ul>
+    (<>
+        <div className="nav-link-wrap">
+            <div className="flex-blank"></div>
+            <div className="flex-blank"></div>
+            <div className="nav-div">
+                <ul className="align-center nav-ul">
+                    <li>
+                        <Link to={ROUTES.Landing} className="nav-link">Landing</Link>
+                    </li>
+                    <li>
+                        <Link to={ROUTES.Home} className="nav-link">Home</Link>
+                    </li>
+                    <li>
+                        <Link to={ROUTES.Sign_In} className="nav-link">Sign In</Link>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <section className='header  bkg-color-lt'>
+            <div className='app-title l-font'>
+                <img src={require('../../Assets/SVG/logo.svg')} alt="logo" />
+                <h1 className="app-title-h"><a href="/home" className='header l-font app-title color-p'>Twisted</a></h1>
+            </div>
+        </section>
+
+    </>
+    )
 )
 
 

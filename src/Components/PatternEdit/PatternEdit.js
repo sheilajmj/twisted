@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Context from '../../Context';
+import AccountContributedNav from '../AccountContributedNav/AccountContributedNav';
+import AccountNavigationMain from '../AccountNavigationMain/AccountNavigationMain';
 
 class PatternEdit extends Component {
     static contextType = Context;
@@ -9,6 +11,8 @@ class PatternEdit extends Component {
 
         return (
             <>
+                <AccountNavigationMain />
+                <AccountContributedNav />
                 <h2>Edit Pattern</h2>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-space">

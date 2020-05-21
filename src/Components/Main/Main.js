@@ -1,21 +1,25 @@
 import React, { Component } from 'react';
-//import Context from '../../Context';
+import Context from '../../Context';
 import PatternCard from '../PatternCard/PatternCard'
+import { withFirebase } from '../Firebase'
 
 class Home extends Component {
-   // static contextType = Context;
+    static contextType = Context;
+    constructor(props) {
+        super(props);
+        this.state = {
+            authUser: null,
+         }
+    }
 
-    // handleAddClick = (location) => {
-    //     this.context.history.push(`/${location}/add`)
-    // }
-
+   
 
     render() {
         return (
             <section className='home'>
                 <div className="container">
-                  <h1> Pattern Cards will be below  </h1>
-                  <PatternCard />
+                    <h1> Pattern Cards will be below  </h1>
+                    <PatternCard userId={`${this.props.match.params.userId}`} />
                 </div>
             </section>
         );
@@ -23,4 +27,4 @@ class Home extends Component {
 }
 
 
-export default Home;
+export default withFirebase(Home);

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Context from '../../Context'
+import PatternCard from '../PatternCard/PatternCardEdit';
 
 
 class LandingPage extends Component {
@@ -7,15 +8,21 @@ class LandingPage extends Component {
 
   render() {
     return (
+      <>
       <section className="landing">
-        <div className="flex-container bkg-color-wt landing">
+        <div className="bkg-color-wt landing">
           <div className="landing-text landing-wrap">
-            <h2 className="welcome align-center color-p">Welcome!</h2>
+            <h2 className="welcome align-center ta-c  color-p">Welcome!</h2>
+            <p className="ta-c">
         Twisted is a web application designed to enable yarn lovers to collect, save and explore patterns.
+        </p>
+        </div>      
         </div>
-        </div>
-        <button className="start-btn" onClick={() => { this.context.history.push('/home') }}>Get Started</button>
+        <button className="start-btn btn" onClick={() => { this.context.history.push('/home') }}>Get Started</button>
       </section>
+      <section className="image-landing">
+      </section>
+      </>
     );
   }
 }

@@ -42,10 +42,81 @@ main{
   font-weight: bolder;
 }
 
+.logo{
+  display: inline-block;
+  opacity: .2;
+  position: relative;
+  margin-left: -14px;
+  margin-top: -66px;
+}
+
+.app-title-h{
+  margin-block-end: 0em;
+  margin-block-start: -2.5em;
+}
+
+.app-title{
+  text-align: left;
+  font-size: 2em;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+  margin-block-end: 0em;
+  padding: 12px;
+  margin-block-start: -6.5em;
+}
+
+.app-title-wrap{
+    text-align: left;
+    font-size: 2em;
+    width: 100%;
+    margin-block-end: 0em;
+    margin-block-start: 0em;
+    padding: 12px;
+    padding: 0px;
+  }
+
 .home-item{
   align-content: center;
   margin-left: auto;
   margin-right: auto;
+}
+
+.btn{
+  padding: 12px;
+  border-radius: 5px;
+  border: none;
+  font-size: 14px;
+  margin: 0 10px;
+  color: white;
+  background-color: #663650;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.btn:hover{
+  transition-duration: .2s;
+ background-color: #83677B;
+}
+
+.nav-link{
+  margin: 0 15px;
+  display: block;
+}
+
+.nav-div{
+  margin-right: 10px;
+  margin-left: auto;
+}
+
+.nav-link-wrap{
+  display: flex;
+  align-content: center;
+}
+
+.flex-blank{
+  display: flex; 
+  width: 20%;
 }
 
 .align-center{
@@ -96,13 +167,8 @@ background-color: white;
 
 }
 
-.txt-r{
+.txt-r, .ta-r{
 text-align: right;
-}
-
-.app-title{
-  font-size: 2em;
-  width: 100%;
 }
 
 .m-neg-t-sm{
@@ -110,26 +176,32 @@ text-align: right;
 }
 
 div.landing{
-  font-size: 14px;
+  font-size: 16px;
   width: 64%;
   margin-left: auto;
   margin-right: auto;
-  padding-top: 2%;
-  padding-bottom: 5%;
+  flex-grow: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 
 .landing-wrap{
+  z-index: 0;
   text-align: left;
   background-color: white;
   margin-top: 3%;
   width: 100%;
+  max-width: 387px;
+  min-width: 206px;
   border: solid 2px #83677B;
   -webkit-border-radius: 10px; 
   -moz-border-radius: 10px;
   border-radius: 10px;
-  padding: 5%;
-  display: flex;
-  flex-wrap: wrap;
+  padding: 8%;
+  display: block;
+  /* flex-wrap: wrap; */
   flex-grow: 1;
   flex-shrink: 1;
   margin-left: 1%;
@@ -170,6 +242,17 @@ ul{
   width: 100%;
   margin-right: 4%;
   padding-bottom: 2%;
+}
+
+.form-input{
+  font-size: 16px;
+  padding: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.page-header{
+  font-family: 'Open Sans', sans-serif;
 }
 
 .flex-container-column{
@@ -250,7 +333,8 @@ ul{
 }
 
 .fav-icon{
-  width: 60px;
+  width: 20%;
+  padding: 3px;
 }
 
 .react-pdf__Document, .pdf-pg{

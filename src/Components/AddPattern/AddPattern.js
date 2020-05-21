@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import Context from '../../Context';
 import { withFirebase } from '../Firebase';
+import AccountNavigationMain from '../AccountNavigationMain/AccountNavigationMain';
+import AccountContributedNav from '../AccountContributedNav/AccountContributedNav';
 
 
 
@@ -34,7 +36,7 @@ class AddPattern extends Component {
   }
 
   setContributorUserId = () => {
-    this.setState({contributor_user_id: this.props.uid})
+    this.setState({contributor_user_id: this.props.match.params.userId})
     
   }
   
@@ -78,8 +80,7 @@ class AddPattern extends Component {
         },
 
         () => {
-          // gets the functions from storage refences the image storage in firebase by the children
-          // gets the download url then sets the image from firebase as the value for the imgUrl key:
+         
           this.props.firebase.storage.ref('/pattern-directions/')
             .child(this.state.pdf_file_name)
             .getDownloadURL()
@@ -180,11 +181,12 @@ class AddPattern extends Component {
         .then((response)=> {
           let pattern_id = response.key
           this.props.firebase.db.ref(`/patterns/${pattern_id}`).update({pattern_id: pattern_id})
+          this.props.firebase.db.ref(`/users/${contributor_user_id}/contributed/`).update({[`${this.props.pattern_id}`]: null})
             return (response)  
         })
           .then(() => {
             this.setState({...INITIAL_STATE})
-            this.props.history.push('/account/' + this.props.uid + '/contributions')
+            this.props.history.push('/account/' + this.props.match.userId + '/contributions')
           })                      
           .catch(function (error) {
             console.error("Error writing document: ", error);
@@ -207,6 +209,8 @@ class AddPattern extends Component {
   
       return (
         <>
+        <AccountNavigationMain />
+        <AccountContributedNav />
           <h2>Add New Pattern</h2>
           <form onSubmit={this.handleSubmit}>
             <div className="form-space">

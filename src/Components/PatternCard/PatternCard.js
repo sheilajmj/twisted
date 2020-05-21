@@ -2,19 +2,26 @@ import React, { Component } from 'react';
 import Context from '../../Context';
 import { withFirebase } from '../Firebase';
 import FavoriteIcon from '../FavoriteIcon/FavoriteIcon';
+//import {}  //try importing the authuser context 
 
 class PatternCard extends Component {
     static contextType = Context;
     constructor(props) {
         super(props);
         this.state = {
-            patternListArray: null
+            patternListArray: null,
+        
+         }
+    }
+
+    userSignedIn = () => {
+        if (this.props.userId){
+            this.setState({userId: this.props.userId}) 
         }
     }
 
-
-
     handleGetPatternArray = () => {
+        console.log(this.props, "context IN PATTERNCARD")
         this.props.firebase.patterns().on("value", (snapshot) => {
             let patternListArray = Object.values(snapshot.val())
             this.setState({ patternListArray: patternListArray })
@@ -38,15 +45,17 @@ class PatternCard extends Component {
                 })
               }
               this.handleGetContributorName();
-              
+              let signedPath = `/${this.state.userId}/patterns/${pattern.pattern_id}`
+              let unsignedPath = `/patterns/${pattern.pattern_id}`
+
               return (
                     <div className="flex-item">
-                        <div  onClick={() => { this.context.history.push(`/patterns/${pattern.pattern_id}`) }}>
+                        <div  onClick={() => { this.context.history.push(`${this.state.userId}` ? signedPath : unsignedPath)}}>
                             {pattern.pattern_name}
                         <img src={pattern.thumbnail_image_file_URL} alt="placeholder" />
                         <div>{this.state.contributor_name}</div>
                         </div>
-                        <FavoriteIcon />
+                        <FavoriteIcon pattern_id={pattern.pattern_id} pattern_contributor={this.state.contributor_name} userId={this.props.userId} />
                     </div>
                 )
               })
@@ -56,11 +65,13 @@ class PatternCard extends Component {
     
     componentDidMount = () => {
         this.handleGetPatternArray();
+        this.userSignedIn();
     }
 
 
 
     render() {
+        console.log(this.state)
         return (
             <section className='PatternCard flex-container'>
                 <div className="flex-container">

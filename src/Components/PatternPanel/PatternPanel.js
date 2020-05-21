@@ -16,6 +16,15 @@ class PatternPanel extends Component {
     }
   }
 
+  handleUserId = () => {
+    if (this.props.match.params.userId){
+      this.setState({userId: this.props.match.params.userId})
+    } 
+    else {
+      this.setState({userId: null})
+    }
+  }
+
   handleGetPatternData = () => {
     this.props.firebase.db.ref(`/patterns/${this.props.match.params.uid}`).once("value", (snapshot) => {
       let patternData = (snapshot.val())
@@ -37,6 +46,7 @@ class PatternPanel extends Component {
 
   componentDidMount() {
     this.handleGetPatternData();
+    this.handleUserId();
   }
 
   patternDataReturn = () => {
@@ -48,7 +58,7 @@ class PatternPanel extends Component {
         <>
           <h2>{pattern.pattern_name}</h2>
           <h3>{pattern.author_name}</h3>
-          <FavoriteIcon />
+          <FavoriteIcon pattern_id={pattern.pattern_id} userId={this.state.userId ? this.state.userId : null} />
           <img src={pattern.image_file_URL} alt="placeholder" />
           <div>Added By:  {this.state.contributor_name}</div>
           <PatternDetail pattern = {pattern}/>

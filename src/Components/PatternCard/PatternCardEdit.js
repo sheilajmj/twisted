@@ -12,7 +12,7 @@ class PatternCard extends Component {
 
     cards = patterns.map(pattern => {
         return (        
-        <div className="flex-item" onClick={() => { this.context.history.push(`/pattern/${pattern.id}/edit`) }}>
+        <div className="flex-item" onClick={() => { this.context.history.push(`/account/${this.props.match.params.user}/${pattern.id}/edit`) }}>
             { pattern.name }
             <img src={require(`../../Assets/SVG/placeholder-img.svg`)} alt="placeholder" />
                 <div>{pattern.contributor}</div>
@@ -29,6 +29,7 @@ class PatternCard extends Component {
         return (
             <section className='PatternCard flex-container'>                
                 <div className="flex-container">
+                    <h1>Edit page </h1>
                {this.cards}
                </div>
             </section>

@@ -8,7 +8,7 @@ import { PasswordForgetLink } from '../PasswordForget';
 
 const SignInPage = () => (
     <div>
-        <h1>SignIn</h1>
+        <h1 className="page-header">Sign In</h1>
     <SignInForm />
     <PasswordForgetLink />
     <SignUpLink />
@@ -35,7 +35,7 @@ class SignInFormBase extends Component{
         .then(() => {
             this.setState({...INITIAL_STATE});
             if (!this.props.location.pathname.includes('/pattern')){
-            this.props.history.push(ROUTES.Home);  
+            window.location.href = '/'  
             }
         })
         .catch(error => {
@@ -53,9 +53,11 @@ class SignInFormBase extends Component{
 
         return (
             <form onSubmit = {this.onSubmit} >
-                <input name="email" value={email} onChange={this.onChange} type="text" placeholder="Email Address" />
-                <input name="password" value={password} onChange={this.onChange} type="password" placeholder="Password"/>
-                <button disabled = {isInvalid} type="submit">Sign In</button>              
+                <input className="form-input" name="email" value={email} onChange={this.onChange} type="text" placeholder="Email Address" />
+                <br /> 
+                <input className="form-input" name="password" value={password} onChange={this.onChange} type="password" placeholder="Password"/>
+                <br/>
+                <button className="btn" disabled = {isInvalid} type="submit">Sign In</button>              
                 {error && <p>{error.message}</p>}  
             </form>
         )
