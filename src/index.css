@@ -81,7 +81,7 @@ main{
 
 .app-title{
   text-align: left;
-  font-size: 2em;
+  font-size: 2.75em;
   width: 100%;
   max-width: 700px;
   min-width: 250px;
@@ -137,6 +137,8 @@ main{
 .nav-link{
   margin: 0 15px;
   display: block;
+  position: relative;
+    z-index: 5;
 }
 
 .nav-div{
@@ -254,6 +256,11 @@ div.landing{
 .nav-wrap{
   width: 100%;
   background-color: #f4f4f4;  
+}
+
+.mg-lrc{
+  margin-left: auto;
+  margin-right: auto;
 }
 
 nav ul{
@@ -399,6 +406,7 @@ ul{
 
 .fav-wrap{
   width: 100%;
+  margin-top: -10%;
 }
 
 .fav-icon{
@@ -412,6 +420,17 @@ ul{
 
 .pad-sm {
   padding: 2%;
+}
+
+.pad-r-md {
+  padding-right: 5%;
+}
+.pad-l-md{
+  padding-left: 5%;
+}
+
+.count{
+  margin-top: -5%;
 }
 
 .user-list{

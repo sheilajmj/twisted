@@ -18,7 +18,6 @@ class Home extends Component {
         return (
             <section className='home'>
                 <div className="container">
-                    <h1> Pattern Cards will be below  </h1>
                     <PatternCard userId={`${this.props.match.params.userId}`} />
                 </div>
             </section>

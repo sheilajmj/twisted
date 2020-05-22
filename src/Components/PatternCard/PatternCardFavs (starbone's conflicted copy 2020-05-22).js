@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Context from '../../Context';
 import { withFirebase } from '../Firebase';
-import FavoriteIcon from '../FavoriteIcon/FavoriteIcon';
+//import FavoriteIcon from '../FavoriteIcon/FavoriteIcon';
 import AccountNavigationMain from '../AccountNavigationMain/AccountNavigationMain';
 
 
@@ -10,7 +10,10 @@ class PatternCardFavs extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            // patternListArray: null,
+            // userId: null,
+            // patternIds: null,
+            // listOfPatterns: null,
         }
     }
 
@@ -99,94 +102,67 @@ class PatternCardFavs extends Component {
     // }
 
 
-    //get signed in user ID (userId) - get all patterns(patternId) listed in their favorites  (all favs array)
+//get signed in user ID (userId) - get all patterns(patternId) listed in their favorites  (all favs array)
     // firebase users/userId/favorites/ all this data
 
     handleGetAllFavoritesOfUser = () => {
-        this.props.firebase.db.ref(`users/${this.props.match.params.userId}/favorites`).once("value", (snapshot) => {
-            let allFavorites = snapshot.val();
-            let allFavoritesArray = Object.entries(allFavorites)
-            this.setState({ allFavoritesArray: allFavoritesArray }, () => this.handleFilterTrue());
-        })
+            this.props.firebase.db.ref(`users/${this.props.match.params.userId}/favorites`).once("value", (snapshot) => {
+                let allFavorites = snapshot.val();
+                let allFavoritesArray = Object.entries(allFavorites)
+                this.setState({allFavoritesArray : allFavoritesArray}, () => this.handleFilterTrue());
+            } )
     }
-
+    
     //with the allFavsArray - filter those that have a value - TRUE (truefavsarray)  
-    // part 1 data - filter values Keep TRUE
+        // part 1 data - filter values Keep TRUE
 
     handleFilterTrue = () => {
         let allFavoritesArray = this.state.allFavoritesArray
         let favoritesArrayObjects = allFavoritesArray.map(item => item[1])
         console.log(favoritesArrayObjects, "objs")
-        let trueFavsArray = []
+        let trueFavsArray= []
 
-        favoritesArrayObjects.map(objItem => {
-            let objItemArray = Object.values(objItem)
-            let objItemKeyArray = Object.keys(objItem)
-
-            if (objItemArray[0] === false) {
-                console.log("it was false")
-            }
-            else {
-                trueFavsArray.push(objItemKeyArray[0])
-            }
+        favoritesArrayObjects.map(item => {            
+        let item =  Object.values(item)
         })
-        console.log("trueFavsArray", trueFavsArray)
-        this.setState({ favPatternIds: trueFavsArray }, () => this.handleGetPatternArray())
-    }
-
-
-    // find all patterns with an ID that matched the 'true' ids from the favPatternIdsGet
-    // take those pattern objects and push this data into a new array (patternArray)
-
-    handleGetPatternArray = () => {
-        let patternArray = []
-        let patternObjs = this.state.favPatternIds.map(patternId => {
-            this.props.firebase.db.ref(`patterns/${patternId}`).once("value", (snapshot) => {
-                let pattern = (snapshot.val())
-                patternArray.push(pattern)
-                return pattern;
-            })
-            this.setState({ patternArray: patternArray }, () => console.log(patternArray, "loaded"))
-        })
-        return patternObjs
-    }
-
-    handleRenderPatterns = () => {
-        if(!this.state.patternArray){
-            return <div>No Patterns!</div>
-        }
-        else{
-       console.log(typeof(this.state.patternArray))
-        console.log(this.state.patternArray)
-        let pattern = this.state.patternArray.map((item) => {
-                let userId = this.props.match.params.userId
-                let signedPath = `/${this.state.userId}/patterns/${item.pattern_id}`
-                let unsignedPath = `/patterns/${item.pattern_id}`
-                return (
-                    <div key={item.pattern_id} className="flex-item">
-                         <div onClick={() => { this.context.history.push(`${userId}` ? signedPath : unsignedPath) }}>
-                             <strong> Name:  {item.pattern_name}</strong>
-                             <br /><img src={item.thumbnail_image_file_URL} alt="placeholder" /><br />
-                             <div>{item.contributor_name}</div>
-                         </div>
-                         <FavoriteIcon pattern_id={item.pattern_id} pattern_contributor={pattern.contributor_name} userId={this.props.userId} />
-                     </div>
-                 )
-            })
+        console.log(item)
             
-            return pattern
-        }
+        // }
+
+        })
+
+        //     let itemKeyArray = (Object.keys[0], "test2")
+        //     console.log(itemKeyArray[0], "Keys")
+           
+        //     if (itemValueArray[0] === true){
+        //         // trueFavsArray.push([itemKeyArray[keys][0]])
+        //         console.log(trueFavsArray, "values of Favorites")
+
+        //     }
+        // })
+
+
+        //     let patternData = item[1]
+        //     console.log(patternData, "this stuff")
+        // })
+
+        // let allTrueFavs = Object.keys(allFavorites).filter(key => allFavorites[key] === true)
+        // console.log("allTrueFavs", allTrueFavs);
+        // this.setState({allTrueFavs: allTrueFavs });
     }
+        
+    
 
 
 
+// Get all patterns and find those that match the TrueFavsArray
+        // take all trues    firebase/patterns/(ID that matches the ID in the Trues array)  - push this data into a new array
 
+//take new array with True patterns and map it to return the cards.
 
-    //take new array with True patterns and map it to return the cards.
-
-    componentDidMount = () => {
-        this.handleGetAllFavoritesOfUser();
-    }
+componentDidMount = () => {
+   this.handleGetAllFavoritesOfUser();
+}
 
 
     render() {
@@ -197,7 +173,7 @@ class PatternCardFavs extends Component {
                 <section className='PatternCard flex-container'>
                     <div className="flex-container">
                         <div>Favs!</div>
-                        {this.handleRenderPatterns()}
+                        
                     </div>
                 </section>
             </>
