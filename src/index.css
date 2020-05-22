@@ -475,6 +475,15 @@ ul{
   margin-top: -5%;
 }
 
+/* .panel-wrap{
+  width: 70%;
+  display: flex;
+  margin-left:auto;
+  margin-right: auto;
+  flex-wrap: wrap;
+  flex-direction: row;
+  } */
+
 .user-list{
   margin-left: auto;
   margin-right: auto;

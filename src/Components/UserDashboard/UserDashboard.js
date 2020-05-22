@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import Context from '../../Context';
 //import { Link } from 'react-router-dom';
-import AccountNavigationMain from '../AccountNavigationMain/AccountNavigationMain'
+import AccountNavigationMain from '../AccountNavigationMain/AccountNavigationMain';
 import DashboardLinkFavs from '../UserDashboard/DashboardLinkFavs';
 import DashboardLinkMyPatterns from './DashboardLinkMyPatterns';
 import DashboardLinkAddPatterns from './DashboardLinkAddPatterns';
+import DashboardLinkAccount from './DashboardLinkAccount';
 
 // import PatternCardEdit from '../PatternCard/PatternCardEdit';
 // import { PasswordForgetForm } from '../PasswordForget';
@@ -40,11 +41,14 @@ class UserDashboard extends Component {
         if (this.state.userId){
         return (
             <section className='home user-dash'>
-                User Dashboard
+                <h1>My Dashboard</h1>
                <AccountNavigationMain userId={this.state.userId}/>
+               <div className="panel-wrap">
                <DashboardLinkFavs userId={this.state.userId}/>
                <DashboardLinkMyPatterns userId={this.state.userId}/>
                <DashboardLinkAddPatterns userId={this.state.userId} />
+               <DashboardLinkAccount userId={this.state.userId} />
+               </div>
             </section>
 
         );
