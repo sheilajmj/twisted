@@ -18,8 +18,6 @@ import PatternCardContributed from '../PatternCard/PatternCardContributed';
 import PatternCardFavs from '../PatternCard/PatternCardFavs';
 import AddPattern from '../AddPattern/AddPattern';
 import AccountDetails from '../AccountDetails/AccountDetails';
-import * as cors from 'cors';
-const corsHandler = cors({origin: true});
 
 class App extends Component {
   constructor(props) {

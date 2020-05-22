@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 // import { Document, Page } from 'react-pdf';
-// import { pdfjs } from 'react-pdf';
+import { pdfjs } from 'react-pdf';
 import { withFirebase } from '../Firebase';
 import SignIn from '../Signin';
-// pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 import PDFViewer from 'pdf-viewer-reactjs'
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 
 class PatternDirections extends Component {

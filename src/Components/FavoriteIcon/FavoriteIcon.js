@@ -84,8 +84,8 @@ class FavoriteIcon extends Component {
   render() {
     return (
       <>
-        <div className="fav-icon" onClick={() => { this.handleFavClick() }}>
-          {this.state.fav === false ? <img src={require('../../Assets/SVG/unfav.svg')} alt="favorite-icon" /> : <img src={require('../../Assets/SVG/fav.svg')} alt="favorite-icon" />}
+        <div className="fav-wrap" onClick={() => { this.handleFavClick() }}>
+          {this.state.fav === false ? <img className="fav-icon" src={require('../../Assets/SVG/unfav.svg')} alt="favorite-icon" /> : <img src={require('../../Assets/SVG/fav.svg')} alt="favorite-icon" />}
           {this.countRender()}
         </div>
         {this.state.loginPrompt ? <div>Please <Link to={'/signin'}>sign in</Link> to save favorites!</div> : <div></div>}

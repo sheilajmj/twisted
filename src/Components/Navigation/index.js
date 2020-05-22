@@ -46,7 +46,7 @@ const NavigationAuth = ({ authUser }) => (
         </div>
         <section className='header bkg-color-lt'>
             <div className='app-title-wrap l-font'>
-                <img className="logo" src={require('../../Assets/SVG/logo.svg')} alt="logo" /><img className="logo-2" src={require('../../Assets/SVG/logo-02.svg')} alt='decorative' />
+                <img className="logo" src={require('../../Assets/SVG/logo1.svg')} alt="logo" /><img className="logo-2" src={require('../../Assets/SVG/logo-02.svg')} alt='decorative' />
                <h1 className="app-title-h"><a href={`/${authUser.uid}/home`} className='header l-font app-title color-p'>Twisted</a></h1>
             </div>
         </section>
@@ -76,7 +76,7 @@ const NavigationNonAuth = () => (
         </div>
         <section className='header bkg-color-lt'>
             <div className='app-title-wrap l-font'>
-                <img className="logo" src={require('../../Assets/SVG/logo.svg')} alt="logo" /><img className="logo-2" src={require('../../Assets/SVG/logo-02.svg')} alt='decorative' />
+                <img className="logo" src={require('../../Assets/SVG/logo1.svg')} alt="logo" /><img className="logo-2" src={require('../../Assets/SVG/logo-02.svg')} alt='decorative' />
                <h1 className="app-title-h"><a href={`/home`} className='header l-font app-title color-p'>Twisted</a></h1>
             </div>
         </section>
