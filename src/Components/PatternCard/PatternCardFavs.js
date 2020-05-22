@@ -141,21 +141,21 @@ class PatternCardFavs extends Component {
     handleGetPatternArray = () => {
         let patternArray = []
         let patternObjs = this.state.favPatternIds.map(patternId => {
-            this.props.firebase.db.ref(`patterns/${patternId}`).once("value", (snapshot) => {
+            this.props.firebase.db.ref(`patterns/${patternId}`).on("value", (snapshot) => {
                 let pattern = (snapshot.val())
                 patternArray.push(pattern)
                 return pattern;
             })
-            this.setState({ patternArray: patternArray }, () => console.log(patternArray, "loaded"))
+            this.setState({ patternArray: patternArray }, () => this.setState({dataLoaded: true}))
         })
         return patternObjs
     }
 
     handleRenderPatterns = () => {
-        if(!this.state.patternArray){
+        if(!this.state.dataLoaded){
             return <div>No Patterns!</div>
         }
-        else{
+        else if (this.state.dataLoaded){
        console.log(typeof(this.state.patternArray))
         console.log(this.state.patternArray)
         let pattern = this.state.patternArray.map((item) => {

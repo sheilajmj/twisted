@@ -3,6 +3,8 @@ import Context from '../../Context';
 //import { Link } from 'react-router-dom';
 import AccountNavigationMain from '../AccountNavigationMain/AccountNavigationMain'
 import DashboardLinkFavs from '../UserDashboard/DashboardLinkFavs';
+import DashboardLinkMyPatterns from './DashboardLinkMyPatterns';
+import DashboardLinkAddPatterns from './DashboardLinkAddPatterns';
 
 // import PatternCardEdit from '../PatternCard/PatternCardEdit';
 // import { PasswordForgetForm } from '../PasswordForget';
@@ -37,11 +39,12 @@ class UserDashboard extends Component {
         console.log("This is state", this.state.userId)
         if (this.state.userId){
         return (
-            <section className='home'>
+            <section className='home user-dash'>
                 User Dashboard
                <AccountNavigationMain userId={this.state.userId}/>
                <DashboardLinkFavs userId={this.state.userId}/>
-               
+               <DashboardLinkMyPatterns userId={this.state.userId}/>
+               <DashboardLinkAddPatterns userId={this.state.userId} />
             </section>
 
         );

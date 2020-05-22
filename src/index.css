@@ -355,6 +355,19 @@ ul{
   padding-left: 2%;
 }
 
+.dash-flex-container{
+  display: inline-flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 5%;
+  border-top-left-radius: 15%;
+  border-top-right-radius: 15%;
+  padding-right: 2%;
+  padding-left: 2%;
+}
+
 .flex-item {
   text-align: left;
   background-color: white;
@@ -384,7 +397,7 @@ ul{
     -webkit-border-radius: 10px; 
     -moz-border-radius: 10px;
     border-radius: 10px;
-    padding-bottom: 5%;
+    padding-bottom: 3%;
     flex: 1 1 1;
     padding-right: 3%;
     padding-left: 3%;
@@ -399,7 +412,12 @@ ul{
 
 .dashpanel-img{
   width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 5%;
+  padding-bottom: 0%;
 }
+
 .collapsible-header{
   padding: 15px;
   margin-top: 3%;
