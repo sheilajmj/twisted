@@ -42,7 +42,6 @@ class UserDashboard extends Component {
         return (
             <section className='home user-dash'>
                 <h1>My Dashboard</h1>
-               <AccountNavigationMain userId={this.state.userId}/>
                <div className="panel-wrap">
                <DashboardLinkFavs userId={this.state.userId}/>
                <DashboardLinkMyPatterns userId={this.state.userId}/>
