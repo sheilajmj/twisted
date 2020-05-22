@@ -19,14 +19,17 @@ class AccountNavigationMain extends Component {
         return (
             <div className="container">
                 <ul>
-                    <li>
-                        <Link to={`/account/${this.props.userId}/favorites`}>Favorites</Link>
+                    <li className="dash-nav-main">
+                        <Link to={`/account/${this.props.userId}/favorites`}><img src={require('../../Assets/SVG/my-favorites-badge.svg')} alt = "favorites link"/></Link>
                     </li>
-                    <li>
-                        <Link to={`/account/${this.props.userId}/contributed`}>Contributed</Link>
+                    <li className="dash-nav-main">
+                        <Link to={`/account/${this.props.userId}/contributed`}><img src={require('../../Assets/SVG/my-patterns-badge.svg')} alt = "my patterns link"/></Link>
                     </li>
-                    <li>
-                        <Link to={`/account/${this.props.userId}/account`}>Account</Link>
+                    <li className="dash-nav-main">
+                        <Link to={`/account/${this.props.userId}/add`}><img src={require('../../Assets/SVG/add-pattern-badge.svg')} alt = "add pattern link"/></Link>
+                    </li>
+                    <li className="dash-nav-main">
+                        <Link to={`/account/${this.props.userId}/account`}><img src={require('../../Assets/SVG/account-badge.svg')} alt = "account link"/></Link>
                     </li>
                 </ul>
             </div>

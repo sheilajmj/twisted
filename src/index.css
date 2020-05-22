@@ -471,6 +471,11 @@ ul{
   padding-left: 5%;
 }
 
+.dash-nav-main{
+  width: 25%;
+  padding: 5%;
+}
+
 .count{
   margin-top: -5%;
 }
