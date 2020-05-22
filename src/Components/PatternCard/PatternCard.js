@@ -52,9 +52,11 @@ class PatternCard extends Component {
                         <div  onClick={() => { this.context.history.push(`${this.state.userId}` ? signedPath : unsignedPath)}}>
                           <strong>  {pattern.pattern_name}</strong>
                         <br /><img src={pattern.thumbnail_image_file_URL} alt="placeholder" /><br />
-                        <div>{this.state.contributor_name}</div>
+                        <div className="dis-inl">{this.state.contributor_name}</div>
                         </div>
+                        <div className="dis-inl">
                         <FavoriteIcon pattern_id={pattern.pattern_id} pattern_contributor={this.state.contributor_name} userId={this.props.userId} />
+                        </div>
                     </div>
                 )
               })

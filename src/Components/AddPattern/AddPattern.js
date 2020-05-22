@@ -36,8 +36,14 @@ class AddPattern extends Component {
   }
 
   setContributorUserId = () => {
-    this.setState({contributor_user_id: this.props.match.params.userId})
-    
+    this.setState({contributor_user_id: this.props.match.params.userId}, () => this.setContributorName())
+  }
+
+  setContributorName = () => {
+    this.props.firebase.db.ref(`/users/${this.state.contributor_user_id}/username`).once("value", (snapshot) => {
+      let name = snapshot.val()
+      this.setState({contributor_name: name})
+    })
   }
   
   handleChange = (event) => {
@@ -158,7 +164,7 @@ class AddPattern extends Component {
     createNewPattern = () => {
       if (this.state.thumbnail_image_file_URL) {
         let { author_name, pattern_name, description, craft, yarn_weight, needle_size } = this.state.newPattern;
-        let { image_file_URL, image_file_name, pdf_file_name, pdf_file_URL, contributor_user_id, thumbnail_image_file_URL, thumbnail_image_file_name } = this.state
+        let { image_file_URL, image_file_name, pdf_file_name, pdf_file_URL, contributor_user_id, contributor_name, thumbnail_image_file_URL, thumbnail_image_file_name } = this.state
         
       let newPattern = {
           author_name,
@@ -172,6 +178,7 @@ class AddPattern extends Component {
           thumbnail_image_file_name, 
           pdf_file_name,
           contributor_user_id,
+          contributor_name,
           image_file_URL,
           pdf_file_URL
         }
