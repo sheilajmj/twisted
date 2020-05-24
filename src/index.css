@@ -139,6 +139,19 @@ main{
   display: block;
   position: relative;
     z-index: 5;
+    color: #663650;
+}
+
+.nav-link:hover{
+  color: #E3C37D;
+}
+
+a{
+  color: #663650;
+}
+
+a:hover{
+  color: #E3C37D;
 }
 
 .nav-div{
@@ -334,12 +347,39 @@ ul{
   padding-left: 2%;
 }
 
+.add-flex-container{
+  display: flex;
+  flex-wrap: wrap;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 5%;
+  margin-bottom: 10%;
+  padding-top: 5%;
+  border-radius: 5%;
+  /* border-top-right-radius: 5%; */
+  padding-right: 2%;
+  padding-left: 2%;
+  text-align: left;
+  border: 2px solid #83677B
+}
+
+.btn-wrap{
+  text-align: center;
+}
+
 .flex-item-md{
   margin-left: auto;
   margin-right: auto;
   display: flex;
   flex-wrap: wrap;
+}
 
+.fav-badge{
+  background-image: url('./Assets/SVG/my-favorites-badge.svg')
 }
 
 .flex-container{
@@ -472,8 +512,33 @@ ul{
 }
 
 .dash-nav-main{
-  width: 25%;
-  padding: 5%;
+  width: 15%;
+  margin: 2%;
+  justify-content: center;
+}
+
+.dash-link{
+  top: 3px;
+    position: relative;
+}
+
+.dash-nav-main:hover{
+  border: 2px solid #663650;
+  border-radius: 100%;
+  height: auto;
+  box-shadow: 2px 2px 2x #83677B;
+  -moz-box-shadow: 2px 2px 2px #83677B;
+  -webkit-box-shadow: 2px 2px 2px #83677B;
+}
+
+.user-dash{
+  background-color: #EDEDED;
+    padding-top: 33px;
+    padding-bottom: 33px;
+}
+
+.nav-main-wrap{
+  justify-content: center;
 }
 
 .count{

@@ -219,41 +219,45 @@ class AddPattern extends Component {
         <AccountNavigationMain />
         <AccountContributedNav />
           <h2>Add New Pattern</h2>
+          <div className="add-flex-container">
           <form onSubmit={this.handleSubmit}>
             <div className="form-space">
-              <label htmlFor="pattern_name" className="pattern-add">Pattern Name:</label>
-              <input type="text" name="pattern_name" id="pattern_name" onChange={this.handleChange} placeholder='Pattern Name' required />
+              <label htmlFor="pattern_name" className="pattern-add">Pattern Name:  </label>
+              <input className="form-input" type="text" name="pattern_name" id="pattern_name" onChange={this.handleChange} placeholder='Pattern Name' required />
             </div>
             <div className="form-space">
-              <label htmlFor="author_name" className="author-add">Author Name:</label>
-              <input type="text" name="author_name" id="author_name" onChange={this.handleChange} placeholder='Author Name' required />
+              <label htmlFor="author_name" className="author-add">Author Name:  </label>
+              <input className="form-input" type="text" name="author_name" id="author_name" onChange={this.handleChange} placeholder='Author Name' required />
             </div>
             <div className="form-space">
-              <label htmlFor="description" className="pattern-add">Description</label>
-              <br /><textarea type="text" className="description-textarea" name="description" id="description" onChange={this.handleChange} placeholder='Description' required />
+              <label htmlFor="description" className="pattern-add">Description  </label>
+              <br /><textarea cols="50" className="form-input" type="text" className="description-textarea" name="description" id="description" onChange={this.handleChange} placeholder='Description' required />
             </div>
             <div className="form-space">
-              <label htmlFor="craft" className="pattern-add">Craft</label>
-              <input type="text" name="craft" id="craft" onChange={this.handleChange} placeholder='Craft' required />
+              <label htmlFor="craft" className="pattern-add">Craft  </label>
+              <input className="form-input" type="text" name="craft" id="craft" onChange={this.handleChange} placeholder='Craft' required />
             </div>
             <div className="form-space">
-              <label htmlFor="yarn_weight" className="pattern-add">Yarn Weight</label>
-              <input type="text" name="yarn_weight" id="yarn_weight" onChange={this.handleChange} placeholder="Yarn Weight" required />
+              <label htmlFor="yarn_weight" className="pattern-add">Yarn Weight  </label>
+              <input className="form-input" type="text" name="yarn_weight" id="yarn_weight" onChange={this.handleChange} placeholder="Yarn Weight" required />
             </div>
             <div className="form-space">
-              <label htmlFor="needle_size">Needle Size</label>
-              <input type="text" name="needle_size" id="needle_size" onChange={this.handleChange} placeholder="Needle Size" required />
+              <label htmlFor="needle_size">Needle Size  </label>
+              <input className="form-input" type="text" name="needle_size" id="needle_size" onChange={this.handleChange} placeholder="Needle Size" required />
             </div>
             <div className="form-space add-img-form">
-              <label htmlFor="image_file" className="pattern-add">Image:</label>
-              <input type="file" name="image_file" id="image_file" onChange={this.handleImageChange} />
+              <label htmlFor="image_file" className="pattern-add">Image:  </label>
+              <input className="form-input" type="file" name="image_file" id="image_file" onChange={this.handleImageChange} />
             </div>
             <div className="form-space add-file-form">
-              <label htmlFor="pdf_file">PDF file</label>
-              <input type="file" name="pdf_file" id="pdf_file" onChange={this.handleFileChange} />
+              <label htmlFor="pdf_file">PDF file  </label>
+              <input className="form-input" type="file" name="pdf_file" id="pdf_file" onChange={this.handleFileChange} />
             </div>
-            <button type="submit" value="submit">Publish Pattern</button>
+            <div className="btn-wrap">
+            <button className="btn" type="submit" value="submit">Publish Pattern</button>
+            </div>
           </form>
+          </div>
         </>
 
       );

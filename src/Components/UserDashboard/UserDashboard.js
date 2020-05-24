@@ -41,7 +41,6 @@ class UserDashboard extends Component {
         if (this.state.userId){
         return (
             <section className='home user-dash'>
-                <h1>My Dashboard</h1>
                <div className="panel-wrap">
                <DashboardLinkFavs userId={this.state.userId}/>
                <DashboardLinkMyPatterns userId={this.state.userId}/>

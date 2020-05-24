@@ -135,117 +135,49 @@ class PatternCardFavs extends Component {
     }
 
 
-    // // find all patterns with an ID that matched the 'true' ids from the favPatternIdsGet
-    // // take those pattern objects and push this data into a new array (patternArray)
-
-    // handleGetPatternArray = () => {
-    //     let patternArray = []
-    //     let patternObjs = this.state.favPatternIds.map(patternId => {
-    //         this.props.firebase.db.ref(`patterns/${patternId}`).once("value", async(snapshot) => {
-    //             let pattern = (snapshot.val())
-    //             console.log(pattern,)
-    //             await patternArray.push(pattern)
-    //             return pattern;
-    //         })
-    //         this.setState({ patternArray: patternArray }, () => console.log(patternArray, "loaded"))
-    //     })
-    //     return patternObjs
-    // }
-
-    // handleRenderPatterns = () => {
-    //     if(!this.state.patternArray){
-    //         return <div>No Patterns!</div>
-    //     }
-    //     else{
-    //    console.log(typeof(this.state.patternArray))
-    //     console.log(this.state.patternArray)
-    //     let pattern = this.state.patternArray.map((item) => {
-    //             let userId = this.props.match.params.userId
-    //             let signedPath = `/${this.state.userId}/patterns/${item.pattern_id}`
-    //             let unsignedPath = `/patterns/${item.pattern_id}`
-    //             return (
-    //                 <div key={item.pattern_id} className="flex-item">
-    //                      <div onClick={() => { this.context.history.push(`${userId}` ? signedPath : unsignedPath) }}>
-    //                          <strong> Name:  {item.pattern_name}</strong>
-    //                          <br /><img src={item.thumbnail_image_file_URL} alt="placeholder" /><br />
-    //                          <div>{item.contributor_name}</div>
-    //                      </div>
-    //                      <FavoriteIcon pattern_id={item.pattern_id} pattern_contributor={pattern.contributor_name} userId={this.props.userId} />
-    //                  </div>
-    //              )
-    //         })
-            
-    //         return pattern
-    //     }
-    // }
-
-
-
     // find all patterns with an ID that matched the 'true' ids from the favPatternIdsGet
     // take those pattern objects and push this data into a new array (patternArray)
 
     handleGetPatternArray = () => {
-        // let patternArray = []        
-        
-        if(!this.state.favPatternIds){
+        let patternArray = []
+        let patternObjs = this.state.favPatternIds.map(patternId => {
+            this.props.firebase.db.ref(`patterns/${patternId}`).once("value", async(snapshot) => {
+                let pattern = (snapshot.val())
+                console.log(pattern,)
+                await patternArray.push(pattern)
+                return pattern;
+            })
+            this.setState({ patternArray: patternArray }, () => console.log(patternArray, "loaded"))
+        })
+        return patternObjs
+    }
+
+    handleRenderPatterns = () => {
+        if(!this.state.patternArray){
             return <div>No Patterns!</div>
         }
         else{
-        let patternObjs = this.state.favPatternIds.map(patternId => {
-            let patterns = this.props.firebase.db.ref(`patterns/${patternId}`).once("value", (snapshot) => {
-                let pattern = (snapshot.val())
-                // console.log(pattern,)
-                // patternArray.push(pattern)
-                // return pattern;
-
-
+       console.log(typeof(this.state.patternArray))
+        console.log(this.state.patternArray)
+        let pattern = this.state.patternArray.map((item) => {
                 let userId = this.props.match.params.userId
-                let signedPath = `/${this.state.userId}/patterns/${pattern.pattern_id}`
-                let unsignedPath = `/patterns/${pattern.pattern_id}`
+                let signedPath = `/${this.state.userId}/patterns/${item.pattern_id}`
+                let unsignedPath = `/patterns/${item.pattern_id}`
                 return (
-                    <div key={pattern.pattern_id} className="flex-item">
+                    <div key={item.pattern_id} className="flex-item">
                          <div onClick={() => { this.context.history.push(`${userId}` ? signedPath : unsignedPath) }}>
-                             <strong> Name:  {pattern.pattern_name}</strong>
-                             <br /><img src={pattern.thumbnail_image_file_URL} alt="placeholder" /><br />
-                             <div>{pattern.contributor_name}</div>
+                             <strong> Name:  {item.pattern_name}</strong>
+                             <br /><img src={item.thumbnail_image_file_URL} alt="placeholder" /><br />
+                             <div>{item.contributor_name}</div>
                          </div>
-                         <FavoriteIcon pattern_id={pattern.pattern_id} pattern_contributor={pattern.contributor_name} userId={this.props.userId} />
+                         <FavoriteIcon pattern_id={item.pattern_id} pattern_contributor={pattern.contributor_name} userId={this.props.userId} />
                      </div>
-            )
-        })
-        // console.log(patterns, "Patterns")
-        // return patterns;
-    })
-    return patternObjs;
-}
-    }
-
-    // handleRenderPatterns = () => {
-    //     if(!this.state.patternArray){
-    //         return <div>No Patterns!</div>
-    //     }
-    //     else{
-    //    console.log(typeof(this.state.patternArray))
-    //     console.log(this.state.patternArray)
-    //     let pattern = this.state.patternArray.map((item) => {
-    //             let userId = this.props.match.params.userId
-    //             let signedPath = `/${this.state.userId}/patterns/${item.pattern_id}`
-    //             let unsignedPath = `/patterns/${item.pattern_id}`
-    //             return (
-    //                 <div key={item.pattern_id} className="flex-item">
-    //                      <div onClick={() => { this.context.history.push(`${userId}` ? signedPath : unsignedPath) }}>
-    //                          <strong> Name:  {item.pattern_name}</strong>
-    //                          <br /><img src={item.thumbnail_image_file_URL} alt="placeholder" /><br />
-    //                          <div>{item.contributor_name}</div>
-    //                      </div>
-    //                      <FavoriteIcon pattern_id={item.pattern_id} pattern_contributor={pattern.contributor_name} userId={this.props.userId} />
-    //                  </div>
-    //              )
-    //         })
+                 )
+            })
             
-    //         return pattern
-    //     }
-    // }
+            return pattern
+        }
+    }
 
 
 
@@ -259,14 +191,14 @@ class PatternCardFavs extends Component {
 
 
     render() {
-this.handleGetPatternArray();   
+
         return (
             <>
                 <AccountNavigationMain />
                 <section className='PatternCard flex-container'>
                     <div className="flex-container">
                         <div>Favs!</div>
-                        {/* {this.handleGetPatternArray()} */}
+                        {this.handleRenderPatterns()}
                     </div>
                 </section>
             </>

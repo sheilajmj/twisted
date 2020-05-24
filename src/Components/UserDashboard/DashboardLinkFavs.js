@@ -21,7 +21,7 @@ class DashboardLinkFavs extends Component {
     render() {
         return (
             <div className='dash-fav dash-flex-container'>
-                <Link className="dash-flex-item" to={`/account/${this.props.userId}/favorites`}><div className="dash-img-wrap"><img src={require(`../../Assets/SVG/favorites-dash-panel.svg`)} alt="link to my favorites" className="dashpanel-img"/></div></Link>
+                <Link className="dash-flex-item" to={`/account/${this.props.userId}/favorites`}><img src={require(`../../Assets/SVG/favorites-dash-panel.svg`)} alt="link to my favorites" className="dashpanel-img"/></Link>
             </div>
 
         );
