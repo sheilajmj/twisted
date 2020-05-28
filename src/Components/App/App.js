@@ -66,12 +66,12 @@ class App extends Component {
               />
 
               <Route
-                path={'/:userId/patterns/:uid'}
+                path={'/:userId/patterns/:patternId'}
                 component={PatternPanel}
               />
 
               <Route
-                exact path={'/patterns/:uid'}
+                exact path={'/patterns/:patternId'}
                 component={PatternPanel}
               />
               <Route

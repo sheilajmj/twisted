@@ -26,7 +26,7 @@ class PatternPanel extends Component {
   }
 
   handleGetPatternData = () => {
-    this.props.firebase.db.ref(`/patterns/${this.props.match.params.uid}`).once("value", (snapshot) => {
+    this.props.firebase.db.ref(`/patterns/${this.props.match.params.patternId}`).once("value", (snapshot) => {
       let patternData = (snapshot.val())
       this.setState({ patternData: patternData })
       this.setState({dataLoaded: true})
@@ -56,14 +56,16 @@ class PatternPanel extends Component {
     let pattern = this.state.patternData;
       return (
         <>
+        <div className="add-flex-container">
           <h2>{pattern.pattern_name}</h2>
-          <h3>{pattern.author_name}</h3>
-          <FavoriteIcon pattern = {pattern} userId={this.state.userId ? this.state.userId : null} />
+          <h3>Pattern Author: {pattern.author_name}</h3>
           <img src={pattern.image_file_URL} alt="placeholder" />
-          <div>Added By:  {this.state.contributor_name}</div>
+          <div>Added By:  {pattern.contributor_name}</div>
+          <FavoriteIcon pattern = {pattern} userId={this.props.match.params.userId} />
           <PatternDetail pattern = {pattern}/>
-          <PatternDirections pattern = {pattern} />
+          {/* <PatternDirections pattern = {pattern} /> */}
           {/* <CommentPanel /> */}
+          </div>
         </>
       )
   }

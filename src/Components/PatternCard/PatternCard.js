@@ -67,7 +67,7 @@ class PatternCard extends Component {
                     <div key={pattern.pattern_id} className="flex-item">
                         <div className="mg-lrc ta-c" onClick={() => { this.context.history.push(`${this.state.userId}` ? signedPath : unsignedPath)}}>
                           <strong>  {pattern.pattern_name}</strong>
-                        <br /><img src={pattern.thumbnail_image_file_URL} alt="placeholder" /><br />
+                        <br /><img src={pattern.thumbnail_image_file_URL} alt="pattern image" /><br />
                         <div className="contr-nm-wrap ta-l pad-l-md">
                         <div className="contr-nm">{pattern.contributor_name}</div>
                         </div>

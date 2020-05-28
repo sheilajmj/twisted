@@ -194,8 +194,9 @@ a:hover{
 .color-lt{
   color: white;
 }
-.bkg-color-lt{
-background-color: white;
+.bkg-color-md{
+   background-color:#F7F2DC;
+   opacity: .7;
 }
 
 .bkg-color-wt{

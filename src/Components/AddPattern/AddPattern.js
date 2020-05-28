@@ -218,9 +218,9 @@ class AddPattern extends Component {
         <>
         <AccountNavigationMain />
         <AccountContributedNav />
-        <div className="bkg-color-l">
+        <div className="bkg-color-md">
           <h2>Add New Pattern</h2>
-          <div className="add-flex-container">
+          <div className="add-flex-container bkg-color-wt">
           <form onSubmit={this.handleSubmit}>
             <div className="form-space">
               <label htmlFor="pattern_name" className="pattern-add">Pattern Name:  </label>

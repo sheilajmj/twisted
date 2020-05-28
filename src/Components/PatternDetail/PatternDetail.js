@@ -22,7 +22,9 @@ export default class Collapsible extends Component{
                     <li className="ta-l"><strong>Yarn Weight: </strong>{pattern.yarn_weight}</li>
                     <li className="ta-l"><strong>Needle Size:  </strong>{pattern.needle_size}</li>
                     <li className="ta-l"><strong>Description:  </strong>{pattern.description}</li>
-                  </ul></div></>) : null}
+                  </ul>
+                  <div>Print or save the pattern <a href={`${pattern.pdf_file_URL}`} target="_blank" rel="noopener noreferrer">directions</a> </div>
+                        </div></>) : null}
             </div>
         );
     }

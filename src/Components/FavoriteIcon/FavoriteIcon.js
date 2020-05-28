@@ -18,7 +18,7 @@ class FavoriteIcon extends Component {
   }
 
   isFav = () => {
-    this.props.firebase.db.ref(`/patterns/${this.props.pattern_id}/favorite/${this.props.userId}`).once('value', (snapshot) => {
+    this.props.firebase.db.ref(`/patterns/${this.props.pattern.pattern_id}/favorite/${this.props.userId}`).once('value', (snapshot) => {
       if(snapshot.val()){
         let fav = snapshot.val()
         this.setState({fav: fav})
@@ -56,7 +56,7 @@ class FavoriteIcon extends Component {
 
 
   loadFavCount = () => {
-    this.props.firebase.db.ref(`/patterns/${this.props.pattern_id}/favorite`).once('value', (snapshot) => {
+    this.props.firebase.db.ref(`/patterns/${this.props.pattern.pattern_id}/favorite`).once('value', (snapshot) => {
       let data = snapshot.val()
 
       if (data) {
@@ -88,7 +88,7 @@ class FavoriteIcon extends Component {
           {this.state.fav === false ? <img className="fav-icon" src={require('../../Assets/SVG/unfav.svg')} alt="favorite-icon" /> : <img className="fav-icon" src={require('../../Assets/SVG/fav.svg')} alt="favorite-icon" />}
           {this.countRender()}
         </div>
-        {this.state.loginPrompt ? <div>Please <Link to={'/signin'}>sign in</Link> to save favorites!</div> : <div></div>}
+        {/* {this.state.loginPrompt ? <div>Please <Link to={'/signin'}>sign in</Link> to save favorites!</div> : <div></div>} */}
       </>
     )
   }
