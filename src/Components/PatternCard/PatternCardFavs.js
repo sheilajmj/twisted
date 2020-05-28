@@ -126,7 +126,6 @@ class PatternCardFavs extends Component {
         return new Promise((resolve, reject) => {
 
             let favoritesArrayObjects = allFavoritesArray.map(item => item[1])
-            console.log(favoritesArrayObjects, "objs")
             let trueFavsArray = []
 
             favoritesArrayObjects.map(objItem => {
@@ -134,13 +133,12 @@ class PatternCardFavs extends Component {
                 let objItemKeyArray = Object.keys(objItem)
 
                 if (objItemArray[0] === false) {
-                    console.log("it was false")
+                    return;
                 }
                 else {
                     trueFavsArray.push(objItemKeyArray[0])
                 }
             })
-            console.log("trueFavsArray", trueFavsArray)
             this.setState({ favPatternIds: trueFavsArray })
 
             if (this.state.favPatternIds) {
@@ -158,105 +156,83 @@ class PatternCardFavs extends Component {
 
     handleGetPatternArray = () => {
         let patternArray = []
-        let i = 1
-        let promise 
-        let patternObjs
 
-        Promise.all([promise, patternObjs]).then(response => console.log(response))
-
-        patternObjs = () =>{ 
-        return new Promise((resolve, reject) => {
-            this.state.favPatternIds.map(patternId => {
-                promise = new Promise((resolve, reject) => {
-                    this.props.firebase.db.ref(`patterns/${patternId}`).once("value", (snapshot) => {
-                        let pattern = (snapshot.val())
-                        console.log(pattern)
-                        patternArray.push(pattern)
-                        i ++
-                        if (pattern) {
-                            resolve("This worked?")
-                        }
-                        else {
-                            reject("dang. It didn't work")
-                        }
-                    })
-                })
+        this.state.favPatternIds.map(patternId => {
+            this.props.firebase.db.ref(`patterns/${patternId}`).once("value", (snapshot) => {
+                let pattern = (snapshot.val())
+                patternArray.push(pattern)
             })
-            //what condition? 
-        if (i = this.state.favPatternIds.length){
-            resolve ("did this one work?")
-        }
-        else{
-            reject ("missed somethin'")
-        }
-
         })
+        Promise.all(patternArray)
+            .then((response) => {
+                console.log(patternArray, "A RESPONSE?")
+                this.setState({patternArray: patternArray})
+                return patternArray
+            })
+            .catch(error => console.log(error))
     }
-}
-    // this.setState({ patternArray: patternArray })
-    // console.log(patternArray)
-    //         return patternObjs
-    //     }
 
-handleRenderPatterns = () => {
-    if (!this.state.patternArray) {
-        return <div>No Patterns!</div>
+    handleRenderPatterns = () => {
+        if (!this.state.patternArray) {
+            return <div>No Patterns!</div>
+        }
+        else {
+            console.log(typeof (this.state.patternArray))
+            console.log(this.state.patternArray, "this is state.patternArray")
+            let pattern = this.state.patternArray.map((item) => {
+                console.log(item, "this is item in the map")
+                let userId = this.props.match.params.userId
+                let signedPath = `/${this.state.userId}/patterns/${item.pattern_id}`
+                let unsignedPath = `/patterns/${item.pattern_id}`
+                return (
+                    <div key={item.pattern_id} className="flex-item">
+                        <div onClick={() => { this.context.history.push(`${userId}` ? signedPath : unsignedPath) }}>
+                            <strong> Name:  {item.pattern_name}</strong>
+                            <br /><img src={item.thumbnail_image_file_URL} alt="placeholder" /><br />
+                            <div>{item.contributor_name}</div>
+                        </div>
+                        <FavoriteIcon pattern_id={item.pattern_id} pattern_contributor={item.contributor_name} userId={this.props.userId} />
+                    </div>
+                )
+            })
+            console.log(pattern, "this is pattern that should be rendering")
+            return pattern
+        }
     }
-    else {
-        console.log(typeof (this.state.patternArray))
-        console.log(this.state.patternArray)
-        let pattern = this.state.patternArray.map((item) => {
-            let userId = this.props.match.params.userId
-            let signedPath = `/${this.state.userId}/patterns/${item.pattern_id}`
-            let unsignedPath = `/patterns/${item.pattern_id}`
+
+
+
+
+
+    //take new array with True patterns and map it to return the cards.
+
+    componentDidMount = () => {
+        this.handleGetAllFavoritesOfUser()
+            .then((allFavoritesArray) => this.handleFilterTrue(allFavoritesArray))
+            .then((handleFilterTrue) => this.handleGetPatternArray(handleFilterTrue))
+            .catch((error) => console.log(error))
+
+    }
+
+
+    render() {
+        if (!this.state.patternArray) {
+            return <div></div>
+        }
+        else {
             return (
-                <div key={item.pattern_id} className="flex-item">
-                    <div onClick={() => { this.context.history.push(`${userId}` ? signedPath : unsignedPath) }}>
-                        <strong> Name:  {item.pattern_name}</strong>
-                        <br /><img src={item.thumbnail_image_file_URL} alt="placeholder" /><br />
-                        <div>{item.contributor_name}</div>
-                    </div>
-                    <FavoriteIcon pattern_id={item.pattern_id} pattern_contributor={pattern.contributor_name} userId={this.props.userId} />
-                </div>
-            )
-        })
-        return pattern
+                <>
+                    <AccountNavigationMain />
+                    <section className='PatternCard flex-container'>
+                        <div className="flex-container">
+                            <div>Favs!</div>
+                            {this.handleRenderPatterns()}
+                        </div>
+                    </section>
+                </>
+            );
+        }
     }
-}
-
-
-
-
-
-//take new array with True patterns and map it to return the cards.
-
-componentDidMount = () => {
-    this.handleGetAllFavoritesOfUser()
-        .then((allFavoritesArray) => this.handleFilterTrue(allFavoritesArray))
-        .then((handleFilterTrue) => this.handleGetPatternArray(handleFilterTrue))
-        .catch((error) => console.log(error))
-
-}
-
-
-render() {
-    if (!this.state.patternArray) {
-        return <div></div>
-    }
-    else {
-        return (
-            <>
-                <AccountNavigationMain />
-                <section className='PatternCard flex-container'>
-                    <div className="flex-container">
-                        <div>Favs!</div>
-                        {this.handleRenderPatterns()}
-                    </div>
-                </section>
-            </>
-        );
-    }
-}
 }
 
 
