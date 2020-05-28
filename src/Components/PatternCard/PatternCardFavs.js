@@ -18,7 +18,6 @@ class PatternCardFavs extends Component {
         this.props.firebase.db.ref(`users/${this.props.match.params.userId}/favorites`).once("value", (snapshot) => {
             let allFavorites = snapshot.val();
             let allFavoritesArray = Object.entries(allFavorites)
-            // this.setState({ allFavoritesArray: allFavoritesArray });
             let favoritesArrayObjects = allFavoritesArray.map(item => item[1])
             let trueFavsArray = []
 
