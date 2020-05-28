@@ -32,35 +32,38 @@ class PatternCardFavs extends Component {
                     trueFavsArray.push(objItemKeyArray[0])
                 }
             })
-            this.setState({ favPatternIds: trueFavsArray })
+            this.setState({ favPatternIds: trueFavsArray }, () => this.handleGetPatternCards(this.state.favPatternIds))
         })
     }
 
-
-    handleReturnPatternCards = () => {
+    handleGetPatternCards = () => {
         if (!this.state.favPatternIds) {
-            return <div> </div>
+            return;
         }
         else {
             let length = this.state.favPatternIds.length
-            console.log("1")
             let patternArray = []
-            let getPatternArray = this.state.favPatternIds.map(patternId => {
+            let getPatternArray = this.state.favPatternIds.forEach(patternId => {
                 this.props.firebase.db.ref(`patterns/${patternId}`).once("value", (snapshot) => {
                     let pattern = (snapshot.val())
-                    console.log(pattern, "2")
                     patternArray.push(pattern)
                 })
                 return;
             })
-console.log("3")
-            if (patternArray.length === length) {
-                console.log("4")
-                patternArray.map((pattern) => {
+            this.setState({ patternArray: patternArray })
+            }
+        }
+
+
+    returnPatternCards = () => {
+        if (this.state.patternArray) {
+            console.log(this.state.patternArray)
+            let getCards = this.state.patternArray.map((pattern) => {
+                    console.log(pattern, "PATTERN IN MAP")
                     let userId = this.props.match.params.userId
                     let signedPath = `/${this.state.userId}/patterns/${pattern.pattern_id}`
                     let unsignedPath = `/patterns/${pattern.pattern_id}`
-                    console.log(pattern, "pattern in a map")
+
                     return (
                         <div key={pattern.pattern_id} className="flex-item">
                             <div onClick={() => { this.context.history.push(`${userId}` ? signedPath : unsignedPath) }}>
@@ -72,37 +75,36 @@ console.log("3")
                         </div>
                     )
                 })
+                return getCards;
             }
-            else{
-                console.log("4.5")
-                return;
-            }
+        
+        else {
+            return <div>DENIED!</div>
         }
     }
 
 
-        componentDidMount = () => {
-            this.handleGetAllFavoritesIds()
+            componentDidMount = () => {
+                this.handleGetAllFavoritesIds()
+            }
 
+
+            render() {
+                return (
+                    <>
+                        <AccountNavigationMain />
+                        <section className='PatternCard flex-container'>
+                            <div className="flex-container">
+                                <div>Favs!</div>
+                              {this.returnPatternCards()}
+                            </div>
+                        </section>
+                    </>
+                );
+            }
         }
 
 
-        render() {
-            return (
-                <>
-                    <AccountNavigationMain />
-                    <section className='PatternCard flex-container'>
-                        <div className="flex-container">
-                            <div>Favs!</div>
-                            {this.handleReturnPatternCards()}
-                        </div>
-                    </section>
-                </>
-            );
-        }
-    }
 
 
-
-
-    export default withFirebase(PatternCardFavs);
+        export default withFirebase(PatternCardFavs);
