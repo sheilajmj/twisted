@@ -81,11 +81,10 @@ class PatternCardFavs extends Component {
                     )
                 }
             })
-            
+            return getCards
             }
-        
+  
         else {
-            // console.log(getCards)
             return <div>DENIED!</div>
         }
     }
