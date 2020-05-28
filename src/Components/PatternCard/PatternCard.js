@@ -28,36 +28,52 @@ class PatternCard extends Component {
         })
     }
 
+    
+    // handleGetContributorName = (pattern) => {
+    //     let contributor_name = null
+    //     console.log(pattern, "Pattern")
+    //     return new Promise ((resolve, reject) => {
+    //           this.props.firebase.db.ref('users/' + pattern.contributor_user_id + '/username').once("value", (snapshot) => {
+    //             let name = (snapshot.val())
+    //             contributor_name = name
+    //             console.log(contributor_name, "CNAME")
+    //           })
+    //         if (!!contributor_name){
+    //           resolve (contributor_name)
+    //         }
+    //          else{
+    //              reject (Error ("error - oh no!"))
+    //          }
+    //         })
+    //     }
+            
+
     handleCardRender = () => {
         if (this.state.patternListArray) {
 
            let patterns = this.state.patternListArray.map(patternObjects => {
               let pattern = patternObjects   
 
-              this.handleGetContributorName = () => {
-                if (this.state.contributor_name){
-                  return;
-                }
-                this.props.firebase.db.ref('users/' + pattern.contributor_user_id + '/username').once("value", (snapshot) => {
-                  let contributor_name = (snapshot.val())
-                  this.setState({contributor_name: contributor_name})
-                })
-              }
-              this.handleGetContributorName();
+                // this.handleGetContributorName(pattern)
+                //     .then((response) => {
+                //         console.log(response)
+                //         return response
+                //     })
+                //     .then((response) => {
               let signedPath = `/${this.state.userId}/patterns/${pattern.pattern_id}`
               let unsignedPath = `/patterns/${pattern.pattern_id}`
 
               return (
-                    <div className="flex-item">
+                    <div key={pattern.pattern_id} className="flex-item">
                         <div className="mg-lrc ta-c" onClick={() => { this.context.history.push(`${this.state.userId}` ? signedPath : unsignedPath)}}>
                           <strong>  {pattern.pattern_name}</strong>
                         <br /><img src={pattern.thumbnail_image_file_URL} alt="placeholder" /><br />
                         <div className="contr-nm-wrap ta-l pad-l-md">
-                        <div className="contr-nm">{this.state.contributor_name}</div>
+                        <div className="contr-nm">{pattern.contributor_name}</div>
                         </div>
                         </div>
                         <div className="dis-inl ta-r">
-                        <FavoriteIcon pattern_id={pattern.pattern_id} pattern_contributor={this.state.contributor_name} userId={this.props.userId} />
+                        <FavoriteIcon pattern={pattern} userId={this.props.userId} />
                         </div>
                     </div>
                 )

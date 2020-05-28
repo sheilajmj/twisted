@@ -58,7 +58,7 @@ class PatternPanel extends Component {
         <>
           <h2>{pattern.pattern_name}</h2>
           <h3>{pattern.author_name}</h3>
-          <FavoriteIcon pattern_id={pattern.pattern_id} userId={this.state.userId ? this.state.userId : null} />
+          <FavoriteIcon pattern = {pattern} userId={this.state.userId ? this.state.userId : null} />
           <img src={pattern.image_file_URL} alt="placeholder" />
           <div>Added By:  {this.state.contributor_name}</div>
           <PatternDetail pattern = {pattern}/>

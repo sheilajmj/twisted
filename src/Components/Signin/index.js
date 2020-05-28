@@ -3,7 +3,6 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import { SignUpLink } from '../SignUp';
 import { withFirebase } from '../Firebase';
-// import * as ROUTES from '../../constants/routes';
 import { PasswordForgetLink } from '../PasswordForget';
 
 const SignInPage = () => (
@@ -32,11 +31,15 @@ class SignInFormBase extends Component{
         event.preventDefault();
         const { email, password } = this.state;
         this.props.firebase.doSignInWithEmailAndPassword(email, password)
-        .then(() => {
-            this.setState({...INITIAL_STATE});
+        .then((res) => {
+            this.setState({...INITIAL_STATE})
+            console.log(res)
+            return(res)
+        })
+        .then((res) => {
             if (!this.props.location.pathname.includes('/pattern')){
-            window.location.href = '/'  
-            }
+                window.location.href = `${res.user.uid}/home`
+                }
         })
         .catch(error => {
             this.setState({ error });

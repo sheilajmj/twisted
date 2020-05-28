@@ -17,12 +17,12 @@ export default class Collapsible extends Component{
         return (
             <div className="coll-div">
                 <div className="collapsible-header" onClick ={((e) =>{this.togglePanel(e)})}>Pattern Details</div>
-                {this.state.open ? (<><ul>
-                    <li>Craft: {pattern.craft}</li>
-                    <li>Yarn Weight: {pattern.yarn_weight}</li>
-                    <li>Needle Size:{pattern.needle_size}</li>
-                    <li>Description:{pattern.description}</li>
-                  </ul></>) : null}
+                {this.state.open ? (<><div className="ta-c detail"><ul>
+                    <li className="ta-l"><strong>Craft:  </strong>{pattern.craft}</li>
+                    <li className="ta-l"><strong>Yarn Weight: </strong>{pattern.yarn_weight}</li>
+                    <li className="ta-l"><strong>Needle Size:  </strong>{pattern.needle_size}</li>
+                    <li className="ta-l"><strong>Description:  </strong>{pattern.description}</li>
+                  </ul></div></>) : null}
             </div>
         );
     }

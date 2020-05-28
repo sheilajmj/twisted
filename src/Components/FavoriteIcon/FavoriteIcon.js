@@ -41,12 +41,12 @@ class FavoriteIcon extends Component {
       this.setState({ favUpdated: true })
 
       //add the username to the pattern - to indicate which users have favorited the pattern 
-      this.props.firebase.db.ref(`/patterns/${this.props.pattern_id}/favorite/`).update({ [`${userId}`]: !fav })
+      this.props.firebase.db.ref(`/patterns/${this.props.pattern.pattern_id}/favorite/`).update({ [`${userId}`]: !fav })
       this.loadFavCount();
 
       // to the USER data add the patternId as a key with child object of the pattern id /boolean, and a name/contributor name
-      this.props.firebase.db.ref(`/users/${userId}/favorites/${this.props.pattern_id}`).update({[`${this.props.pattern_id}`]: !fav})
-      this.props.firebase.db.ref(`/users/${userId}/favorites/${this.props.pattern_id}`).update({name: this.props.pattern_contributor})
+      this.props.firebase.db.ref(`/users/${userId}/favorites/${this.props.pattern.pattern_id}`).update({[`${this.props.pattern.pattern_id}`]: !fav})
+      this.props.firebase.db.ref(`/users/${userId}/favorites/${this.props.pattern.pattern_id}`).update({name: this.props.pattern.contributor_name})
     }
     else {
       this.loginPrompt();

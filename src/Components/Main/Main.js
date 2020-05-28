@@ -11,14 +11,18 @@ class Home extends Component {
             authUser: null,
          }
     }
-
-   
+  
+    componentDidMount() {
+        this.addAuthToPath = () => {
+            this.props.history.push(`${this.state.authUser}/home`)
+        }   
+    }
 
     render() {
         return (
             <section className='home'>
                 <div className="container">
-                    <PatternCard userId={`${this.props.match.params.userId}`} />
+                    <PatternCard userId={this.props.match.params.userId } />
                 </div>
             </section>
         );

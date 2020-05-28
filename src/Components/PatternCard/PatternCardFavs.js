@@ -103,18 +103,28 @@ class PatternCardFavs extends Component {
     // firebase users/userId/favorites/ all this data
 
     handleGetAllFavoritesOfUser = () => {
+        return new Promise((resolve, reject) => {
         this.props.firebase.db.ref(`users/${this.props.match.params.userId}/favorites`).once("value", (snapshot) => {
             let allFavorites = snapshot.val();
             let allFavoritesArray = Object.entries(allFavorites)
-            this.setState({ allFavoritesArray: allFavoritesArray }, () => this.handleFilterTrue());
+            this.setState({ allFavoritesArray: allFavoritesArray });
+
+            if (this.state.allFavoritesArray){
+                resolve (allFavoritesArray)
+            }
+            else{
+                reject(Error("there was a mishap"))
+            }
         })
-    }
+    })
+}
 
     //with the allFavsArray - filter those that have a value - TRUE (truefavsarray)  
     // part 1 data - filter values Keep TRUE
 
-    handleFilterTrue = () => {
-        let allFavoritesArray = this.state.allFavoritesArray
+    handleFilterTrue = (allFavoritesArray) => {
+        return new Promise((resolve, reject) => {
+            
         let favoritesArrayObjects = allFavoritesArray.map(item => item[1])
         console.log(favoritesArrayObjects, "objs")
         let trueFavsArray = []
@@ -131,7 +141,15 @@ class PatternCardFavs extends Component {
             }
         })
         console.log("trueFavsArray", trueFavsArray)
-        this.setState({ favPatternIds: trueFavsArray }, () => this.handleGetPatternArray())
+        this.setState({ favPatternIds: trueFavsArray })
+            
+            if (this.state.favPatternIds){
+                resolve (this.state.favPatternIds)
+            }
+            else {
+                reject ("something went wrong")
+            }
+    })
     }
 
 
@@ -139,17 +157,33 @@ class PatternCardFavs extends Component {
     // take those pattern objects and push this data into a new array (patternArray)
 
     handleGetPatternArray = () => {
+        return new Promise((resolve, reject) => {
         let patternArray = []
+        let i = 1
+
+        //how do i write a promise for a for loop?
+        for ( i; i < patternArray.length; i++){
         let patternObjs = this.state.favPatternIds.map(patternId => {
-            this.props.firebase.db.ref(`patterns/${patternId}`).once("value", async(snapshot) => {
+            this.props.firebase.db.ref(`patterns/${patternId}`).once("value", (snapshot) => {
                 let pattern = (snapshot.val())
                 console.log(pattern,)
-                await patternArray.push(pattern)
+                patternArray.push(pattern)
                 return pattern;
             })
-            this.setState({ patternArray: patternArray }, () => console.log(patternArray, "loaded"))
         })
-        return patternObjs
+            this.setState({ patternArray: patternArray })
+            return patternObjs
+        }
+
+        if (i === patternArray.length){
+            resolve(this.state.patternArray)
+        }
+        else{
+            console.log(i, "this is I")
+            reject("there was a problem")
+        }
+     
+    })
     }
 
     handleRenderPatterns = () => {
@@ -174,7 +208,6 @@ class PatternCardFavs extends Component {
                      </div>
                  )
             })
-            
             return pattern
         }
     }
@@ -186,12 +219,19 @@ class PatternCardFavs extends Component {
     //take new array with True patterns and map it to return the cards.
 
     componentDidMount = () => {
-        this.handleGetAllFavoritesOfUser();
+        this.handleGetAllFavoritesOfUser()
+            .then((allFavoritesArray) => this.handleFilterTrue(allFavoritesArray))
+            .then((handleFilterTrue) =>  this.handleGetPatternArray(handleFilterTrue))
+            .catch((error) => console.log(error))
+
     }
 
 
     render() {
-
+        if (!this.state.patternArray){
+            return <div></div>
+        }
+        else{
         return (
             <>
                 <AccountNavigationMain />
@@ -204,6 +244,7 @@ class PatternCardFavs extends Component {
             </>
         );
     }
+}
 }
 
 

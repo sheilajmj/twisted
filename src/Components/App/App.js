@@ -57,12 +57,11 @@ class App extends Component {
                 component={PasswordForgetPage}
               />
               <Route
-                path={'/home'}
+                path={'/:userId/home'}
                 component={Home}
               />
-
               <Route
-                path={'/:userId/home'}
+                path={'/home'}
                 component={Home}
               />
 

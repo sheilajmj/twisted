@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-// import { Document, Page } from 'react-pdf';
+import { Document, Page } from 'react-pdf';
 import { pdfjs } from 'react-pdf';
 import { withFirebase } from '../Firebase';
 import SignIn from '../Signin';
-import PDFViewer from 'pdf-viewer-reactjs'
+// import PDFViewer from 'pdf-viewer-reactjs'
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.1.266/pdf.worker.js`;
 
@@ -13,9 +13,14 @@ class PatternDirections extends Component {
         super(props);
         this.state = {
             open: false,
+            numPages:null,
+            pageNumber: 1,
         }
     }
 
+    onDocumentLoadSuccess = ({ numPages }) => {
+        this.setState({ numPages });
+    }
 
 
     togglePanel = (e) => {
@@ -44,14 +49,13 @@ class PatternDirections extends Component {
                     <>
                         <div>Click the link to print or save the pattern directions</div>
                         <a href={`${pattern.pdf_file_URL}`} target="_blank" rel="noopener noreferrer">Open, Print, or Download File</a>
-                        <div>
-                            <PDFViewer
-                                document={{
-                                    url: `${pattern.pdf_file_URL}`,
-                                }}
+                        {/* <div>
+                        <Document 
+                            file={`${pattern.pdf_file_URL}`}
+                            onLoadSuccess ={this.onDocumentLoadSuccess} 
                             />
-                            <p className="pdf-pg">Page {pageNumber} of {numPages}</p>
-                        </div>
+                        <p className="pdf-pg">Page {pageNumber} of {numPages}</p>
+                        </div> */}
                     </>) : this.state.open && !this.state.authUser ?
                         <>
                             <div>

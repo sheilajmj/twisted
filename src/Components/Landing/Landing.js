@@ -15,7 +15,7 @@ class LandingPage extends Component {
             <p className="ta-c landing-text-item"> Twisted is a web application designed to enable yarn lovers to collect, save and explore patterns.</p>
         </div>      
         </div>
-        <button className="start-btn btn" onClick={() => { this.context.history.push('/home') }}>Get Started</button>
+        <button className="start-btn btn" onClick={() => { this.context.history.push('/signin') }}>Get Started</button>
       </section>
       <section className="image-landing">
       </section>
