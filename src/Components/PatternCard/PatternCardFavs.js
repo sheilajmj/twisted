@@ -104,52 +104,52 @@ class PatternCardFavs extends Component {
 
     handleGetAllFavoritesOfUser = () => {
         return new Promise((resolve, reject) => {
-        this.props.firebase.db.ref(`users/${this.props.match.params.userId}/favorites`).once("value", (snapshot) => {
-            let allFavorites = snapshot.val();
-            let allFavoritesArray = Object.entries(allFavorites)
-            this.setState({ allFavoritesArray: allFavoritesArray });
+            this.props.firebase.db.ref(`users/${this.props.match.params.userId}/favorites`).once("value", (snapshot) => {
+                let allFavorites = snapshot.val();
+                let allFavoritesArray = Object.entries(allFavorites)
+                this.setState({ allFavoritesArray: allFavoritesArray });
 
-            if (this.state.allFavoritesArray){
-                resolve (allFavoritesArray)
-            }
-            else{
-                reject(Error("there was a mishap"))
-            }
+                if (this.state.allFavoritesArray) {
+                    resolve(allFavoritesArray)
+                }
+                else {
+                    reject(Error("there was a mishap"))
+                }
+            })
         })
-    })
-}
+    }
 
     //with the allFavsArray - filter those that have a value - TRUE (truefavsarray)  
     // part 1 data - filter values Keep TRUE
 
     handleFilterTrue = (allFavoritesArray) => {
         return new Promise((resolve, reject) => {
-            
-        let favoritesArrayObjects = allFavoritesArray.map(item => item[1])
-        console.log(favoritesArrayObjects, "objs")
-        let trueFavsArray = []
 
-        favoritesArrayObjects.map(objItem => {
-            let objItemArray = Object.values(objItem)
-            let objItemKeyArray = Object.keys(objItem)
+            let favoritesArrayObjects = allFavoritesArray.map(item => item[1])
+            console.log(favoritesArrayObjects, "objs")
+            let trueFavsArray = []
 
-            if (objItemArray[0] === false) {
-                console.log("it was false")
+            favoritesArrayObjects.map(objItem => {
+                let objItemArray = Object.values(objItem)
+                let objItemKeyArray = Object.keys(objItem)
+
+                if (objItemArray[0] === false) {
+                    console.log("it was false")
+                }
+                else {
+                    trueFavsArray.push(objItemKeyArray[0])
+                }
+            })
+            console.log("trueFavsArray", trueFavsArray)
+            this.setState({ favPatternIds: trueFavsArray })
+
+            if (this.state.favPatternIds) {
+                resolve(this.state.favPatternIds)
             }
             else {
-                trueFavsArray.push(objItemKeyArray[0])
+                reject("something went wrong")
             }
         })
-        console.log("trueFavsArray", trueFavsArray)
-        this.setState({ favPatternIds: trueFavsArray })
-            
-            if (this.state.favPatternIds){
-                resolve (this.state.favPatternIds)
-            }
-            else {
-                reject ("something went wrong")
-            }
-    })
     }
 
 
@@ -157,81 +157,93 @@ class PatternCardFavs extends Component {
     // take those pattern objects and push this data into a new array (patternArray)
 
     handleGetPatternArray = () => {
-        return new Promise((resolve, reject) => {
         let patternArray = []
         let i = 1
+        let promise 
+        let patternObjs
 
-        //how do i write a promise for a for loop?
-        for ( i; i < patternArray.length; i++){
-        let patternObjs = this.state.favPatternIds.map(patternId => {
-            this.props.firebase.db.ref(`patterns/${patternId}`).once("value", (snapshot) => {
-                let pattern = (snapshot.val())
-                console.log(pattern,)
-                patternArray.push(pattern)
-                return pattern;
+        Promise.all([promise, patternObjs]).then(response => console.log(response))
+
+        patternObjs = () =>{ 
+        return new Promise((resolve, reject) => {
+            this.state.favPatternIds.map(patternId => {
+                promise = new Promise((resolve, reject) => {
+                    this.props.firebase.db.ref(`patterns/${patternId}`).once("value", (snapshot) => {
+                        let pattern = (snapshot.val())
+                        console.log(pattern)
+                        patternArray.push(pattern)
+                        i ++
+                        if (pattern) {
+                            resolve("This worked?")
+                        }
+                        else {
+                            reject("dang. It didn't work")
+                        }
+                    })
+                })
             })
+            //what condition? 
+        if (i = this.state.favPatternIds.length){
+            resolve ("did this one work?")
+        }
+        else{
+            reject ("missed somethin'")
+        }
+
         })
-            this.setState({ patternArray: patternArray })
-            return patternObjs
-        }
-
-        if (i === patternArray.length){
-            resolve(this.state.patternArray)
-        }
-        else{
-            console.log(i, "this is I")
-            reject("there was a problem")
-        }
-     
-    })
     }
+}
+    // this.setState({ patternArray: patternArray })
+    // console.log(patternArray)
+    //         return patternObjs
+    //     }
 
-    handleRenderPatterns = () => {
-        if(!this.state.patternArray){
-            return <div>No Patterns!</div>
-        }
-        else{
-       console.log(typeof(this.state.patternArray))
+handleRenderPatterns = () => {
+    if (!this.state.patternArray) {
+        return <div>No Patterns!</div>
+    }
+    else {
+        console.log(typeof (this.state.patternArray))
         console.log(this.state.patternArray)
         let pattern = this.state.patternArray.map((item) => {
-                let userId = this.props.match.params.userId
-                let signedPath = `/${this.state.userId}/patterns/${item.pattern_id}`
-                let unsignedPath = `/patterns/${item.pattern_id}`
-                return (
-                    <div key={item.pattern_id} className="flex-item">
-                         <div onClick={() => { this.context.history.push(`${userId}` ? signedPath : unsignedPath) }}>
-                             <strong> Name:  {item.pattern_name}</strong>
-                             <br /><img src={item.thumbnail_image_file_URL} alt="placeholder" /><br />
-                             <div>{item.contributor_name}</div>
-                         </div>
-                         <FavoriteIcon pattern_id={item.pattern_id} pattern_contributor={pattern.contributor_name} userId={this.props.userId} />
-                     </div>
-                 )
-            })
-            return pattern
-        }
+            let userId = this.props.match.params.userId
+            let signedPath = `/${this.state.userId}/patterns/${item.pattern_id}`
+            let unsignedPath = `/patterns/${item.pattern_id}`
+            return (
+                <div key={item.pattern_id} className="flex-item">
+                    <div onClick={() => { this.context.history.push(`${userId}` ? signedPath : unsignedPath) }}>
+                        <strong> Name:  {item.pattern_name}</strong>
+                        <br /><img src={item.thumbnail_image_file_URL} alt="placeholder" /><br />
+                        <div>{item.contributor_name}</div>
+                    </div>
+                    <FavoriteIcon pattern_id={item.pattern_id} pattern_contributor={pattern.contributor_name} userId={this.props.userId} />
+                </div>
+            )
+        })
+        return pattern
     }
+}
 
 
 
 
 
-    //take new array with True patterns and map it to return the cards.
+//take new array with True patterns and map it to return the cards.
 
-    componentDidMount = () => {
-        this.handleGetAllFavoritesOfUser()
-            .then((allFavoritesArray) => this.handleFilterTrue(allFavoritesArray))
-            .then((handleFilterTrue) =>  this.handleGetPatternArray(handleFilterTrue))
-            .catch((error) => console.log(error))
+componentDidMount = () => {
+    this.handleGetAllFavoritesOfUser()
+        .then((allFavoritesArray) => this.handleFilterTrue(allFavoritesArray))
+        .then((handleFilterTrue) => this.handleGetPatternArray(handleFilterTrue))
+        .catch((error) => console.log(error))
 
+}
+
+
+render() {
+    if (!this.state.patternArray) {
+        return <div></div>
     }
-
-
-    render() {
-        if (!this.state.patternArray){
-            return <div></div>
-        }
-        else{
+    else {
         return (
             <>
                 <AccountNavigationMain />

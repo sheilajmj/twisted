@@ -218,6 +218,7 @@ class AddPattern extends Component {
         <>
         <AccountNavigationMain />
         <AccountContributedNav />
+        <div className="bkg-color-l">
           <h2>Add New Pattern</h2>
           <div className="add-flex-container">
           <form onSubmit={this.handleSubmit}>
@@ -257,6 +258,7 @@ class AddPattern extends Component {
             <button className="btn" type="submit" value="submit">Publish Pattern</button>
             </div>
           </form>
+          </div>
           </div>
         </>
 

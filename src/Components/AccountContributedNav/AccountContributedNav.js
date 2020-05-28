@@ -17,7 +17,7 @@ render() {
         <section className="AccountContributedNavigation">
         <ul>
             <li>
-        <Link to={`/account/${this.props.userId}/contributed`} userId={`${this.props.userId}`}>Contributed Patterns</Link>
+        <Link to={`/account/${this.props.userId}/contributed`}>Contributed Patterns</Link>
         </li>
         <li>
         <Link to={`/account/${this.props.userId}/add`}>Add New Pattern</Link>
