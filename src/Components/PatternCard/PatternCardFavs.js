@@ -21,7 +21,7 @@ class PatternCardFavs extends Component {
             let favoritesArrayObjects = allFavoritesArray.map(item => item[1])
             let trueFavsArray = []
 
-            favoritesArrayObjects.map(objItem => {
+            favoritesArrayObjects.forEach(objItem => {
                 let objItemArray = Object.values(objItem)
                 let objItemKeyArray = Object.keys(objItem)
 
@@ -58,15 +58,20 @@ class PatternCardFavs extends Component {
     returnPatternCards = () => {
         if (this.state.patternArray) {
             console.log(this.state.patternArray)
+            debugger
+            console.log(this.state.patternArray[0], "TEST")
+            debugger
             let getCards = this.state.patternArray.map((pattern) => {
+                debugger
                     console.log(pattern, "PATTERN IN MAP")
+                    debugger
                     let userId = this.props.match.params.userId
-                    let signedPath = `/${this.state.userId}/patterns/${pattern.pattern_id}`
+                    let signedPath = `/${userId}/patterns/${pattern.pattern_id}`
                     let unsignedPath = `/patterns/${pattern.pattern_id}`
-
+                if (this.state.patternArray){
                     return (
-                        <div key={pattern.pattern_id} className="flex-item">
-                            <div onClick={() => { this.context.history.push(`${userId}` ? signedPath : unsignedPath) }}>
+                        <div key={pattern.pattern_id} className="flex-item"> 
+                            <div onClick={this.context.history.push(`${userId}` ? signedPath : unsignedPath)}>
                                 <strong> Name:  {pattern.pattern_name}</strong>
                                 <br /><img src={pattern.thumbnail_image_file_URL} alt="placeholder" /><br />
                                 <div>{pattern.contributor_name}</div>
@@ -74,11 +79,13 @@ class PatternCardFavs extends Component {
                             <FavoriteIcon pattern_id={pattern.pattern_id} pattern_contributor={pattern.contributor_name} userId={this.props.userId} />
                         </div>
                     )
-                })
-                return getCards;
+                }
+            })
+            
             }
         
         else {
+            // console.log(getCards)
             return <div>DENIED!</div>
         }
     }
@@ -92,7 +99,7 @@ class PatternCardFavs extends Component {
             render() {
                 return (
                     <>
-                        <AccountNavigationMain />
+                        <AccountNavigationMain  userId={this.props.match.params.userId} />
                         <section className='PatternCard flex-container'>
                             <div className="flex-container">
                                 <div>Favs!</div>
