@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Document, Page } from 'react-pdf';
+// import { Document, Page } from 'react-pdf';
 import { pdfjs } from 'react-pdf';
 import { withFirebase } from '../Firebase';
 import SignIn from '../Signin';
@@ -40,7 +40,7 @@ class PatternDirections extends Component {
     }
 
     render() {
-        const { pageNumber, numPages } = this.state;
+        // const { pageNumber, numPages } = this.state;
         let pattern = this.props.pattern
         return (
             <div className="coll-div">

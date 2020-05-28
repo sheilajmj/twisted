@@ -55,39 +55,36 @@ class PatternCardFavs extends Component {
         }
 
 
-    returnPatternCards = () => {
-        if (this.state.patternArray) {
-            console.log(this.state.patternArray)
-            debugger
-            console.log(this.state.patternArray[0], "TEST")
-            debugger
-            let getCards = this.state.patternArray.map((pattern) => {
-                debugger
-                    console.log(pattern, "PATTERN IN MAP")
-                    debugger
-                    let userId = this.props.match.params.userId
-                    let signedPath = `/${userId}/patterns/${pattern.pattern_id}`
-                    let unsignedPath = `/patterns/${pattern.pattern_id}`
-                if (this.state.patternArray){
-                    return (
-                        <div key={pattern.pattern_id} className="flex-item"> 
-                            <div onClick={this.context.history.push(`${userId}` ? signedPath : unsignedPath)}>
-                                <strong> Name:  {pattern.pattern_name}</strong>
-                                <br /><img src={pattern.thumbnail_image_file_URL} alt="placeholder" /><br />
-                                <div>{pattern.contributor_name}</div>
+        returnPatternCards = () => {
+            if (this.state.patternArray) {
+                console.log(this.state.patternArray)
+                console.log(this.state.patternArray[0], "TEST")
+                let getCards = this.state.patternArray && this.state.patternArray.map((pattern) => {
+                        console.log(pattern, "PATTERN IN MAP")
+                        let userId = this.props.match.params.userId
+                        let signedPath = `/${userId}/patterns/${pattern.pattern_id}`
+                        let unsignedPath = `/patterns/${pattern.pattern_id}`
+                  
+                        return (
+                            <div key={pattern.pattern_id} className="flex-item"> 
+                                <div onClick={this.context.history.push(`${userId}` ? signedPath : unsignedPath)}>
+                                    <strong> Name:  {pattern.pattern_name}</strong>
+                                    <br /><img src={pattern.thumbnail_image_file_URL} alt="placeholder" /><br />
+                                    <div>{pattern.contributor_name}</div>
+                                </div>
+                                <FavoriteIcon pattern_id={pattern.pattern_id} pattern_contributor={pattern.contributor_name} userId={this.props.userId} />
                             </div>
-                            <FavoriteIcon pattern_id={pattern.pattern_id} pattern_contributor={pattern.contributor_name} userId={this.props.userId} />
-                        </div>
-                    )
+                        )
+                    
+                })
+                return getCards
                 }
-            })
-            return getCards
+        
+            else {
+                return <div>DENIED!</div>
             }
-  
-        else {
-            return <div>DENIED!</div>
         }
-    }
+        
 
 
             componentDidMount = () => {
