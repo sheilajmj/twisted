@@ -14,15 +14,15 @@ class AccountContributedNav extends Component {
 render() {
     return (
         <>
-        <section className="AccountContributedNavigation">
-        <ul>
-            <li>
+        <section className="accountContributedNavigation">
+        <ul className="ta-c mg-lrc w-fc">
+            <li className="pad-sm w-50">
         <Link to={`/account/${this.props.userId}/contributed`}>Contributed Patterns</Link>
         </li>
-        <li>
+        <li className="pad-sm w-50">
         <Link to={`/account/${this.props.userId}/add`}>Add New Pattern</Link>
         </li>
-        <li>
+        <li className="pad-sm w-50">
         <Link to={`/account/${this.props.userId}/edit`}>Edit Patterns</Link>    
         </li>
         </ul>               

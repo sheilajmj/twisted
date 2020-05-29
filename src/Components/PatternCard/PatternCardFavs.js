@@ -81,7 +81,7 @@ class PatternCardFavs extends Component {
         }
 
         else {
-            return <div>There are no favorites to show</div>
+            return <div>There are no favorites to show!</div>
         }
     }
 

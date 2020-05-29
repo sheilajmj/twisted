@@ -40,9 +40,10 @@ class AddPattern extends Component {
   }
 
   setContributorName = () => {
-    this.props.firebase.db.ref(`/users/${this.state.contributor_user_id}/username`).once("value", (snapshot) => {
+    this.props.firebase.db.ref(`/users/${this.props.match.params.userId}/username`).once("value", (snapshot) => {
       let name = snapshot.val()
-      this.setState({contributor_name: name})
+      console.log(name, "NAME")
+      this.setState({contributor_name: name}, () => this.checkUploadPdf())
     })
   }
   
@@ -165,7 +166,6 @@ class AddPattern extends Component {
       if (this.state.thumbnail_image_file_URL) {
         let { author_name, pattern_name, description, craft, yarn_weight, needle_size } = this.state.newPattern;
         let { image_file_URL, image_file_name, pdf_file_name, pdf_file_URL, contributor_user_id, contributor_name, thumbnail_image_file_URL, thumbnail_image_file_name } = this.state
-        
       let newPattern = {
           author_name,
           pattern_name,
@@ -188,25 +188,24 @@ class AddPattern extends Component {
         .then((response)=> {
           let pattern_id = response.key
           this.props.firebase.db.ref(`/patterns/${pattern_id}`).update({pattern_id: pattern_id})
-          this.props.firebase.db.ref(`/users/${contributor_user_id}/contributed/`).update({[`${this.props.pattern_id}`]: null})
+          this.props.firebase.db.ref(`/users/${contributor_user_id}/contributed/`).update({[`${pattern_id}`]: true})
             return (response)  
         })
           .then(() => {
             this.setState({...INITIAL_STATE})
-            this.props.history.push('/account/' + this.props.match.userId + '/contributions')
+            this.props.history.push('/account/' + contributor_user_id + '/contributed')
           })                      
           .catch(function (error) {
             console.error("Error writing document: ", error);
           });
 
-      }
+      } 
     }
 
 
 
     handleSubmit = (e) => {
       e.preventDefault();
-      this.checkUploadPdf(e);
       this.setContributorUserId();
     }
 

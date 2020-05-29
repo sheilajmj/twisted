@@ -28,7 +28,6 @@ class UserDashboard extends Component {
 
 
     setUserVal = () => {
-        console.log(this.props.match.params.userId, "this")
         this.setState({userId: this.props.match.params.userId})
     }
 

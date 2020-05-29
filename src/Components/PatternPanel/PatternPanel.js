@@ -56,15 +56,17 @@ class PatternPanel extends Component {
     let pattern = this.state.patternData;
       return (
         <>
-        <div className="add-flex-container">
+        <div className="add-flex-container bkg-color-wt">
           <h2>{pattern.pattern_name}</h2>
           <h3>Pattern Author: {pattern.author_name}</h3>
           <img src={pattern.image_file_URL} alt="placeholder" />
-          <div>Added By:  {pattern.contributor_name}</div>
+          <div className="detail-contr-nm-wrap ta-l pad-l-md" >
+              <div className="contr-nm">Added By: {pattern.contributor_name}</div>
+          </div>
+          <div className="dis-inl ta-r">
           <FavoriteIcon pattern = {pattern} userId={this.props.match.params.userId} />
+          </div>
           <PatternDetail pattern = {pattern}/>
-          {/* <PatternDirections pattern = {pattern} /> */}
-          {/* <CommentPanel /> */}
           </div>
         </>
       )
@@ -73,7 +75,7 @@ class PatternPanel extends Component {
 
   render() {
     return (
-      <div className="pattern-panel flex-container-column">
+      <div className="pattern-panel ">
           {this.patternDataReturn()}
       </div>
     )

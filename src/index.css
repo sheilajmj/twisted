@@ -46,7 +46,7 @@ main{
 
 .logo{
   display: inline-block;
-  opacity: .2;
+  opacity: .5;
   width: 18%;
   max-width: 150px;
   margin-left: 0px;
@@ -278,6 +278,10 @@ div.landing{
   background-color: #f4f4f4;  
 }
 
+.w-fc{
+  width: fit-content;
+}
+
 .mg-lrc{
   margin-left: auto;
   margin-right: auto;
@@ -374,8 +378,24 @@ ul{
   border: 2px solid #83677B
 }
 
+.dash-container{
+  background-color: white;
+}
+
 .btn-wrap{
   text-align: center;
+}
+
+.detail-contr-nm-wrap{
+  width: 87%;
+}
+
+.w-md{
+  width: 50%;
+}
+
+.w-a{
+  width: auto;
 }
 
 .flex-item-md{
@@ -468,7 +488,35 @@ ul{
 .collapsible-header{
   padding: 15px;
   margin-top: 3%;
-  background-color: #ADADADAD;
+  background-color: #83677B;
+  padding: 15px;
+  margin-top: 3%;
+  padding-top: 2%;
+  width: 100%;
+  padding-bottom: 2%;
+  color: white;
+  text-align: center;
+}
+
+.pattern-panel{
+  background-color: #E3C37D;
+  background-image: linear-gradient(white,#f1e8d3, #f1e8d3, #f1e8d3, #f1e8d3, white);
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: -7%;
+  padding-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 15%;
+  padding-right: 2%;
+  padding-left: 2%;
+}
+
+.container{
+  background-image: linear-gradient(white,#f1e8d3, #f1e8d3, #f1e8d3, #f1e8d3, white);
 }
 
 .coll-div ul  {
@@ -486,7 +534,9 @@ ul{
 
 .coll-div li{
   display: block;
-  width: 100%;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .coll-div{
@@ -509,6 +559,10 @@ ul{
 
 .pad-sm {
   padding: 2%;
+}
+
+.pad-md{
+  padding: 7%;
 }
 
 .pad-r-md {

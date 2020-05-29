@@ -17,7 +17,7 @@ class AccountNavigationMain extends Component {
     render() {
 
         return (
-            <div className="container align-center">
+            <div className="dash-container align-center">
                 <ul className="nav-main-wrap">
                     <li className="dash-nav-main">
                         <Link className="dash-link" to={`/account/${this.props.userId}/favorites`}><img src={require('../../Assets/SVG/my-favorites-badge.svg')} alt = "favorites link"/></Link>
