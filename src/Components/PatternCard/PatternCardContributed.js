@@ -38,10 +38,11 @@ class PatternCardContributed extends Component {
 
     returnPatternCards = () => {
         if (this.state.patternArray) {
+            console.log("2", this.state.patternArray)
             let getCards = this.state.patternArray && this.state.patternArray.map((pattern) => {
                 let userId = this.props.match.params.userId
-                let signedPath = `/${userId}/patterns/${pattern.pattern_id}`
-                let unsignedPath = `/patterns/${pattern.pattern_id}`
+                // let signedPath = `/${userId}/patterns/${pattern.pattern_id}`
+                // let unsignedPath = `/patterns/${pattern.pattern_id}`
 
                 return (
                     <div key={pattern.pattern_id} className="flex-item">
@@ -55,6 +56,7 @@ class PatternCardContributed extends Component {
                     </div>
                 )
             })
+
             return getCards
         }
 
