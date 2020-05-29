@@ -215,8 +215,8 @@ class AddPattern extends Component {
   
       return (
         <>
-        <AccountNavigationMain />
-        <AccountContributedNav />
+        <AccountNavigationMain userId={this.props.match.params.userId} />
+        {/* <AccountContributedNav userId={this.props.match.params.userId} /> */}
         <div className="bkg-color-md">
           <h2>Add New Pattern</h2>
           <div className="add-flex-container bkg-color-wt">
@@ -231,7 +231,7 @@ class AddPattern extends Component {
             </div>
             <div className="form-space">
               <label htmlFor="description" className="pattern-add">Description  </label>
-              <br /><textarea cols="50" className="form-input description-textarea" type="text" name="description" id="description" onChange={this.handleChange} placeholder='Description' required />
+              <br /><textarea  className="form-input description-textarea w-99" type="text" name="description" id="description" onChange={this.handleChange} placeholder='Description' required />
             </div>
             <div className="form-space">
               <label htmlFor="craft" className="pattern-add">Craft  </label>

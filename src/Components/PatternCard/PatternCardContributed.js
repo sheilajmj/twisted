@@ -21,47 +21,40 @@ class PatternCardContributed extends Component {
         this.props.firebase.db.ref(`users/${this.props.match.params.userId}`).once("value", (snapshot) => {
             let userData = snapshot.val()
             let contributedPatternIds = Object.keys(userData.contributed)
-           this.setState({contributedPatternIds: contributedPatternIds})
-            let getPatternObjects = contributedPatternIds.forEach(patternId => {
-                this.props.firebase.db.ref(`patterns/${patternId}`).once("value", (snapshot) => {
-                    let pattern = (snapshot.val())
-                    patternArray.push(pattern)
-                    console.log(patternArray, "patternArray")
-                })
-                console.log("1")
-                this.setState({ patternArray: patternArray })
-                return;
-            })
-           
+            this.setState({ contributedPatternIds: contributedPatternIds })
         })
-         
-        }
+            .then((res) => {
+                let getPatternObjects = this.state.contributedPatternIds.forEach(patternId => {
+                    this.props.firebase.db.ref(`patterns/${patternId}`).once("value", (snapshot) => {
+                        let pattern = (snapshot.val())
+                        patternArray.push(pattern)
+                        this.setState({ patternArray: patternArray })
+                    })
+                })
+            })
 
+            .catch((error) => console.log(error))
+    }
 
     returnPatternCards = () => {
         if (this.state.patternArray) {
-            console.log("2")
             let getCards = this.state.patternArray && this.state.patternArray.map((pattern) => {
                 let userId = this.props.match.params.userId
                 let signedPath = `/${userId}/patterns/${pattern.pattern_id}`
                 let unsignedPath = `/patterns/${pattern.pattern_id}`
 
-                return ( 
+                return (
                     <div key={pattern.pattern_id} className="flex-item">
                         <div className="mg-lrc ta-c">
                             <strong> Name:  {pattern.pattern_name}</strong>
                             <br /><Link to={`/${userId}/patterns/${pattern.pattern_id}`}><img src={pattern.thumbnail_image_file_URL} alt="pattern image" /></Link><br />
-                            <div className="contr-nm-wrap ta-l pad-l-md" >
-                                <div className="contr-nm">{pattern.contributor_name}</div>
-                            </div>
                         </div>
-                        <div className="dis-inl ta-r">
-                            <FavoriteIcon pattern={pattern} userId={this.props.userId} />
+                        <div className="ta-c">
+                            <button className="btn " onClick={() => { this.context.history.push(`/account/${userId}/patterns/${pattern.pattern_id}/edit`) }}>Edit Pattern</button>
                         </div>
                     </div>
                 )
             })
-            console.log("3")
             return getCards
         }
 
@@ -79,7 +72,7 @@ class PatternCardContributed extends Component {
         return (
             <>
                 <AccountNavigationMain userId={`${this.props.match.params.userId}`} />
-                <AccountContributedNav userId={`${this.props.match.params.userId}`} />
+                {/* <AccountContributedNav userId={`${this.props.match.params.userId}`} /> */}
                 <section className='PatternCard flex-container'>
                     <div className="flex-container">
                         <div>Contributed Patterns</div>

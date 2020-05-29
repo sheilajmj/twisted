@@ -83,7 +83,7 @@ class App extends Component {
                 component={AddPattern}
               />
               <Route
-                exact path={'/account/:userId/edit'}
+                exact path={'/account/:userId/patterns/:patternId/edit'}
                 component={PatternEdit}
               />
               <Route

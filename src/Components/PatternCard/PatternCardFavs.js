@@ -20,7 +20,6 @@ class PatternCardFavs extends Component {
             let allFavoritesArray = Object.entries(allFavorites)
             let favoritesArrayObjects = allFavoritesArray.map(item => item[1])
             let trueFavsArray = []
-
             favoritesArrayObjects.forEach(objItem => {
                 let objItemArray = Object.values(objItem)
                 let objItemKeyArray = Object.keys(objItem)
@@ -32,27 +31,22 @@ class PatternCardFavs extends Component {
                     trueFavsArray.push(objItemKeyArray[0])
                 }
             })
-            this.setState({ favPatternIds: trueFavsArray }, () => this.handleGetPatternCards(this.state.favPatternIds))
+            this.setState({ favPatternIds: trueFavsArray })
         })
-    }
-
-    handleGetPatternCards = () => {
-        if (!this.state.favPatternIds) {
-            return;
-        }
-        else {
-            let length = this.state.favPatternIds.length
+        .then((res) => {
             let patternArray = []
             let getPatternArray = this.state.favPatternIds.forEach(patternId => {
                 this.props.firebase.db.ref(`patterns/${patternId}`).once("value", (snapshot) => {
                     let pattern = (snapshot.val())
                     patternArray.push(pattern)
+                    this.setState({ patternArray: patternArray })
                 })
-                return;
             })
-            this.setState({ patternArray: patternArray })
-        }
+            return getPatternArray
+        })
+        .catch((error) => console.log(error))
     }
+
 
 
     returnPatternCards = () => {
@@ -65,7 +59,7 @@ class PatternCardFavs extends Component {
                 return (
                     <div key={pattern.pattern_id} className="flex-item">
                         <div className="mg-lrc ta-c">
-                            <strong> Name:  {pattern.pattern_name}</strong>
+                            <strong>{pattern.pattern_name}</strong>
                             <br /><Link to= {`/${userId}/patterns/${pattern.pattern_id}`}><img src={pattern.thumbnail_image_file_URL} alt="pattern image" /></Link><br />
                             <div className="contr-nm-wrap ta-l pad-l-md" >
                             <div className="contr-nm">{pattern.contributor_name}</div>
@@ -81,7 +75,7 @@ class PatternCardFavs extends Component {
         }
 
         else {
-            return <div>There are no favorites to show!</div>
+            return <div>There are no favorites to show or they are loading.</div>
         }
     }
 
@@ -98,7 +92,7 @@ class PatternCardFavs extends Component {
                 <AccountNavigationMain userId={this.props.match.params.userId} />
                 <section className='PatternCard flex-container'>
                     <div className="flex-container">
-                        <div>Favs!</div>
+                        <div className="app-title ta-c color-p"><strong>Favorites</strong></div>
                         {this.returnPatternCards()}
                     </div>
                 </section>

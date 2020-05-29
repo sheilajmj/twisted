@@ -11,8 +11,8 @@ class PatternEdit extends Component {
 
         return (
             <>
-                <AccountNavigationMain />
-                <AccountContributedNav />
+                <AccountNavigationMain userId={this.props.match.params.userId}/>
+                {/* <AccountContributedNav userId={this.props.match.params.userId}/> */}
                 <h2>Edit Pattern</h2>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-space">
@@ -21,7 +21,7 @@ class PatternEdit extends Component {
                     </div>
                     <div className="form-space">
                         <label htmlFor="description" className="pattern-add">Description</label>
-                        <br /><textarea type="text" className="description-textarea" name="description" id="description" onChange={this.handleChange} placeholder='Description' required />
+                        <br /><textarea type="text" className="description-textarea w-99" name="description" id="description" onChange={this.handleChange} placeholder='Description' required />
                     </div>
                     <div className="form-space">
                         <label htmlFor="craft" className="pattern-add">Craft</label>

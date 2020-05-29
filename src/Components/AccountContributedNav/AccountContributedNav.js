@@ -19,12 +19,12 @@ render() {
             <li className="pad-sm w-50">
         <Link to={`/account/${this.props.userId}/contributed`}>Contributed Patterns</Link>
         </li>
-        <li className="pad-sm w-50">
+        {/* <li className="pad-sm w-50">
         <Link to={`/account/${this.props.userId}/add`}>Add New Pattern</Link>
         </li>
         <li className="pad-sm w-50">
-        <Link to={`/account/${this.props.userId}/edit`}>Edit Patterns</Link>    
-        </li>
+        <Link to={`/account/${this.props.userId}/patterns/${this.props.patternId}/edit`}>Edit Patterns</Link>    
+        </li> */}
         </ul>               
         </section>
         </>
