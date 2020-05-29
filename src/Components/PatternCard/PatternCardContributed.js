@@ -13,7 +13,6 @@ class PatternCardContributed extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            patternListArray: null
         }
     }
 
@@ -27,15 +26,21 @@ class PatternCardContributed extends Component {
                 this.props.firebase.db.ref(`patterns/${patternId}`).once("value", (snapshot) => {
                     let pattern = (snapshot.val())
                     patternArray.push(pattern)
+                    console.log(patternArray, "patternArray")
                 })
+                console.log("1")
+                this.setState({ patternArray: patternArray })
                 return;
             })
-            this.setState({ patternArray: patternArray })
+           
         })
-    }
+         
+        }
+
 
     returnPatternCards = () => {
         if (this.state.patternArray) {
+            console.log("2")
             let getCards = this.state.patternArray && this.state.patternArray.map((pattern) => {
                 let userId = this.props.match.params.userId
                 let signedPath = `/${userId}/patterns/${pattern.pattern_id}`
@@ -56,6 +61,7 @@ class PatternCardContributed extends Component {
                     </div>
                 )
             })
+            console.log("3")
             return getCards
         }
 
