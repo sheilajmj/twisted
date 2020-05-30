@@ -38,8 +38,8 @@ class SignInFormBase extends Component{
         })
         .then((res) => {
             if (!this.props.location.pathname.includes('/pattern')){
-                return;
-                            }
+                window.location.href = `${res.user.uid}/home`
+                }
         })
         .catch(error => {
             this.setState({ error });
