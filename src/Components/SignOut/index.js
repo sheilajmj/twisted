@@ -9,7 +9,7 @@ const SignOutButton = ({ firebase }) => {
    }
 
     return(
-    <Link to={'/home'} className="nav-link" onClick={() => {handleClick()}}>Sign Out</Link>
+    <Link to={'/'} className="nav-link" onClick={() => {handleClick()}}>Sign Out</Link>
     )
  }
 

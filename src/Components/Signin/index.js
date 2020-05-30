@@ -38,7 +38,7 @@ class SignInFormBase extends Component{
         })
         .then((res) => {
             if (!this.props.location.pathname.includes('/pattern')){
-                window.location.href = `${res.user.uid}/home`
+                window.location.href = `${res.user.uid}/`
                 }
         })
         .catch(error => {

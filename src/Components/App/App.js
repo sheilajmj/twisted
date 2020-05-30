@@ -60,10 +60,10 @@ class App extends Component {
                 path={'/:userId/home'}
                 component={Home}
               />
-              <Route
+              {/* <Route
                 path={'/home'}
                 component={Home}
-              />
+              /> */}
 
               <Route
                 path={'/:userId/patterns/:patternId'}
