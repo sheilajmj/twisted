@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
 import Context from '../../Context';
 import { Link } from 'react-router-dom';
-
-// import PatternCardEdit from '../PatternCard/PatternCardEdit';
-// import { PasswordForgetForm } from '../PasswordForget';
-// import PasswordChangeForm from '../PasswordChange';
-// import AddPattern from '../AddPattern/AddPattern';
-// import * as ROLES from '../../constants/roles';
-// import PatternCardFavs from '../PatternCard/PatternCardFavs';
-// import PatternCardContributed from '../PatternCard/PatternCardContributed';
+import favoritesBadge from '../../Assets/SVG/my-favorites-badge.png';
+import patternsBadge from '../../Assets/SVG/my-patterns-badge.png';
+import addPatternBadge from '../../Assets/SVG/add-pattern-badge.png';
+import homebutton from '../../Assets/SVG/home-button_2.png';
 
 
 class AccountNavigationMain extends Component {
@@ -20,20 +16,20 @@ class AccountNavigationMain extends Component {
             <div className="dash-container align-center">
                 <ul className="nav-main-wrap">
                     <li className="dash-nav-main">
-                        <Link className="dash-link" to={`/account/${this.props.userId}/favorites`}><img src={require('../../Assets/SVG/my-favorites-badge.svg')} alt = "favorites link"/></Link>
+                        <Link className="nav-hm nav-badge" to={`/${this.props.userId}/home`}><img className="img-bg" src={homebutton} alt="home" /></Link>
                     </li>
                     <li className="dash-nav-main">
-                        <Link className="dash-link" to={`/account/${this.props.userId}/contributed`}><img src={require('../../Assets/SVG/my-patterns-badge.svg')} alt = "my patterns link"/></Link>
+                        <Link className="nav-badge" to={`/account/${this.props.userId}/favorites`}><img className="img-bg" src={favoritesBadge} alt="favorites link" /></Link>
                     </li>
                     <li className="dash-nav-main">
-                        <Link  className="dash-link" to={`/account/${this.props.userId}/add`}><img src={require('../../Assets/SVG/add-pattern-badge.svg')} alt = "add pattern link"/></Link>
+                        <Link className="nav-badge" to={`/account/${this.props.userId}/contributed`}><img className="img-bg" src={patternsBadge} alt="my patterns link" /></Link>
                     </li>
                     <li className="dash-nav-main">
-                        <Link className="dash-link"  to={`/account/${this.props.userId}/account`}><img src={require('../../Assets/SVG/account-badge.svg')} alt = "account link"/></Link>
+                        <Link className="nav-badge" to={`/account/${this.props.userId}/add`}><img className="img-bg" src={addPatternBadge} alt="add pattern link" /></Link>
                     </li>
                 </ul>
             </div>
-        )
+        );
     }
 }
 

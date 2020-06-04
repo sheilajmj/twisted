@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Context from '../../Context';
 import AccountNavigationMain from '../AccountNavigationMain/AccountNavigationMain';
 import { withFirebase } from '../Firebase';
+import PageNav from '../Navigation/PageNav';
 
 class PatternEdit extends Component {
     static contextType = Context;
@@ -12,7 +13,6 @@ class PatternEdit extends Component {
         }
     }
 
-
     getPatternData = () => {
         this.props.firebase.db.ref(`patterns/${this.props.match.params.patternId}`).once("value", (snapshot) => {
             let pattern = snapshot.val()
@@ -20,7 +20,6 @@ class PatternEdit extends Component {
         })
             .catch((error) => console.log(error))
     }
-
 
     handleChange = (event) => {
         const key = (event.target.name);
@@ -30,16 +29,11 @@ class PatternEdit extends Component {
         this.setState({ newPattern });
     }
 
-    ////////////////////////////////////////
-
-
     handleImageChange = (event) => {
         const { newPattern } = this.state;
         newPattern["image_file"] = event.target.files[0]
         newPattern["image_file_name"] = event.target.files[0].name
         this.setState({ newPattern })
-        // this.setState({ image_file: event.target.files[0] });
-        // this.setState({ image_file_name: event.target.files[0].name });
     }
 
     handleFileChange = (event) => {
@@ -72,43 +66,44 @@ class PatternEdit extends Component {
                 error => {
                     console.log(error)
                 },
-
                 () => {
-
                     this.props.firebase.storage.ref('/pattern-directions/')
                         .child(this.state.newPattern.pdf_file_name)
                         .getDownloadURL()
                         .then(fireBaseUrl => {
                             const { newPattern } = this.state;
                             newPattern["pdf_file_URL"] = fireBaseUrl
-                            this.setState({ newPattern }) })
+                            this.setState({ newPattern })
                         })
-                        .then(() => {
-                            this.checkUploadImage();
-                        });
-                }
+                })
+                .then(() => {
+                    this.checkUploadImage();
+                });
+        }
+        else{
+            this.checkUploadImage();
+        }
     }
 
     handleSetThumbnail = () => {
-
-        let fileName = this.state.newPattern.image_file_name.slice(0, -4)
-        let fileExt = this.state.newPattern.image_file_name.slice(-4)
-
-
         if (this.state.newPattern.image_file_URL) {
-
+            let fileName = this.state.newPattern.image_file_name.slice(0, -4)
+            let fileExt = this.state.newPattern.image_file_name.slice(-4)
             this.props.firebase.storage.ref('/images/thumbnails')
                 .child(fileName + '_200x200' + fileExt)
                 .getDownloadURL()
                 .then(fireBaseUrl => {
                     const { newPattern } = this.state;
                     newPattern["thumbnail_image_file_URL"] = fireBaseUrl
-                    newPattern["thumbnail_image_file_name"] = fileName + '_200x200' + fileExt 
-                    this.setState({ newPattern }) 
+                    newPattern["thumbnail_image_file_name"] = fileName + '_200x200' + fileExt
+                    this.setState({ newPattern })
                 })
                 .then(() => {
-                    this.createPattern()
+                    this.createPattern();
                 });
+        }
+        else {
+            this.createPattern();
         }
     }
 
@@ -118,7 +113,7 @@ class PatternEdit extends Component {
             this.handleUploadImage()
         }
         else {
-            this.handleSetThumbnail();
+           this.createPattern();
         }
     }
 
@@ -148,18 +143,17 @@ class PatternEdit extends Component {
                             const { newPattern } = this.state;
                             newPattern["image_file_URL"] = fireBaseUrl
                             this.setState({ newPattern })
-                         })
-                        }
-                        );
-                        this.handleSetThumbnail();
+                        })
                 }
-        };
-    
+            );
+            this.handleSetThumbnail();
+        }
+    };
+
 
 
     createPattern = () => {
         if (this.state.newPattern) {
-            console.log("GOT HERE")
             let pattern_id = this.state.defaultPattern.pattern_id
             let author_name = this.state.newPattern.author_name ? this.state.newPattern.author_name : this.state.defaultPattern.author_name
             let pattern_name = this.state.newPattern.pattern_name ? this.state.newPattern.pattern_name : this.state.defaultPattern.pattern_name
@@ -186,8 +180,8 @@ class PatternEdit extends Component {
                 yarn_weight,
                 needle_size,
                 image_file_name,
-                thumbnail_image_file_URL, 
-                thumbnail_image_file_name, 
+                thumbnail_image_file_URL,
+                thumbnail_image_file_name,
                 pdf_file_name,
                 contributor_user_id,
                 contributor_name,
@@ -197,17 +191,12 @@ class PatternEdit extends Component {
             }
 
             this.props.firebase.db.ref(`/patterns/`).update({ [`${pattern_id}`]: pattern })
-
-                // .then((response)=> {
-                //   let pattern_id = response.key
-                //   this.props.firebase.db.ref(`/patterns/${pattern_id}`).update({pattern_id: pattern_id})
-                //   this.props.firebase.db.ref(`/users/${contributor_user_id}/contributed/`).update({[`${pattern_id}`]: true})
-                //     return (response)  
-                // })                    
+                .then(() => {
+                    this.props.history.push(`/account/${contributor_user_id}/contributed`)
+                })             
                 .catch(function (error) {
                     console.error("Error writing document: ", error);
                 });
-
         }
     }
 
@@ -216,11 +205,8 @@ class PatternEdit extends Component {
         this.checkUploadPdf();
     }
 
-    ////////////////////////
-
     componentDidMount = () => {
         this.getPatternData();
-
     }
 
     render() {
@@ -229,44 +215,47 @@ class PatternEdit extends Component {
             return (
                 <>
                     <AccountNavigationMain userId={this.props.match.params.userId} />
-                    <h2>Edit Pattern</h2>
-                    <div className="add-flex-container">
-                        <form onSubmit={this.handleSubmit}>
-                            <div className="form-space">
-                                <label htmlFor="pattern_name" className="pattern-add">Pattern Name:</label>
-                                <input type="text" name="pattern_name" id="pattern_name" onChange={this.handleChange} placeholder='Pattern Name' defaultValue={pattern.pattern_name} required />
-                            </div>
-                            <div className="form-space">
-                                <label htmlFor="description" className="pattern-add">Description</label>
-                                <br /><textarea type="text" className="description-textarea w-99" name="description" id="description" onChange={this.handleChange} placeholder='Description' defaultValue={pattern.description} required />
-                            </div>
-                            <div className="form-space">
-                                <label htmlFor="craft" className="pattern-add">Craft</label>
-                                <input type="text" name="craft" id="craft" onChange={this.handleChange} placeholder='Craft' defaultValue={pattern.craft} required />
-                            </div>
-                            <div className="form-space">
-                                <label htmlFor="yarn-weight" className="pattern-add">Yarn Weight</label>
-                                <input type="text" name="yarn-weight" id="yarn-weight" onChange={this.handleChange} placeholder="Yarn Weight" defaultValue={pattern.yarn_weight} required />
-                            </div>
-                            <div className="form-space">
-                                <label htmlFor="needle-size">Needle Size</label>
-                                <input type="text" name="needle-size" id="needle-size" onChange={this.handleChange} placeholder="Needle Size" defaultValue={pattern.needle_size} required />
-                            </div>
-                            <hr></hr>
-                            <div className="form-space add-img-form">
-                                <div>To change image file - please select new image to replace existing.</div>
-                                <label htmlFor="image" className="pattern-add">Image:</label>
-                                <input type="file" name="images" id="images" onChange={this.handleImageChange} />
-                            </div>
-                            <div className="form-space add-file-form">
-                                <div>To change PDF file - please select new file to replace existing.</div>
-                                <label htmlFor="image">PDF file</label>
-                                <input type="file" name="patterndirections" id="image" onChange={this.handleFileChange} />
-                            </div>
-                            <hr></hr>
-                            <button className="btn" type="submit" value="submit">Publish Pattern</button>
-                        </form>
-                    </div>
+                    <section className="container add-wrap">
+                        <h2>Edit Pattern</h2>
+                        <PageNav />
+                        <div className="add-flex-container bkg-color-wt">
+                            <form onSubmit={this.handleSubmit}>
+                                <div className="form-space">
+                                    <label htmlFor="pattern_name" className="pattern-add">Pattern Name:</label>
+                                    <input type="text" name="pattern_name" id="pattern_name" onChange={this.handleChange} placeholder='Pattern Name' defaultValue={pattern.pattern_name} required />
+                                </div>
+                                <div className="form-space">
+                                    <label htmlFor="description" className="pattern-add">Description</label>
+                                    <br /><textarea type="text" className="description-textarea w-99" name="description" id="description" onChange={this.handleChange} placeholder='Description' defaultValue={pattern.description} required />
+                                </div>
+                                <div className="form-space">
+                                    <label htmlFor="craft" className="pattern-add">Craft</label>
+                                    <input type="text" name="craft" id="craft" onChange={this.handleChange} placeholder='Craft' defaultValue={pattern.craft} required />
+                                </div>
+                                <div className="form-space">
+                                    <label htmlFor="yarn-weight" className="pattern-add">Yarn Weight</label>
+                                    <input type="text" name="yarn-weight" id="yarn-weight" onChange={this.handleChange} placeholder="Yarn Weight" defaultValue={pattern.yarn_weight} required />
+                                </div>
+                                <div className="form-space">
+                                    <label htmlFor="needle-size">Needle Size</label>
+                                    <input type="text" name="needle-size" id="needle-size" onChange={this.handleChange} placeholder="Needle Size" defaultValue={pattern.needle_size} required />
+                                </div>
+                                <hr></hr>
+                                <div className="form-space add-img-form">
+                                    <div>To change image file - please select new image to replace existing.</div>
+                                    <label htmlFor="image" className="pattern-add">Image:</label>
+                                    <input type="file" name="images" id="images" onChange={this.handleImageChange} />
+                                </div>
+                                <div className="form-space add-file-form">
+                                    <div>To change PDF file - please select new file to replace existing.</div>
+                                    <label htmlFor="image">PDF file</label>
+                                    <input type="file" name="patterndirections" id="image" onChange={this.handleFileChange} />
+                                </div>
+                                <hr></hr>
+                                <button className="btn" type="submit" value="submit">Update Pattern</button>
+                            </form>
+                        </div>
+                    </section>
                 </>
             );
         }

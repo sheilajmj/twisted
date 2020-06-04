@@ -9,8 +9,8 @@ class LandingPage extends Component {
   render() {
     return (
       <>
-      <section className="landing">
-        <div className="bkg-color-wt landing">
+      <section className="landing container">
+        <div className="landing">
           <div className="landing-text-wrap landing-wrap">
             <p className="ta-c landing-text-item"> Twisted is a web application designed to enable yarn lovers to collect, save and explore patterns.</p>
         </div>      

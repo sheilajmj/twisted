@@ -83,21 +83,33 @@ class SignUpFormBase extends Component{
 
         return(
             <form onSubmit = {this.onSubmit}>
-                <input name="username" value= {username} onChange = {this.onChange} type = "text" placeholder= "Full Name" />
-                <input name="email" value= {email} onChange = {this.onChange} type = "text" placeholder= "Email Address" />
-                <input name="passwordOne" value= {passwordOne} onChange = {this.onChange} type = "password" placeholder= "Password" />
-                <input name="passwordTwo" value= {passwordTwo} onChange = {this.onChange} type = "password" placeholder= "Confirm Password" />
-                <label>
+                <div className="mg-lrc wd-fc">
+                <div className="ta-l">
+                <label for="username">Username</label><br/>
+                <input className="form-input " id="username" name="username" value= {username} onChange = {this.onChange} type = "text" placeholder= "Full Name" />
+                <br/>
+                <label for="email">Email</label><br/>
+                <input className="form-input" id="email" name="email" value= {email} onChange = {this.onChange} type = "text" placeholder= "Email Address" />
+                <br/>
+                <label for="passwordOne">Password</label><br/>
+                <input className="form-input" id="passwordOne" name="passwordOne" value= {passwordOne} onChange = {this.onChange} type = "password" placeholder= "Password" />
+                <br/>
+                <label for="passwordTwo">Confirm Password</label><br/>
+                <input  className="form-input" id="passwordTwo"  name="passwordTwo" value= {passwordTwo} onChange = {this.onChange} type = "password" placeholder= "Confirm Password" />
+                <label className="admin-opt">
                 Admin:
-                <input
+                <input className="admin-opt"
                     name="isAdmin"
                     type="checkbox"
                     checked={isAdmin}
                     onChange={this.onChangeCheckbox}
                 />
                 </label>
+                <br/>
+                </div>
+                </div>
                 <button disabled = {isInvalid} type="submit">Sign Up</button>
-                {error && <p>{error.message}</p>}
+                {error && <p className="err-msg">{error.message}</p>}
             </form>
         );
     }

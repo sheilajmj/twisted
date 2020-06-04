@@ -46,36 +46,25 @@ main{
 
 .logo{
   display: inline-block;
-  opacity: .5;
-  width: 18%;
-  max-width: 150px;
-  margin-left: 0px;
-  margin-top: 36px;
-  z-index: -4;
-}
-
-.logo-2{
-  display: inline-block;
-  opacity: .2;
   width: 100%;
-  position: relative;
-  margin-left: 0px;
-  margin-top: -126px;
-  z-index: 0;
+ margin-top: 3%;
+ opacity: 99%;
+ z-index: -5;
+ cursor: pointer;
 }
 
+.acc-menu{
+  position: absolute;
+  right: .5%;
+}
 
 .app-title-h{
   margin-block-end: 0em;
   margin-block-start: -5em;
   margin-bottom: 10%;
   margin-left: 10%;
-
-  /* margin-bottom: 4.2em;
-  margin-top: -8.5em; */
   position: static;
   opacity: 1;
-  /* z-index: 5; */
   margin-left: 45px;
 }
 
@@ -86,13 +75,8 @@ main{
   max-width: 700px;
   min-width: 250px;
   opacity: .99;
-  /* margin-top: -198px !important; */
-  /* position: static; */
-  /* z-index: 5; */
   margin-block-end: 0em;
   padding: 12px;
-  z-index: 5;
-  /* margin-block-start: -2.0em; */
 }
 
 .app-title-wrap{
@@ -110,12 +94,54 @@ main{
   .dis-inl{
     display: inline;
   }
-
+.admin-opt{
+  display: none;
+}
 .home-item{
   align-content: center;
   margin-left: auto;
   margin-right: auto;
 }
+
+.err-msg{
+  color: red;
+}
+
+.nav-bk {
+  border: solid #633650;
+  border-radius: 0;
+  background-color: transparent;
+  transform: rotate(45deg);
+  border-width: 0 0 2px 2px;
+  height: 19px;
+  width: 20px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.nav-fw {
+  border: solid #633650;
+  border-radius: 0;
+  background-color: transparent;
+  transform: rotate(45deg);
+  border-width: 2px 2px 0 0;
+  height: 19px;
+  width: 20px;
+  padding:0;
+  cursor: pointer;
+}
+
+.wd-fc{
+  width: fit-content;
+}
+
+.wd-100{
+  width: 100%;
+}
+
+/* .home{
+  margin-top: -7%;
+} */
 
 .btn{
   padding: 12px;
@@ -138,8 +164,7 @@ main{
   margin: 0 15px;
   display: block;
   position: relative;
-    z-index: 5;
-    color: #663650;
+  color: #663650;
 }
 
 .nav-link:hover{
@@ -155,8 +180,12 @@ a:hover{
 }
 
 .nav-div{
-  margin-right: 10px;
+  margin-right: 2%;
   margin-left: auto;
+  margin-top: 1%;
+  opacity: 99%;
+  z-index: 5;
+  justify-content: center;
 }
 
 .nav-link-wrap{
@@ -164,9 +193,42 @@ a:hover{
   align-content: center;
 }
 
+.page-nav{
+  padding: 2%;
+  display: flex;
+}
+ 
+.back-btn-wrap{
+    display: inline-flex;
+    margin-right: auto;
+    margin-left: 10%;
+    width: 10%;
+ }
+
+ .fwd-btn-wrap{
+  display: inline-flex;
+  width: 10%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.page-title{
+  display: flex; 
+  width: 40%;
+  font-size: 1.5em;
+  text-align: center;
+  color: #633650;
+  font-family: 'Open Sans', sans-serif;
+  justify-content: center;
+}
+
 .flex-blank{
   display: flex; 
   width: 20%;
+}
+
+.clickable{
+  cursor: pointer;
 }
 
 .detail{
@@ -250,7 +312,6 @@ div.landing{
 }
 
 .landing-wrap{
-  /* z-index: -5; */
   text-align: left;
   background-color: white;
   margin-top: 3%;
@@ -263,7 +324,6 @@ div.landing{
   border-radius: 10px;
   padding: 8%;
   display: block;
-  /* flex-wrap: wrap; */
   flex-grow: 1;
   flex-shrink: 1;
   margin-left: 1%;
@@ -275,7 +335,9 @@ div.landing{
 
 .nav-wrap{
   width: 100%;
-  background-color: #f4f4f4;  
+  background-color: transparent; 
+  text-align: right; 
+  position: relative;
 }
 
 .w-fc{
@@ -370,7 +432,7 @@ ul{
   padding-bottom: 5%;
   margin-bottom: 10%;
   padding-top: 5%;
-  border-radius: 5%;
+  border-radius: 25px;
   /* border-top-right-radius: 5%; */
   padding-right: 2%;
   padding-left: 2%;
@@ -557,6 +619,7 @@ text-align: center;
 .fav-wrap{
   width: 100%;
   margin-top: -10%;
+  cursor: pointer;
 }
 
 .fav-icon{
@@ -584,21 +647,39 @@ text-align: center;
 }
 
 .dash-nav-main{
-  width: 15%;
-  margin: 2%;
   justify-content: center;
 }
 
-.dash-link{
+.hide{
+  display:none;
+}
+
+.nav-badge{
   top: 3px;
     position: relative;
+    max-width: 60px; 
+}
+
+.card-img{
+  cursor: pointer;
+}
+
+.account-icon{
+  width: 15%;
+  cursor: pointer;
+}
+
+.img-bg{
+  width: 70%;
+  max-width: 125px;
+  cursor: pointer;
 }
 
 .w-99{
   width: 99%;
 }
 
-.dash-nav-main:hover{
+.img-bg:hover{
   border: 2px solid #663650;
   border-radius: 100%;
   height: auto;
@@ -608,9 +689,9 @@ text-align: center;
 }
 
 .user-dash{
-  background-color: #EDEDED;
-    padding-top: 33px;
-    padding-bottom: 33px;
+  background-color: transparent;
+      opacity: 99%;
+    margin-top: -12%;
 }
 
 .nav-main-wrap{

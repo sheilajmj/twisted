@@ -3,7 +3,6 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import LandingPage from '../Landing/Landing';
 import Home from '../Main/Main';
 import PatternPanel from '../PatternPanel/PatternPanel';
-import UserDashboard from '../UserDashboard/UserDashboard';
 import TwistedContext from '../../Context';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import PatternEdit from '../PatternEdit/PatternEdit';
@@ -60,10 +59,10 @@ class App extends Component {
                 path={'/:userId/home'}
                 component={Home}
               />
-              {/* <Route
+              <Route
                 path={'/home'}
-                component={Home}
-              /> */}
+                component={SignInPage}
+              />
 
               <Route
                 path={'/:userId/patterns/:patternId'}
@@ -73,10 +72,6 @@ class App extends Component {
               <Route
                 exact path={'/patterns/:patternId'}
                 component={PatternPanel}
-              />
-              <Route
-                exact path={'/account/:userId'}
-                component={UserDashboard}
               />
               <Route
                 exact path={'/account/:userId/add'}
@@ -98,7 +93,6 @@ class App extends Component {
                 exact path = {'/account/:userId/account'}
                 component = {AccountDetails}
                 />
-
               <Route
                 path={Routes.Admin}
                 component={AdminPage}

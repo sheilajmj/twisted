@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PatternDetail from '../PatternDetail/PatternDetail';
-import PatternDirections from '../PatternDirections/PatternDirections';
+// import PatternDirections from '../PatternDirections/PatternDirections';
 import FavoriteIcon from '../FavoriteIcon/FavoriteIcon';
 // import CommentPanel from '../CommentPanel/CommentPanel';
 import { withFirebase } from '../Firebase';
 import Context from '../../Context';
-
+import PageNav from '../Navigation/PageNav';
 
 class PatternPanel extends Component {
   static contextType = Context;
@@ -60,6 +60,7 @@ class PatternPanel extends Component {
         <div className="add-flex-container bkg-color-wt">
           <h2>{pattern.pattern_name}</h2>
           <h3>Pattern Author: {pattern.author_name}</h3>
+          <PageNav userId={this.props.match.params.userId} />
           <img src={pattern.image_file_URL} alt="placeholder" />
           <div className="detail-contr-nm-wrap ta-l pad-l-md" >
               <div className="contr-nm">Added By: {pattern.contributor_name}</div>

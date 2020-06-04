@@ -3,8 +3,7 @@ import { withRouter } from 'react-router-dom';
 import Context from '../../Context';
 import { withFirebase } from '../Firebase';
 import AccountNavigationMain from '../AccountNavigationMain/AccountNavigationMain';
-import AccountContributedNav from '../AccountContributedNav/AccountContributedNav';
-
+import PageNav from '../Navigation/PageNav';
 
 
 const INITIAL_STATE = {
@@ -17,7 +16,6 @@ const INITIAL_STATE = {
     needle_size: '',
   }
 }
-
 
 class AddPattern extends Component {
   static contextType = Context;
@@ -68,7 +66,10 @@ class AddPattern extends Component {
   checkUploadPdf = () => {
     if (this.state.pdf_file){
       this.handleUploadPdf();
-    };
+    }
+    else{
+      this.checkUploadImage();
+    }
   }
 
   handleUploadPdf = () => {
@@ -122,12 +123,18 @@ class AddPattern extends Component {
       this.createNewPattern()
     });
   }
+  else{
+    this.createNewPattern();
+  }
 }
 
 
   checkUploadImage = () => {
     if (this.state.image_file) {
       this.handleUploadImage()
+    }
+    else{
+      this.createNewPattern();
     }
   }
 
@@ -147,7 +154,7 @@ class AddPattern extends Component {
           },
 
           () => {
-            // gets the functions from storage refences the image storage in firebase by the children
+            // gets the functions from storage, refences the image storage in firebase by the children
             // gets the download url then sets the image from firebase as the value for the imgUrl key:
             this.props.firebase.storage.ref('/images/')
               .child(this.state.image_file_name)
@@ -216,9 +223,10 @@ class AddPattern extends Component {
       return (
         <>
         <AccountNavigationMain userId={this.props.match.params.userId} />
-        {/* <AccountContributedNav userId={this.props.match.params.userId} /> */}
-        <div className="bkg-color-md">
+        <section className="container add-pattern">
+        <div className="add-wrap">
           <h2>Add New Pattern</h2>
+          <PageNav userId={this.props.match.params.userId} />
           <div className="add-flex-container bkg-color-wt">
           <form onSubmit={this.handleSubmit}>
             <div className="form-space">
@@ -259,6 +267,7 @@ class AddPattern extends Component {
           </form>
           </div>
           </div>
+          </section>
         </>
 
       );

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import Context from '../../Context';
-// import { Link } from 'react-router-dom';
 import AccountNavigationMain from '../AccountNavigationMain/AccountNavigationMain'
 import PasswordForgot from '../PasswordForget';
 import { withFirebase } from '../Firebase';
-
+import PageNav from '../Navigation/PageNav';
 
 class AccountDetails extends Component {
     static contextType = Context;
@@ -20,11 +19,12 @@ class AccountDetails extends Component {
         let userData = this.props.firebase.db.ref(`users/${this.props.match.params.userId}`).once("value", (snapshot) => {
             user = snapshot.val()
         })
-            .then(() => this.setState({ user: user }));
+            .then(() => this.setState({ user: user }), () => console.log("user", user))
+            
     }
 
     returnUserData = () => {
-        let user = this.state.user
+      let user = this.state.user
         return (
             <>
                 <ul className="acc-ul mg-lrc">
@@ -41,17 +41,22 @@ class AccountDetails extends Component {
     }
 
 
+
     componentDidMount = () => {
         this.getUserData();
     }
 
     render() {
         return (
-            <section className='home'>
-                <AccountNavigationMain userId={this.props.match.params.userId} />
-                <h1>My Account</h1>
-                {this.returnUserData()}
-            </section>
+            <>
+                <AccountNavigationMain />
+                <section className='home container'>
+                <PageNav userId={this.props.match.params.userId} pageHeader={"My Account"} />
+                    <div className="add-flex-container bkg-color-wt">
+                        {this.returnUserData()}
+                    </div>
+                </section>
+            </>
         );
     }
 }

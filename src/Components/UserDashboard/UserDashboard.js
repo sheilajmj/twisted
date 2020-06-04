@@ -1,19 +1,10 @@
 import React, { Component } from 'react';
 import Context from '../../Context';
-//import { Link } from 'react-router-dom';
-import AccountNavigationMain from '../AccountNavigationMain/AccountNavigationMain';
 import DashboardLinkFavs from '../UserDashboard/DashboardLinkFavs';
 import DashboardLinkMyPatterns from './DashboardLinkMyPatterns';
 import DashboardLinkAddPatterns from './DashboardLinkAddPatterns';
 import DashboardLinkAccount from './DashboardLinkAccount';
-
-// import PatternCardEdit from '../PatternCard/PatternCardEdit';
-// import { PasswordForgetForm } from '../PasswordForget';
-// import PasswordChangeForm from '../PasswordChange';
-// import AddPattern from '../AddPattern/AddPattern';
-// import * as ROLES from '../../constants/roles';
-// import PatternCardFavs from '../PatternCard/PatternCardFavs';
-// import PatternCardContributed from '../PatternCard/PatternCardContributed';
+// import Home from '../Main/Main'
 
 
 class UserDashboard extends Component {
@@ -41,10 +32,13 @@ class UserDashboard extends Component {
         return (
             <section className='home user-dash'>
                <div className="panel-wrap">
-               <DashboardLinkFavs userId={this.state.userId}/>
-               <DashboardLinkMyPatterns userId={this.state.userId}/>
+               <DashboardLinkFavs userId={this.state.userId} />
+               <DashboardLinkMyPatterns userId={this.state.userId} />
                <DashboardLinkAddPatterns userId={this.state.userId} />
                <DashboardLinkAccount userId={this.state.userId} />
+               </div>
+               <div>
+                   {/* <Home userId={this.state.userId} /> */}
                </div>
             </section>
 

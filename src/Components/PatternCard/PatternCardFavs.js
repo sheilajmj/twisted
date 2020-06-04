@@ -4,6 +4,8 @@ import { withFirebase } from '../Firebase';
 import FavoriteIcon from '../FavoriteIcon/FavoriteIcon';
 import AccountNavigationMain from '../AccountNavigationMain/AccountNavigationMain';
 import { Link } from 'react-router-dom';
+import PageNav from '../Navigation/PageNav';
+
 
 class PatternCardFavs extends Component {
     static contextType = Context;
@@ -17,6 +19,10 @@ class PatternCardFavs extends Component {
     handleGetAllFavoritesIds = () => {
         this.props.firebase.db.ref(`users/${this.props.match.params.userId}/favorites`).once("value", (snapshot) => {
             let allFavorites = snapshot.val();
+            if (allFavorites === null){
+                this.setState({patternArray: false})
+                return;
+            }
             let allFavoritesArray = Object.entries(allFavorites)
             let favoritesArrayObjects = allFavoritesArray.map(item => item[1])
             let trueFavsArray = []
@@ -33,49 +39,48 @@ class PatternCardFavs extends Component {
             })
             this.setState({ favPatternIds: trueFavsArray })
         })
-        .then((res) => {
-            let patternArray = []
-            let getPatternArray = this.state.favPatternIds.forEach(patternId => {
-                this.props.firebase.db.ref(`patterns/${patternId}`).once("value", (snapshot) => {
-                    let pattern = (snapshot.val())
-                    patternArray.push(pattern)
-                    this.setState({ patternArray: patternArray })
+            .then((res) => {
+                let patternArray = []
+                let getPatternArray = this.state.favPatternIds.forEach(patternId => {
+                    this.props.firebase.db.ref(`patterns/${patternId}`).once("value", (snapshot) => {
+                        let pattern = (snapshot.val())
+                        patternArray.push(pattern)
+                        this.setState({ patternArray: patternArray })
+                    })
                 })
+                return getPatternArray
             })
-            return getPatternArray
-        })
-        .catch((error) => console.log(error))
+            .catch((error) => console.log(error))
     }
 
 
 
     returnPatternCards = () => {
-        if (this.state.patternArray) {
+        if (this.state.patternArray === false){
+            return <div>You have not marked any patterns as favorites, yet.</div>
+        }
+        else if (this.state.patternArray) {
             let getCards = this.state.patternArray && this.state.patternArray.map((pattern) => {
                 let userId = this.props.match.params.userId
-                let signedPath = `/${userId}/patterns/${pattern.pattern_id}`
-                let unsignedPath = `/patterns/${pattern.pattern_id}`
+                // let signedPath = `/${userId}/patterns/${pattern.pattern_id}`
+                // let unsignedPath = `/patterns/${pattern.pattern_id}`
 
                 return (
                     <div key={pattern.pattern_id} className="flex-item">
                         <div className="mg-lrc ta-c">
                             <strong>{pattern.pattern_name}</strong>
-                            <br /><Link to= {`/${userId}/patterns/${pattern.pattern_id}`}><img src={pattern.thumbnail_image_file_URL} alt="pattern image" /></Link><br />
+                            <br /><Link to={`/${userId}/patterns/${pattern.pattern_id}`}><img src={pattern.thumbnail_image_file_URL} alt="pattern" /></Link><br />
                             <div className="contr-nm-wrap ta-l pad-l-md" >
-                            <div className="contr-nm">{pattern.contributor_name}</div>
-                        </div>
+                                <div className="contr-nm">{pattern.contributor_name}</div>
+                            </div>
                         </div>
                         <div className="dis-inl ta-r">
-                        <FavoriteIcon pattern={pattern} userId={this.props.userId} />
-                    </div>
+                            <FavoriteIcon pattern={pattern} userId={this.props.match.params.userId} />
+                        </div>
                     </div>
                 )
             })
             return getCards
-        }
-
-        else {
-            return <div>There are no favorites to show or they are loading.</div>
         }
     }
 
@@ -90,9 +95,11 @@ class PatternCardFavs extends Component {
         return (
             <>
                 <AccountNavigationMain userId={this.props.match.params.userId} />
-                <section className='PatternCard flex-container'>
+                <section className='PatternCard flex-container container'>
+                    <div className="ta-c color-p wd-100">
+                        <PageNav userId={this.props.match.params.userId} pageHeader="Favorites" />
+                    </div>
                     <div className="flex-container">
-                        <div className="app-title ta-c color-p"><strong>Favorites</strong></div>
                         {this.returnPatternCards()}
                     </div>
                 </section>
