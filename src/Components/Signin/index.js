@@ -33,7 +33,6 @@ class SignInFormBase extends Component{
         this.props.firebase.doSignInWithEmailAndPassword(email, password)
         .then((res) => {
             this.setState({...INITIAL_STATE})
-            console.log(res)
             return(res)
         })
         .then((res) => {
@@ -55,6 +54,7 @@ class SignInFormBase extends Component{
         const isInvalid = password === '' || email === '';
 
         return (
+            <div className="wd-md2 mg-lrc">
             <form onSubmit = {this.onSubmit} >
                 <input className="form-input" name="email" value={email} onChange={this.onChange} type="text" placeholder="Email Address" />
                 <br /> 
@@ -63,6 +63,7 @@ class SignInFormBase extends Component{
                 <button className="btn" disabled = {isInvalid} type="submit">Sign In</button>              
                 {error && <p>{error.message}</p>}  
             </form>
+            </div>
         )
     }
 

@@ -17,7 +17,7 @@ class Home extends Component {
         return (
             <section className='home'>
                 <AccountNavigationMain userId={this.props.match.params.userId} />
-                {/* <PageNav userId={this.props.match.params.userId}  pageHeader={" "}/> */}
+                <PageNav userId={this.props.match.params.userId}  pageHeader={" "}/>
                 <div className="container">
                     <PatternCard userId={this.props.match.params.userId } />
                 </div>

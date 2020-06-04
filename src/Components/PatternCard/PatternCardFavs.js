@@ -41,14 +41,14 @@ class PatternCardFavs extends Component {
         })
             .then((res) => {
                 let patternArray = []
-                let getPatternArray = this.state.favPatternIds.forEach(patternId => {
+                this.state.favPatternIds.forEach(patternId => {
                     this.props.firebase.db.ref(`patterns/${patternId}`).once("value", (snapshot) => {
                         let pattern = (snapshot.val())
                         patternArray.push(pattern)
                         this.setState({ patternArray: patternArray })
                     })
                 })
-                return getPatternArray
+                return;
             })
             .catch((error) => console.log(error))
     }
@@ -56,8 +56,8 @@ class PatternCardFavs extends Component {
 
 
     returnPatternCards = () => {
-        if (this.state.patternArray === false){
-            return <div>You have not marked any patterns as favorites, yet.</div>
+        if (this.state.patternArray === undefined){
+            return <div className="null-response">You have not marked any patterns as favorites, yet.</div>
         }
         else if (this.state.patternArray) {
             let getCards = this.state.patternArray && this.state.patternArray.map((pattern) => {

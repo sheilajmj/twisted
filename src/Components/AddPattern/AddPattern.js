@@ -225,8 +225,7 @@ class AddPattern extends Component {
         <AccountNavigationMain userId={this.props.match.params.userId} />
         <section className="container add-pattern">
         <div className="add-wrap">
-          <h2>Add New Pattern</h2>
-          <PageNav userId={this.props.match.params.userId} />
+          <PageNav userId={this.props.match.params.userId} pageHeader={"Add New Pattern"} />
           <div className="add-flex-container bkg-color-wt">
           <form onSubmit={this.handleSubmit}>
             <div className="form-space">

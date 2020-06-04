@@ -85,16 +85,16 @@ class SignUpFormBase extends Component{
             <form onSubmit = {this.onSubmit}>
                 <div className="mg-lrc wd-fc">
                 <div className="ta-l">
-                <label for="username">Username</label><br/>
+                <label htmlFor="username">Username</label><br/>
                 <input className="form-input " id="username" name="username" value= {username} onChange = {this.onChange} type = "text" placeholder= "Full Name" />
                 <br/>
-                <label for="email">Email</label><br/>
+                <label htmlFor="email">Email</label><br/>
                 <input className="form-input" id="email" name="email" value= {email} onChange = {this.onChange} type = "text" placeholder= "Email Address" />
                 <br/>
-                <label for="passwordOne">Password</label><br/>
+                <label htmlFor="passwordOne">Password</label><br/>
                 <input className="form-input" id="passwordOne" name="passwordOne" value= {passwordOne} onChange = {this.onChange} type = "password" placeholder= "Password" />
                 <br/>
-                <label for="passwordTwo">Confirm Password</label><br/>
+                <label htmlFor="passwordTwo">Confirm Password</label><br/>
                 <input  className="form-input" id="passwordTwo"  name="passwordTwo" value= {passwordTwo} onChange = {this.onChange} type = "password" placeholder= "Confirm Password" />
                 <label className="admin-opt">
                 Admin:

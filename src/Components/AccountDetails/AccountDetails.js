@@ -16,15 +16,15 @@ class AccountDetails extends Component {
 
     getUserData = () => {
         let user = {}
-        let userData = this.props.firebase.db.ref(`users/${this.props.match.params.userId}`).once("value", (snapshot) => {
+        this.props.firebase.db.ref(`users/${this.props.match.params.userId}`).once("value", (snapshot) => {
             user = snapshot.val()
         })
-            .then(() => this.setState({ user: user }), () => console.log("user", user))
-            
+            .then(() => this.setState({ user: user })
+            )
     }
 
     returnUserData = () => {
-      let user = this.state.user
+        let user = this.state.user
         return (
             <>
                 <ul className="acc-ul mg-lrc">
@@ -51,7 +51,7 @@ class AccountDetails extends Component {
             <>
                 <AccountNavigationMain />
                 <section className='home container'>
-                <PageNav userId={this.props.match.params.userId} pageHeader={"My Account"} />
+                    <PageNav userId={this.props.match.params.userId} pageHeader={"My Account"} />
                     <div className="add-flex-container bkg-color-wt">
                         {this.returnUserData()}
                     </div>

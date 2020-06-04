@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { withFirebase } from '../Firebase';
-import { Link } from 'react-router-dom';
-//import { AuthUserContext } from '../Session'
 
 class FavoriteIcon extends Component {
 
@@ -68,6 +66,7 @@ class FavoriteIcon extends Component {
           }
         })
         this.setState({ count: count })
+        return totalTrue;
       }
     })
   }

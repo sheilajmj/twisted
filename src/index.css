@@ -377,11 +377,16 @@ ul{
   padding-bottom: 2%;
 }
 
+.wd-md2{
+  width: 60%;
+}
+
 .form-input{
   font-size: 16px;
   padding: 5px;
   margin-top: 5px;
   margin-bottom: 5px;
+  width: 100%;
 }
 
 .page-header{
@@ -694,6 +699,12 @@ text-align: center;
     margin-top: -12%;
 }
 
+.null-response{
+  font-size: 1em;
+  color: #633650;
+  text-align: center;
+}
+
 .nav-main-wrap{
   justify-content: center;
 }
@@ -719,6 +730,10 @@ text-align: center;
 
   .react-pdf__Document, .pdf-pg{
     display:block;
+  }
+
+  .wd-md2{
+    width: 30%;
   }
 
 }

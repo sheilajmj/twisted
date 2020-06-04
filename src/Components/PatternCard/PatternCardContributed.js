@@ -26,28 +26,23 @@ class PatternCardContributed extends Component {
             else {
                 let contributedPatternIds = Object.keys(userData.contributed)
                 this.setState({ contributedPatternIds: contributedPatternIds })
-
-                    .then((res) => {
-                        let getPatternObjects = this.state.contributedPatternIds.forEach(patternId => {
-                            this.props.firebase.db.ref(`patterns/${patternId}`).once("value", (snapshot) => {
-                                let pattern = (snapshot.val())
-                                patternArray.push(pattern)
-                                this.setState({ patternArray: patternArray })
-                            })
-                        })
-                        return;
+                let getPatternObjects = contributedPatternIds.forEach(patternId => {
+                    this.props.firebase.db.ref(`patterns/${patternId}`).once("value", (snapshot) => {
+                        let pattern = (snapshot.val())
+                        patternArray.push(pattern)
+                        this.setState({ patternArray: patternArray })
                     })
-                    .catch((error) => console.log(error))
+                })
+                return getPatternObjects;
             }
         })
     }
 
     returnPatternCards = () => {
         if (this.state.patternArray === false) {
-            return <div>No patterns have been contributed</div>
+            return <div className="null-response">No patterns have been contributed</div>
         }
         else if (this.state.patternArray) {
-            console.log("2", this.state.patternArray)
             let getCards = this.state.patternArray && this.state.patternArray.map((pattern) => {
                 let userId = this.props.match.params.userId
 

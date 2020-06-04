@@ -42,7 +42,6 @@ class AdminPage extends Component {
 
   render() {
     const { users, loading } = this.state;
-    console.log(users, "users")
     return (
       <div>
         <AccountNavigationMain userId={this.props.match.params.userId} />
