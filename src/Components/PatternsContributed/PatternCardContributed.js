@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Context from '../../Context';
-// import FavoriteIcon from '../FavoriteIcon/FavoriteIcon';
 import { withFirebase } from '../Firebase';
 import { Link } from 'react-router-dom';
 import AccountNavigationMain from '../AccountNavigationMain/AccountNavigationMain';

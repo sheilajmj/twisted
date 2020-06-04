@@ -12,7 +12,7 @@ class LandingPage extends Component {
       <section className="landing container">
         <div className="landing">
           <div className="landing-text-wrap landing-wrap">
-            <p className="ta-c landing-text-item"> Twisted is a web application designed to enable yarn lovers to collect, save and explore patterns.</p>
+            <p className="ta-c landing-text-item"> Twisted is a web application designed to enable yarn lovers to collect, save and explore patterns.  Want to take a test drive?  Use login test@test.com password: password</p>
         </div>      
         </div>
         <button className="start-btn btn" onClick={() => { this.context.history.push('/signin') }}>Get Started</button>

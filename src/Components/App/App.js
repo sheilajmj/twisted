@@ -13,8 +13,8 @@ import SignUpPage from '../SignUp';
 import SignInPage from '../Signin';
 import PasswordForgetPage from '../PasswordForget';
 import Navigation from '../Navigation/index';
-import PatternCardContributed from '../PatternCard/PatternCardContributed';
-import PatternCardFavs from '../PatternCard/PatternCardFavs';
+import PatternCardContributed from '../PatternsContributed/PatternCardContributed';
+import PatternCardFavs from '../PatternFavs/PatternCardFavs';
 import AddPattern from '../AddPattern/AddPattern';
 import AccountDetails from '../AccountDetails/AccountDetails';
 
