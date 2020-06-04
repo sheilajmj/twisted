@@ -40,7 +40,6 @@ class AddPattern extends Component {
   setContributorName = () => {
     this.props.firebase.db.ref(`/users/${this.props.match.params.userId}/username`).once("value", (snapshot) => {
       let name = snapshot.val()
-      console.log(name, "NAME")
       this.setState({contributor_name: name}, () => this.checkUploadPdf())
     })
   }

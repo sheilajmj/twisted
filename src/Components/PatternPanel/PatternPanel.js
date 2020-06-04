@@ -28,7 +28,6 @@ class PatternPanel extends Component {
   handleGetPatternData = () => {
     this.props.firebase.db.ref(`/patterns/${this.props.match.params.patternId}`).once("value", (snapshot) => {
       let patternData = (snapshot.val())
-      console.log("patternData", patternData)
       this.setState({ patternData: patternData })
       this.setState({dataLoaded: true})
       this.handleGetContributorName();
