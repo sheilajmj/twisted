@@ -50,9 +50,9 @@ class PatternCard extends Component {
                         </div>
 
                     </div>
-                )
-            })
-            return patterns
+                );
+            });
+            return patterns;
         }
     }
 
@@ -60,8 +60,6 @@ class PatternCard extends Component {
         this.handleGetPatternArray();
         this.userSignedIn();
     }
-
-
 
     render() {
         return (
