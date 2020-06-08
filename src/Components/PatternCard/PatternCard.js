@@ -10,13 +10,13 @@ class PatternCard extends Component {
         super(props);
         this.state = {
             patternListArray: null,
-        
-         }
+
+        }
     }
 
     userSignedIn = () => {
-        if (this.props.userId){
-            this.setState({userId: this.props.userId}) 
+        if (this.props.userId) {
+            this.setState({ userId: this.props.userId })
         }
     }
 
@@ -24,37 +24,38 @@ class PatternCard extends Component {
         this.props.firebase.patterns().on("value", (snapshot) => {
             let patternListArray = Object.values(snapshot.val())
             this.setState({ patternListArray: patternListArray })
-            this.setState({dataLoaded: true})
+            this.setState({ dataLoaded: true })
         })
     }
 
     handleCardRender = () => {
         if (this.state.patternListArray) {
 
-           let patterns = this.state.patternListArray.map(patternObjects => {
-              let pattern = patternObjects   
-              let signedPath = `/${this.state.userId}/patterns/${pattern.pattern_id}`
-              let unsignedPath = `/patterns/${pattern.pattern_id}`
+            let patterns = this.state.patternListArray.map(patternObjects => {
+                let pattern = patternObjects
+                let signedPath = `/${this.state.userId}/patterns/${pattern.pattern_id}`
+                let unsignedPath = `/patterns/${pattern.pattern_id}`
 
-              return (
+                return (
                     <div key={pattern.pattern_id} className="flex-item">
-                        <div className="mg-lrc ta-c clickable" onClick={() => { this.context.history.push(`${this.state.userId}` ? signedPath : unsignedPath)}}>
-                          <strong>  {pattern.pattern_name}</strong>
-                        <br /><img className="card-img" src={pattern.thumbnail_image_file_URL} alt="pattern" /><br />
-                        <div className="contr-nm-wrap ta-l pad-l-md">
-                        <div className="contr-nm">{pattern.contributor_name}</div>
+                        <div className="mg-lrc ta-c clickable" onClick={() => { this.context.history.push(`${this.state.userId}` ? signedPath : unsignedPath) }}>
+                            <strong>  {pattern.pattern_name}</strong>
+                            <br /><img className="card-img" src={pattern.thumbnail_image_file_URL} alt="pattern" /><br />
+                            <div className="contr-nm-wrap ta-l pad-l-md">
+                                <div className="contr-nm">{pattern.contributor_name}</div>
+                                <div className="dis-inl ta-r">
+                                    <FavoriteIcon pattern={pattern} userId={this.props.userId} />
+                                </div>
+                            </div>
                         </div>
-                        </div>
-                        <div className="dis-inl ta-r">
-                        <FavoriteIcon pattern={pattern} userId={this.props.userId} />
-                        </div>
+
                     </div>
                 )
-              })
+            })
             return patterns
-            }
         }
-    
+    }
+
     componentDidMount = () => {
         this.handleGetPatternArray();
         this.userSignedIn();

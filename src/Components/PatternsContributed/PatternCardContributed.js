@@ -39,7 +39,7 @@ class PatternCardContributed extends Component {
 
     returnPatternCards = () => {
         if (this.state.patternArray === false) {
-            return <div className="null-response">No patterns have been contributed</div>
+            return <div className="null-response mg-md">No patterns have been contributed</div>
         }
         else if (this.state.patternArray) {
             let getCards = this.state.patternArray && this.state.patternArray.map((pattern) => {
@@ -49,7 +49,7 @@ class PatternCardContributed extends Component {
                     <div key={pattern.pattern_id} className="flex-item">
                         <div className="mg-lrc ta-c">
                             <strong> Name:  {pattern.pattern_name}</strong>
-                            <br /><Link to={`/${userId}/patterns/${pattern.pattern_id}`}><img src={pattern.thumbnail_image_file_URL} alt="pattern" /></Link><br />
+                            <br /><Link to={`/${userId}/patterns/${pattern.pattern_id}`}><img className="card-img" src={pattern.thumbnail_image_file_URL} alt="pattern" /></Link><br />
                         </div>
                         <div className="ta-c">
                             <button className="btn " onClick={() => { this.context.history.push(`/account/${userId}/patterns/${pattern.pattern_id}/edit`) }}>Edit Pattern</button>
@@ -71,7 +71,7 @@ class PatternCardContributed extends Component {
             <>
                 <AccountNavigationMain userId={`${this.props.match.params.userId}`} />
                 <PageNav userId={this.props.match.params.userId} pageHeader={"Contributed Patterns"} />
-                <section className='PatternCard flex-container container'>
+                <section className='PatternCard flex-container container  container-sm'>
                     <div className="flex-container">
                         {this.returnPatternCards()}
                     </div>

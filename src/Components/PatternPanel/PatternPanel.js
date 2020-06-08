@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PatternDetail from '../PatternDetail/PatternDetail';
-// import PatternDirections from '../PatternDirections/PatternDirections';
 import FavoriteIcon from '../FavoriteIcon/FavoriteIcon';
-// import CommentPanel from '../CommentPanel/CommentPanel';
 import { withFirebase } from '../Firebase';
 import Context from '../../Context';
 import PageNav from '../Navigation/PageNav';
@@ -57,14 +55,14 @@ class PatternPanel extends Component {
     return (
       <>
         <div className="add-flex-container bkg-color-wt">
-          <h2>{pattern.pattern_name}</h2>
+          <h2 className="ptn-dtl-nm">{pattern.pattern_name}</h2>
           <h3>Pattern Author: {pattern.author_name}</h3>
-          <img src={pattern.image_file_URL} alt="placeholder" />
-          <div className="detail-contr-nm-wrap ta-l pad-l-md" >
-            <div className="contr-nm">Added By: {pattern.contributor_name}</div>
-          </div>
-          <div className="dis-inl ta-r">
+          <img className="img-dtl card-img2" src={pattern.image_file_URL} alt="placeholder" />
+          <div className="contr-nm-wrap" >
+            <div className="contr-nm ta-l">Added By: {pattern.contributor_name}</div>
+            <div className="dis-inl fav-dtl-wrap ta-r">
             <FavoriteIcon pattern={pattern} userId={this.props.match.params.userId} />
+          </div>
           </div>
           <PatternDetail pattern={pattern} />
         </div>

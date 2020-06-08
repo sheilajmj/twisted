@@ -9,7 +9,8 @@ class PatternEdit extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            newPattern: {}
+            newPattern: {},
+            errors: {}
         }
     }
 
@@ -30,17 +31,40 @@ class PatternEdit extends Component {
     }
 
     handleImageChange = (event) => {
-        const { newPattern } = this.state;
-        newPattern["image_file"] = event.target.files[0]
-        newPattern["image_file_name"] = event.target.files[0].name
-        this.setState({ newPattern })
+        let formIsValid = true;
+        if (event.target.files[0]) {
+            if (event.target.files[0].type !== "image/jpeg" && event.target.files[0].type !== "image/png") {
+                let errors = this.state.errors
+                errors["image_file"] = "Image file must be a png or jpg only";
+                this.setState({ errors: errors })
+                return formIsValid = false;
+            }
+            else {
+                const { newPattern } = this.state;
+                newPattern["image_file"] = event.target.files[0]
+                newPattern["image_file_name"] = event.target.files[0].name
+                this.setState({ newPattern })
+            }
+        }
     }
 
     handleFileChange = (event) => {
-        const { newPattern } = this.state;
-        newPattern["pdf_file"] = event.target.files[0]
-        newPattern["pdf_file_name"] = event.target.files[0].name
-        this.setState({ newPattern })
+        let formIsValid = true;
+        if (event.target.files[0]) {
+            if (event.target.files[0].type !== "application/pdf") {
+                let errors = this.state.errors
+                errors["file"] = "File must be a PDF only";
+                this.setState({ errors: errors })
+                formIsValid = false;
+            }
+
+            else {
+                const { newPattern } = this.state;
+                newPattern["pdf_file"] = event.target.files[0]
+                newPattern["pdf_file_name"] = event.target.files[0].name
+                this.setState({ newPattern })
+            }
+        }
     }
 
     checkUploadPdf = () => {
@@ -80,7 +104,7 @@ class PatternEdit extends Component {
                     this.checkUploadImage();
                 });
         }
-        else{
+        else {
             this.checkUploadImage();
         }
     }
@@ -113,7 +137,7 @@ class PatternEdit extends Component {
             this.handleUploadImage()
         }
         else {
-           this.createPattern();
+            this.createPattern();
         }
     }
 
@@ -193,7 +217,7 @@ class PatternEdit extends Component {
             this.props.firebase.db.ref(`/patterns/`).update({ [`${pattern_id}`]: pattern })
                 .then(() => {
                     this.props.history.push(`/account/${contributor_user_id}/contributed`)
-                })             
+                })
                 .catch(function (error) {
                     console.error("Error writing document: ", error);
                 });
@@ -202,12 +226,85 @@ class PatternEdit extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        this.checkUploadPdf();
+        if (this.handleValidation()) {
+            this.checkUploadPdf();
+        }
+        else {
+            console.log(this.state.errors);
+        }
     }
 
     componentDidMount = () => {
         this.getPatternData();
     }
+
+    //Form validation - triggered after submitting
+    handleValidation = () => {
+        let fields = this.state.newPattern
+        let errors = {};
+        let formIsValid = true;
+
+        this.startTimeout = () => {
+            setTimeout(() => { this.setState({ errors: {} }) }, 5000);
+        }
+
+        //pattern name
+        if (typeof fields["pattern_name"] !== "undefined" && fields["pattern_name"] !== null) {
+            if (!fields["pattern_name"].match(/^[a-zA-Z0-9,.!? ]*$/)) {
+                formIsValid = false;
+                errors["pattern_name"] = "Please do not use special characters.";
+                this.startTimeout();
+              }
+        }
+
+        //author name
+        if (typeof fields["author_name"] !== "undefined" && fields["author_name"] !== null) {
+            if (!fields["author_name"].match(/^[a-zA-Z0-9,.!? ]*$/)) {
+                formIsValid = false;
+                errors["author_name"] = "Please do not use special characters.";
+                this.startTimeout();
+            }
+        }
+
+        // description
+        if (typeof fields["description"] !== "undefined" && fields["description"] !== null) {
+            if (!fields["description"].match(/^[a-zA-Z0-9,.!? ]*$/)) {
+                formIsValid = false;
+                errors["description"] = "Please do not include special characters.";
+                this.startTimeout();
+            }
+        }
+
+        //craft
+        if (typeof fields["craft"] !== "undefined" && fields["craft"] !== null) {
+            if (!fields["craft"].match(/^[a-zA-Z ]+$/)) {
+                formIsValid = false;
+                errors["craft"] = "Please use letters only.";
+                this.startTimeout();
+            }
+        }
+
+        //yarn weight
+        if (typeof fields["yarn-weight"] !== "undefined" && fields["yarn-weight"] !== null) {
+            if (!fields["yarn-weight"].match(/^[a-zA-Z ]+$/)) {
+                formIsValid = false;
+                errors["yarn_weight"] = "Please use letters only.";
+            }
+        }
+
+        //needle size
+        if (typeof fields["needle-size"] !== "undefined" && fields["needle-size"] !== null) {
+            if (!fields["needle-size"].match(/^[a-zA-Z0-9,.!? ]*$/)) {
+                formIsValid = false;
+                errors["needle_size"] = "Please do not use special characters.";
+                this.startTimeout();
+            }
+        }
+        this.setState({ errors: errors });
+        return formIsValid;
+    }
+
+
 
     render() {
         let pattern = this.state.defaultPattern
@@ -219,37 +316,49 @@ class PatternEdit extends Component {
                         <h2>Edit Pattern</h2>
                         <PageNav />
                         <div className="add-flex-container bkg-color-wt">
-                            <form onSubmit={this.handleSubmit}>
+                            <form noValidate onSubmit={this.handleSubmit}>
                                 <div className="form-space">
-                                    <label htmlFor="pattern_name" className="pattern-add">Pattern Name:</label>
+                                    <label htmlFor="pattern_name" className="pattern-add">Pattern Name (required):</label>
                                     <input type="text" name="pattern_name" id="pattern_name" onChange={this.handleChange} placeholder='Pattern Name' defaultValue={pattern.pattern_name} required />
                                 </div>
+                                <div className="errorMsg">{this.state.errors.pattern_name}</div>
                                 <div className="form-space">
-                                    <label htmlFor="description" className="pattern-add">Description</label>
+                                    <label htmlFor="author_name" className="author-add">Author Name (required):</label>
+                                    <input className="form-input" type="text" name="author_name" id="author_name" onChange={this.handleChange} placeholder='Author Name' defaultValue={pattern.author_name} required />
+                                </div>
+                                <div className="errorMsg">{this.state.errors.author_name}</div>
+                                <div className="form-space">
+                                    <label htmlFor="description" className="pattern-add">Description:</label>
                                     <br /><textarea type="text" className="description-textarea w-99" name="description" id="description" onChange={this.handleChange} placeholder='Description' defaultValue={pattern.description} required />
                                 </div>
+                                <div className="errorMsg">{this.state.errors.description}</div>
                                 <div className="form-space">
-                                    <label htmlFor="craft" className="pattern-add">Craft</label>
+                                    <label htmlFor="craft" className="pattern-add">Craft (required):</label>
                                     <input type="text" name="craft" id="craft" onChange={this.handleChange} placeholder='Craft' defaultValue={pattern.craft} required />
                                 </div>
+                                <div className="errorMsg">{this.state.errors.craft}</div>
                                 <div className="form-space">
-                                    <label htmlFor="yarn-weight" className="pattern-add">Yarn Weight</label>
+                                    <label htmlFor="yarn-weight" className="pattern-add">Yarn Weight (required):</label>
                                     <input type="text" name="yarn-weight" id="yarn-weight" onChange={this.handleChange} placeholder="Yarn Weight" defaultValue={pattern.yarn_weight} required />
                                 </div>
+                                <div className="errorMsg">{this.state.errors.yarn_weight}</div>
                                 <div className="form-space">
-                                    <label htmlFor="needle-size">Needle Size</label>
+                                    <label htmlFor="needle-size">Needle Size (required):</label>
                                     <input type="text" name="needle-size" id="needle-size" onChange={this.handleChange} placeholder="Needle Size" defaultValue={pattern.needle_size} required />
                                 </div>
+                                <div className="errorMsg">{this.state.errors.needle_size}</div>
                                 <hr></hr>
                                 <div className="form-space add-img-form">
                                     <div>To change image file - please select new image to replace existing.</div>
-                                    <label htmlFor="image" className="pattern-add">Image:</label>
-                                    <input type="file" name="images" id="images" onChange={this.handleImageChange} />
+                                    <label htmlFor="image_file" className="pattern-add">Image:</label>
+                                    <input type="file" name="image_file" id="image_file" onChange={this.handleImageChange} />
+                                    <div className="errorMsg">{this.state.errors.image_file}</div>
                                 </div>
                                 <div className="form-space add-file-form">
                                     <div>To change PDF file - please select new file to replace existing.</div>
-                                    <label htmlFor="image">PDF file</label>
-                                    <input type="file" name="patterndirections" id="image" onChange={this.handleFileChange} />
+                                    <label htmlFor="file">PDF file</label>
+                                    <input type="file" name="patterndirections" id="file" onChange={this.handleFileChange} />
+                                    <div className="errorMsg">{this.state.errors.file}</div>
                                 </div>
                                 <hr></hr>
                                 <button className="btn" type="submit" value="submit">Update Pattern</button>

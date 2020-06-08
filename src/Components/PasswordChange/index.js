@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
- 
 import { withFirebase } from '../Firebase';
  
 const INITIAL_STATE = {
@@ -42,7 +41,6 @@ class PasswordChangeForm extends Component {
  
     return (
       <>
-      <PageNav userId={this.props.match.params.userId} />
       <form onSubmit={this.onSubmit}>
         <input
           name="passwordOne"

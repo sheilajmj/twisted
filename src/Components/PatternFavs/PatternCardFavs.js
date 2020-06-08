@@ -19,8 +19,8 @@ class PatternCardFavs extends Component {
     handleGetAllFavoritesIds = () => {
         this.props.firebase.db.ref(`users/${this.props.match.params.userId}/favorites`).once("value", (snapshot) => {
             let allFavorites = snapshot.val();
-            if (allFavorites === null){
-                this.setState({patternArray: false})
+            if (allFavorites === null) {
+                this.setState({ patternArray: false })
                 return;
             }
             let allFavoritesArray = Object.entries(allFavorites)
@@ -56,7 +56,7 @@ class PatternCardFavs extends Component {
 
 
     returnPatternCards = () => {
-        if (this.state.patternArray === undefined){
+        if (this.state.patternArray === undefined) {
             return <div className="null-response">You have not marked any patterns as favorites, yet.</div>
         }
         else if (this.state.patternArray) {
@@ -69,14 +69,15 @@ class PatternCardFavs extends Component {
                     <div key={pattern.pattern_id} className="flex-item">
                         <div className="mg-lrc ta-c">
                             <strong>{pattern.pattern_name}</strong>
-                            <br /><Link to={`/${userId}/patterns/${pattern.pattern_id}`}><img src={pattern.thumbnail_image_file_URL} alt="pattern" /></Link><br />
+                            <br /><Link to={`/${userId}/patterns/${pattern.pattern_id}`}><img className="card-img" src={pattern.thumbnail_image_file_URL} alt="pattern" /></Link><br />
                             <div className="contr-nm-wrap ta-l pad-l-md" >
                                 <div className="contr-nm">{pattern.contributor_name}</div>
+                                <div className="dis-inl ta-r">
+                                    <FavoriteIcon pattern={pattern} userId={this.props.match.params.userId} />
+                                </div>
                             </div>
                         </div>
-                        <div className="dis-inl ta-r">
-                            <FavoriteIcon pattern={pattern} userId={this.props.match.params.userId} />
-                        </div>
+
                     </div>
                 )
             })
