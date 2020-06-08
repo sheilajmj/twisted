@@ -1,6 +1,6 @@
 {
   "rules": {
-    ".read": "owner",
-    ".write": "ownder"
+    ".read": "auth !== null",
+    ".write": "auth !== null"
   }
 }
