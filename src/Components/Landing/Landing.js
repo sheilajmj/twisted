@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Context from '../../Context'
+import Context from '../../Context';
 
 class LandingPage extends Component {
   static contextType = Context;
@@ -21,5 +21,6 @@ class LandingPage extends Component {
     );
   }
 }
+
 
 export default LandingPage;

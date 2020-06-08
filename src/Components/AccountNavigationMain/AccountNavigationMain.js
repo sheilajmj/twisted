@@ -11,7 +11,6 @@ class AccountNavigationMain extends Component {
     static contextType = Context;
 
     render() {
-
         return (
             <div className="dash-container align-center">
                 <ul className="nav-main-wrap">
@@ -34,4 +33,4 @@ class AccountNavigationMain extends Component {
 }
 
 
-export default AccountNavigationMain
+export default AccountNavigationMain;

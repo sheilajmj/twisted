@@ -48,7 +48,7 @@ main{
   display: inline-block;
   width: 100%;
  margin-top: 6%;
- opacity: 99%;
+ opacity: .99;
  z-index: -5;
  cursor: pointer;
 }
@@ -64,7 +64,7 @@ main{
   margin-bottom: 10%;
   margin-left: 10%;
   position: static;
-  opacity: 99%;
+  opacity: .99;
   margin-left: 45px;
 }
 
@@ -74,7 +74,7 @@ main{
   width: 100%;
   max-width: 700px;
   min-width: 250px;
-  opacity: 99%;
+  opacity: .99;
   margin-block-end: 0em;
   padding: 12px;
 }
@@ -214,7 +214,7 @@ a:hover{
   margin-right: 2%;
   margin-left: auto;
   margin-top: 1%;
-  opacity: 99%;
+  opacity: .99;
   z-index: 5;
   justify-content: center;
 }
@@ -696,13 +696,13 @@ text-align: center;
 }
 
 .fav-icon:hover{
-    -webkit-transform: scale(1.2);
-    -ms-transform: scale(1.2);
-    transform: scale(1.2)
+    -webkit-transform: scale(1.4);
+    -ms-transform: scale(1.4);
+    transform: scale(1.4)
 }
 
 .fav-icon{
-  width: 17%;
+  width: 25%;
   padding: 3px;
 }
 
@@ -757,7 +757,7 @@ text-align: center;
 }
 
 .card-img:hover{
-    opacity: 80%;
+    opacity: .80;
 }
 
 .account-icon{
@@ -792,7 +792,7 @@ text-align: center;
 
 .user-dash{
   background-color: transparent;
-      opacity: 99%;
+      opacity: .99;
     margin-top: -12%;
 }
 

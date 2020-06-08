@@ -7,7 +7,7 @@ import * as ROLES from '../../constants/roles';
 import header_md from '../../Assets/header_922.png';
 import header_sm from '../../Assets/header_576.png';
 import header_lg from '../../Assets/header_2560.png';
-import accountIcon from '../../Assets/SVG/account-badge.png'
+import accountIcon from '../../Assets/SVG/account-badge.png';
 
 
 const Navigation = () => (
@@ -32,19 +32,19 @@ class NavigationAuth extends Component {
 
     headerSize = () => {
         if (this.state.width < 576) {
-            return <Link to={`/${this.props.authUser.uid}/home`}><img className="logo" src={header_sm} alt="logo" /></Link>
+            return (<Link to={`/${this.props.authUser.uid}/home`}><img className="logo" src={header_sm} alt="logo" /></Link>);
         }
         else if (this.state.width > 576 && this.state.width < 923) {
-            return <Link to={`/${this.props.authUser.uid}/home`}><img className="logo" src={header_md} alt="logo" /></Link>
+            return (<Link to={`/${this.props.authUser.uid}/home`}><img className="logo" src={header_md} alt="logo" /></Link>);
         }
         else {
-            return <Link to={`/${this.props.authUser.uid}/home`}><img className="logo" src={header_lg} alt="logo" /></Link>
+            return (<Link to={`/${this.props.authUser.uid}/home`}><img className="logo" src={header_lg} alt="logo" /></Link>);
         }
     };
 
     handleAccountClick = () => {
-        let accountMenuOpen = this.state.accountMenuOpen
-        this.setState({ accountMenuOpen: !accountMenuOpen })
+        let accountMenuOpen = this.state.accountMenuOpen;
+        this.setState({ accountMenuOpen: !accountMenuOpen });
     }
 
     render() {
@@ -99,19 +99,19 @@ class NavigationNonAuth extends Component {
 
     headerSize = () => {
         if (this.state.width < 576) {
-            return <Link to={`/home`}><img className="logo" src={header_sm} alt="logo" /></Link>
+            return (<Link to={`/home`}><img className="logo" src={header_sm} alt="logo" /></Link>);
         }
         else if (this.state.width > 576 && this.state.width < 923) {
-            return <Link to={`/home`}><img className="logo" src={header_md} alt="logo" /></Link>
+            return (<Link to={`/home`}><img className="logo" src={header_md} alt="logo" /></Link>);
         }
         else {
-            return <Link to={`/home`}><img className="logo" src={header_lg} alt="logo" /></Link>
+            return (<Link to={`/home`}><img className="logo" src={header_lg} alt="logo" /></Link>);
         }
     };
 
     handleAccountClick = () => {
-        let accountMenuOpen = this.state.accountMenuOpen
-        this.setState({ accountMenuOpen: !accountMenuOpen })
+        let accountMenuOpen = this.state.accountMenuOpen;
+        this.setState({ accountMenuOpen: !accountMenuOpen });
     }
 
     render() {
@@ -134,11 +134,9 @@ class NavigationNonAuth extends Component {
                     </div>
                 </section>
             </>
-        )
+        );
     }
 }
-
-
 
 
 export default Navigation;

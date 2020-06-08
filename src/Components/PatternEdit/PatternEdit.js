@@ -34,16 +34,17 @@ class PatternEdit extends Component {
         let formIsValid = true;
         if (event.target.files[0]) {
             if (event.target.files[0].type !== "image/jpeg" && event.target.files[0].type !== "image/png") {
-                let errors = this.state.errors
+                let errors = this.state.errors;
                 errors["image_file"] = "Image file must be a png or jpg only";
-                this.setState({ errors: errors })
+                this.setState({ errors: errors });
                 return formIsValid = false;
             }
-            else {
+            if (formIsValid) {
                 const { newPattern } = this.state;
-                newPattern["image_file"] = event.target.files[0]
-                newPattern["image_file_name"] = event.target.files[0].name
-                this.setState({ newPattern })
+                newPattern["image_file"] = event.target.files[0];
+                newPattern["image_file_name"] = event.target.files[0].name;
+                this.setState({ newPattern });
+                return formIsValid;
             }
         }
     }
@@ -55,14 +56,15 @@ class PatternEdit extends Component {
                 let errors = this.state.errors
                 errors["file"] = "File must be a PDF only";
                 this.setState({ errors: errors })
-                formIsValid = false;
+               return formIsValid = false;
             }
 
-            else {
+            if(formIsValid) {
                 const { newPattern } = this.state;
                 newPattern["pdf_file"] = event.target.files[0]
                 newPattern["pdf_file_name"] = event.target.files[0].name
                 this.setState({ newPattern })
+                return formIsValid;
             }
         }
     }

@@ -54,35 +54,39 @@ class AddPattern extends Component {
     this.setState({ newPattern });
   }
 
+  //this validates the image to upload, insuring it is an image, and then sets state if valid with the image file and file name.
   handleImageChange = (event) => {
     let formIsValid = true;
     if (event.target.files[0]) {
       if (event.target.files[0].type !== "image/jpeg" && event.target.files[0].type !== "image/png") {
-        let errors = this.state.errors
+        let errors = this.state.errors;
         errors["image_file"] = "Image file must be a png or jpg only";
-        this.setState({ errors: errors })
+        this.setState({ errors: errors });
         return formIsValid = false;
       }
      if (formIsValid){
         this.setState({ image_file: event.target.files[0] });
         this.setState({ image_file_name: event.target.files[0].name });
+        return formIsValid; 
       }
     }
   }
 
+  //this validates the file to upload, insuring it is a PDF, and then sets state if valid with the file and file name.
   handleFileChange = (event) => {
     let formIsValid = true;
     if (event.target.files[0]) {
       console.log(event.target.files[0].type, "TYPE")
       if (event.target.files[0].type !== "application/pdf") {
-        let errors = this.state.errors
+        let errors = this.state.errors;
         errors["pdf_file"] = "File must be a PDF only";
-        this.setState({ errors: errors })
+        this.setState({ errors: errors });
         return formIsValid = false;
       }
       if(formIsValid){
-        this.setState({ pdf_file: event.target.files[0] })
-        this.setState({ pdf_file_name: event.target.files[0].name })
+        this.setState({ pdf_file: event.target.files[0] });
+        this.setState({ pdf_file_name: event.target.files[0].name });
+        return formIsValid;
       }
     }
   }
@@ -96,14 +100,14 @@ class AddPattern extends Component {
     }
   }
 
+  //this uploads the PDF file to the database and gets the URL for the uploaded PDF and sets that in state to be included in the new pattern.
   handleUploadPdf = () => {
     if (this.state.pdf_file) {
       let metadata = {
         contributor_user_id: this.state.contributor_user_id,
         pattern_name: this.state.pattern_name
-      }
+      };
       const uploadTask = this.props.firebase.storage.ref().child('pattern-directions/' + this.state.pdf_file_name).put(this.state.pdf_file, metadata);
-
       uploadTask.on(
         "state_changed",
         snapshot => { },
@@ -112,7 +116,6 @@ class AddPattern extends Component {
         },
 
         () => {
-
           this.props.firebase.storage.ref('/pattern-directions/')
             .child(this.state.pdf_file_name)
             .getDownloadURL()
@@ -128,23 +131,21 @@ class AddPattern extends Component {
 
   }
 
+  //this gets the thumbnail file name and URL and sets the values in state to be included in the new pattern.
   handleSetThumbnail = () => {
-
-    let fileName = this.state.image_file_name.slice(0, -4)
-    let fileExt = this.state.image_file_name.slice(-4)
-
+    let fileName = this.state.image_file_name.slice(0, -4);
+    let fileExt = this.state.image_file_name.slice(-4);
 
     if (this.state.image_file_URL) {
-
       this.props.firebase.storage.ref('/images/thumbnails')
         .child(fileName + '_200x200' + fileExt)
         .getDownloadURL()
         .then(fireBaseUrl => {
-          this.setState({ thumbnail_image_file_URL: fireBaseUrl })
-          this.setState({ thumbnail_image_file_name: fileName + '_200x200' + fileExt })
+          this.setState({ thumbnail_image_file_URL: fireBaseUrl });
+          this.setState({ thumbnail_image_file_name: fileName + '_200x200' + fileExt });
         })
         .then(() => {
-          this.createNewPattern()
+          this.createNewPattern();
         });
     }
     else {
@@ -152,16 +153,16 @@ class AddPattern extends Component {
     }
   }
 
-
   checkUploadImage = () => {
     if (this.state.image_file) {
-      this.handleUploadImage()
+      this.handleUploadImage();
     }
     else {
       this.createNewPattern();
     }
   }
 
+    //this uploads the image file to the database and gets the URL for the uploaded image and sets that in state to be included in the new pattern.
   handleUploadImage = () => {
     if (this.state.image_file) {
       let metadata = {
@@ -184,19 +185,19 @@ class AddPattern extends Component {
             .child(this.state.image_file_name)
             .getDownloadURL()
             .then(fireBaseUrl => {
-              this.setState({ image_file_URL: fireBaseUrl })
-              this.handleSetThumbnail()
+              this.setState({ image_file_URL: fireBaseUrl });
+              this.handleSetThumbnail();
             });
         }
       );
     };
   }
 
-
+//creates the new pattern and sends it to database
   createNewPattern = () => {
     if (this.state.thumbnail_image_file_URL) {
       let { author_name, pattern_name, description, craft, yarn_weight, needle_size } = this.state.newPattern;
-      let { image_file_URL, image_file_name, pdf_file_name, pdf_file_URL, contributor_user_id, contributor_name, thumbnail_image_file_URL, thumbnail_image_file_name } = this.state
+      let { image_file_URL, image_file_name, pdf_file_name, pdf_file_URL, contributor_user_id, contributor_name, thumbnail_image_file_URL, thumbnail_image_file_name } = this.state;
       let newPattern = {
         author_name,
         pattern_name,
@@ -212,18 +213,20 @@ class AddPattern extends Component {
         contributor_name,
         image_file_URL,
         pdf_file_URL
-      }
+      };
 
+    //this gets the newly created pattern key and sets it as the pattern_id in the database
       this.props.firebase.patterns().push(newPattern)
-
         .then((response) => {
-          let pattern_id = response.key
+          let pattern_id = response.key;
           this.props.firebase.db.ref(`/patterns/${pattern_id}`).update({ pattern_id: pattern_id })
+          
+          //this adds the pattern_id to the contributing user's 'contributed' patterns object in the database
           this.props.firebase.db.ref(`/users/${contributor_user_id}/contributed/`).update({ [`${pattern_id}`]: true })
-          return (response)
+          return (response);
         })
         .then(() => {
-          this.setState({ ...INITIAL_STATE })
+          this.setState({ ...INITIAL_STATE });
           this.props.history.push('/account/' + contributor_user_id + '/contributed')
         })
         .catch(function (error) {
@@ -232,8 +235,6 @@ class AddPattern extends Component {
 
     }
   }
-
-
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -247,7 +248,7 @@ class AddPattern extends Component {
 
   //Form validation - triggered after submitting
   handleValidation = () => {
-    let fields = this.state.newPattern
+    let fields = this.state.newPattern;
     let errors = {};
     let formIsValid = true;
 
@@ -307,13 +308,9 @@ class AddPattern extends Component {
         this.startTimeout();
       }
     }
-
     this.setState({ errors: errors });
     return formIsValid;
   }
-
-
-
 
   render() {
     return (
@@ -372,8 +369,9 @@ class AddPattern extends Component {
           </div>
         </section>
       </>
-
     );
   }
 }
+
+
 export default withFirebase((withRouter)(AddPattern));

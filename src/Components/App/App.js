@@ -22,22 +22,18 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
     }
   }
-
 
   render() {
     const contextValue = {
       history: this.props.history,
     }
-
     return (
       <>
         <TwistedContext.Provider value={contextValue}>
           <main className='app'>
             <Navigation />
-            
             <Switch>
               <Route
                 exact path={'/'}
@@ -63,12 +59,10 @@ class App extends Component {
                 path={'/home'}
                 component={SignInPage}
               />
-
               <Route
                 path={'/:userId/patterns/:patternId'}
                 component={PatternPanel}
               />
-
               <Route
                 exact path={'/patterns/:patternId'}
                 component={PatternPanel}
@@ -107,5 +101,6 @@ class App extends Component {
     );
   }
 }
+
 
 export default withRouter(withAuthentication(App));

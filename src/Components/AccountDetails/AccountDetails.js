@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Context from '../../Context';
-import AccountNavigationMain from '../AccountNavigationMain/AccountNavigationMain'
+import AccountNavigationMain from '../AccountNavigationMain/AccountNavigationMain';
 import PasswordForgot from '../PasswordForget';
 import { withFirebase } from '../Firebase';
 import PageNav from '../Navigation/PageNav';
@@ -17,7 +17,7 @@ class AccountDetails extends Component {
     getUserData = () => {
         let user = {}
         this.props.firebase.db.ref(`users/${this.props.match.params.userId}`).once("value", (snapshot) => {
-            user = snapshot.val()
+            user = snapshot.val();
         })
             .then(() => this.setState({ user: user })
             )
@@ -35,12 +35,9 @@ class AccountDetails extends Component {
                 </ul>
                 <br />
                 <div className="acc-ul"><PasswordForgot /></div>
-
             </>
-        )
+        );
     }
-
-
 
     componentDidMount = () => {
         this.getUserData();

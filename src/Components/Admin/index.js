@@ -17,22 +17,19 @@ class AdminPage extends Component {
   }
 
 
-  //Loads users and sets the value in state
+  //Loads users from database and sets the value in state
   componentDidMount() {
     this.setState({ loading: true });
-
     this.props.firebase.users().on('value', snapshot => {
       const usersObject = snapshot.val();
       const usersList = Object.keys(usersObject).map(key => ({
         ...usersObject[key],
         uid: key,
       }));
-
       this.setState({
         users: usersList,
         loading: false,
       });
-
     });
   }
 

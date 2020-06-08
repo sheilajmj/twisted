@@ -14,21 +14,15 @@ const config = {
     measurementId: process.env.REACT_APP_MEASUREMENT_ID
   };
 
-  
-
-
   class Firebase{
       constructor(){
           app.initializeApp(config);
           this.auth = app.auth();
           this.db = app.database();
           this.storage = app.storage();
-  
       }
 
-    
     //Auth API
-
     doCreateUserWithEmailAndPassword = (email, password) => this.auth.createUserWithEmailAndPassword(email, password);
     doSignInWithEmailAndPassword = (email, password) => this.auth.signInWithEmailAndPassword(email, password);
     doSignOut = () => this.auth.signOut();
@@ -36,7 +30,6 @@ const config = {
     doPasswordUpdate = password => this.auth.currentUser.updatePassword(password);
 
     // *** Merge Auth and DB User API *** //
-
   onAuthUserListener = (next, fallback) =>
   this.auth.onAuthStateChanged(authUser => {
     if (authUser) {
@@ -56,35 +49,29 @@ const config = {
             email: authUser.email,
             ...dbUser,
           };
-
           next(authUser);
         });
-    } else {
+    } 
+    else {
       fallback();
     }
   });
 
-
  // *** User API ***
- 
     user = uid => this.db.ref(`users/${uid}`);
     users = () => this.db.ref('users');
 
 // *** Pattern API ***
-
     pattern = uid => this.db.ref(`/patterns/${uid}`);
     patterns = () => this.db.ref('/patterns');
 
 // *** Images API ***
-
     image = uid => this.storage.ref(`images/${uid}`);
     images = () => this.storage.ref('images');
 
 // *** PDF Files API ***
-
     file = uid => this.storage.ref(`file/${uid}`);
     files = () => this.storage.ref('files');
-
 };
 
 
