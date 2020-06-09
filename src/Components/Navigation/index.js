@@ -32,13 +32,13 @@ class NavigationAuth extends Component {
 
     headerSize = () => {
         if (this.state.width < 576) {
-            return (<Link to={`/${this.props.authUser.uid}/home`}><img className="logo" src={header_sm} alt="logo" /></Link>);
+            return <Link to={`/${this.props.authUser.uid}/home`}><img className="logo" src={header_sm} alt="logo" /></Link>;
         }
         else if (this.state.width > 576 && this.state.width < 923) {
-            return (<Link to={`/${this.props.authUser.uid}/home`}><img className="logo" src={header_md} alt="logo" /></Link>);
+            return <Link to={`/${this.props.authUser.uid}/home`}><img className="logo" src={header_md} alt="logo" /></Link>;
         }
         else {
-            return (<Link to={`/${this.props.authUser.uid}/home`}><img className="logo" src={header_lg} alt="logo" /></Link>);
+            return <Link to={`/${this.props.authUser.uid}/home`}><img className="logo" src={header_lg} alt="logo" /></Link>;
         }
     };
 
@@ -99,13 +99,13 @@ class NavigationNonAuth extends Component {
 
     headerSize = () => {
         if (this.state.width < 576) {
-            return (<Link to={`/home`}><img className="logo" src={header_sm} alt="logo" /></Link>);
+            return <Link to={`/home`}><img className="logo" src={header_sm} alt="logo" /></Link>;
         }
         else if (this.state.width > 576 && this.state.width < 923) {
-            return (<Link to={`/home`}><img className="logo" src={header_md} alt="logo" /></Link>);
+            return <Link to={`/home`}><img className="logo" src={header_md} alt="logo" /></Link>;
         }
         else {
-            return (<Link to={`/home`}><img className="logo" src={header_lg} alt="logo" /></Link>);
+            return <Link to={`/home`}><img className="logo" src={header_lg} alt="logo" /></Link>;
         }
     };
 

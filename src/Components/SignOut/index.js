@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom';
 const SignOutButton = ({ firebase }) => {
 
    function handleClick (){ 
-    firebase.auth.signOut()
+    firebase.auth.signOut();
    }
 
     return(
     <Link to={'/'} className="nav-link" onClick={() => {handleClick()}}>Sign Out</Link>
-    )
+    );
  }
 
 export default withFirebase(SignOutButton);

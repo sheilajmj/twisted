@@ -16,8 +16,8 @@ class PatternEdit extends Component {
 
     getPatternData = () => {
         this.props.firebase.db.ref(`patterns/${this.props.match.params.patternId}`).once("value", (snapshot) => {
-            let pattern = snapshot.val()
-            this.setState({ defaultPattern: pattern })
+            let pattern = snapshot.val();
+            this.setState({ defaultPattern: pattern });
         })
             .catch((error) => console.log(error))
     }
@@ -58,12 +58,11 @@ class PatternEdit extends Component {
                 this.setState({ errors: errors })
                return formIsValid = false;
             }
-
             if(formIsValid) {
                 const { newPattern } = this.state;
-                newPattern["pdf_file"] = event.target.files[0]
-                newPattern["pdf_file_name"] = event.target.files[0].name
-                this.setState({ newPattern })
+                newPattern["pdf_file"] = event.target.files[0];
+                newPattern["pdf_file_name"] = event.target.files[0].name;
+                this.setState({ newPattern });
                 return formIsValid;
             }
         }
@@ -83,7 +82,7 @@ class PatternEdit extends Component {
             let metadata = {
                 contributor_user_id: this.state.defaultPattern.contributor_user_id,
                 pattern_name: this.state.newPattern.pattern_name ? this.state.newPattern.pattern_name : this.state.defaultPattern.pattern_name
-            }
+            };
             const uploadTask = this.props.firebase.storage.ref().child('pattern-directions/' + this.state.newPattern.pdf_file_name).put(this.state.newPattern.pdf_file, metadata);
 
             uploadTask.on(
@@ -99,7 +98,7 @@ class PatternEdit extends Component {
                         .then(fireBaseUrl => {
                             const { newPattern } = this.state;
                             newPattern["pdf_file_URL"] = fireBaseUrl
-                            this.setState({ newPattern })
+                            this.setState({ newPattern });
                         })
                 })
                 .then(() => {
@@ -120,9 +119,9 @@ class PatternEdit extends Component {
                 .getDownloadURL()
                 .then(fireBaseUrl => {
                     const { newPattern } = this.state;
-                    newPattern["thumbnail_image_file_URL"] = fireBaseUrl
-                    newPattern["thumbnail_image_file_name"] = fileName + '_200x200' + fileExt
-                    this.setState({ newPattern })
+                    newPattern["thumbnail_image_file_URL"] = fireBaseUrl;
+                    newPattern["thumbnail_image_file_name"] = fileName + '_200x200' + fileExt;
+                    this.setState({ newPattern });
                 })
                 .then(() => {
                     this.createPattern();
@@ -136,7 +135,7 @@ class PatternEdit extends Component {
 
     checkUploadImage = () => {
         if (this.state.newPattern.image_file) {
-            this.handleUploadImage()
+            this.handleUploadImage();
         }
         else {
             this.createPattern();
@@ -148,14 +147,14 @@ class PatternEdit extends Component {
             let metadata = {
                 contributor_user_id: this.state.defaultPattern.contributor_user_id,
                 pattern_name: this.state.newPattern.pattern_name ? this.state.newPattern.pattern_name : this.state.defaultPattern.pattern_name
-            }
+            };
             const uploadTask = this.props.firebase.storage.ref().child('images/' + this.state.newPattern.image_file_name).put(this.state.newPattern.image_file, metadata);
 
             uploadTask.on(
                 "state_changed",
                 snapshot => { },
                 error => {
-                    console.log(error)
+                    console.log(error);
                 },
 
                 () => {
@@ -167,8 +166,8 @@ class PatternEdit extends Component {
                         .then(fireBaseUrl => {
 
                             const { newPattern } = this.state;
-                            newPattern["image_file_URL"] = fireBaseUrl
-                            this.setState({ newPattern })
+                            newPattern["image_file_URL"] = fireBaseUrl;
+                            this.setState({ newPattern });
                         })
                 }
             );
@@ -176,25 +175,23 @@ class PatternEdit extends Component {
         }
     };
 
-
-
     createPattern = () => {
         if (this.state.newPattern) {
-            let pattern_id = this.state.defaultPattern.pattern_id
-            let author_name = this.state.newPattern.author_name ? this.state.newPattern.author_name : this.state.defaultPattern.author_name
-            let pattern_name = this.state.newPattern.pattern_name ? this.state.newPattern.pattern_name : this.state.defaultPattern.pattern_name
-            let description = this.state.newPattern.description ? this.state.newPattern.description : this.state.defaultPattern.description
-            let craft = this.state.newPattern.craft ? this.state.newPattern.craft : this.state.defaultPattern.craft
-            let yarn_weight = this.state.newPattern.yarn_weight ? this.state.newPattern.yarn_weight : this.state.defaultPattern.yarn_weight
-            let needle_size = this.state.newPattern.needle_size ? this.state.newPattern.needle_size : this.state.defaultPattern.needle_size
-            let image_file_name = this.state.newPattern.image_file_name ? this.state.newPattern.image_file_name : this.state.defaultPattern.image_file_name
-            let thumbnail_image_file_URL = this.state.newPattern.thumbnail_image_file_URL ? this.state.newPattern.thumbnail_image_file_URL : this.state.defaultPattern.thumbnail_image_file_URL
-            let thumbnail_image_file_name = this.state.newPattern.thumbnail_image_file_name ? this.state.newPattern.thumbnail_image_file_name : this.state.defaultPattern.thumbnail_image_file_name
-            let pdf_file_name = this.state.newPattern.pdf_file_name ? this.state.newPattern.pdf_file_name : this.state.defaultPattern.pdf_file_name
-            let contributor_user_id = this.state.newPattern.contributor_user_id ? this.state.newPattern.contributor_user_id : this.state.defaultPattern.contributor_user_id
-            let contributor_name = this.state.newPattern.contributor_name ? this.state.newPattern.contributor_name : this.state.defaultPattern.contributor_name
-            let image_file_URL = this.state.newPattern.image_file_URL ? this.state.newPattern.image_file_URL : this.state.defaultPattern.image_file_URL
-            let pdf_file_URL = this.state.newPattern.pdf_file_URL ? this.state.newPattern.pdf_file_URL : this.state.defaultPattern.pdf_file_URL
+            let pattern_id = this.state.defaultPattern.pattern_id;
+            let author_name = this.state.newPattern.author_name ? this.state.newPattern.author_name : this.state.defaultPattern.author_name;
+            let pattern_name = this.state.newPattern.pattern_name ? this.state.newPattern.pattern_name : this.state.defaultPattern.pattern_name;
+            let description = this.state.newPattern.description ? this.state.newPattern.description : this.state.defaultPattern.description;
+            let craft = this.state.newPattern.craft ? this.state.newPattern.craft : this.state.defaultPattern.craft;
+            let yarn_weight = this.state.newPattern.yarn_weight ? this.state.newPattern.yarn_weight : this.state.defaultPattern.yarn_weight;
+            let needle_size = this.state.newPattern.needle_size ? this.state.newPattern.needle_size : this.state.defaultPattern.needle_size;
+            let image_file_name = this.state.newPattern.image_file_name ? this.state.newPattern.image_file_name : this.state.defaultPattern.image_file_name;
+            let thumbnail_image_file_URL = this.state.newPattern.thumbnail_image_file_URL ? this.state.newPattern.thumbnail_image_file_URL : this.state.defaultPattern.thumbnail_image_file_URL;
+            let thumbnail_image_file_name = this.state.newPattern.thumbnail_image_file_name ? this.state.newPattern.thumbnail_image_file_name : this.state.defaultPattern.thumbnail_image_file_name;
+            let pdf_file_name = this.state.newPattern.pdf_file_name ? this.state.newPattern.pdf_file_name : this.state.defaultPattern.pdf_file_name;
+            let contributor_user_id = this.state.newPattern.contributor_user_id ? this.state.newPattern.contributor_user_id : this.state.defaultPattern.contributor_user_id;
+            let contributor_name = this.state.newPattern.contributor_name ? this.state.newPattern.contributor_name : this.state.defaultPattern.contributor_name;
+            let image_file_URL = this.state.newPattern.image_file_URL ? this.state.newPattern.image_file_URL : this.state.defaultPattern.image_file_URL;
+            let pdf_file_URL = this.state.newPattern.pdf_file_URL ? this.state.newPattern.pdf_file_URL : this.state.defaultPattern.pdf_file_URL;
 
 
             let pattern = {
@@ -214,11 +211,11 @@ class PatternEdit extends Component {
                 image_file_URL,
                 pdf_file_URL
 
-            }
+            };
 
             this.props.firebase.db.ref(`/patterns/`).update({ [`${pattern_id}`]: pattern })
                 .then(() => {
-                    this.props.history.push(`/account/${contributor_user_id}/contributed`)
+                    this.props.history.push(`/account/${contributor_user_id}/contributed`);
                 })
                 .catch(function (error) {
                     console.error("Error writing document: ", error);
@@ -242,7 +239,7 @@ class PatternEdit extends Component {
 
     //Form validation - triggered after submitting
     handleValidation = () => {
-        let fields = this.state.newPattern
+        let fields = this.state.newPattern;
         let errors = {};
         let formIsValid = true;
 
@@ -306,10 +303,8 @@ class PatternEdit extends Component {
         return formIsValid;
     }
 
-
-
     render() {
-        let pattern = this.state.defaultPattern
+        let pattern = this.state.defaultPattern;
         if (this.state.defaultPattern) {
             return (
                 <>
@@ -371,7 +366,7 @@ class PatternEdit extends Component {
             );
         }
         else {
-            return <div></div>
+            return (<div></div>);
         }
     }
 }

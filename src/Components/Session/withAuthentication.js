@@ -21,11 +21,9 @@ const withAuthentication = Component => {
             );
         }
         
-
     componentWillUnmount(){
         this.listener();
     }
-
 
     render(){
         return(
@@ -37,5 +35,6 @@ const withAuthentication = Component => {
     }
     return withFirebase(WithAuthentication);
 };
+
 
 export default withAuthentication;

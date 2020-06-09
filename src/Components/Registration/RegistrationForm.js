@@ -1,18 +1,17 @@
-import React, { Component } from 'react'
-import { Button, Input, Required } from '../Utils/Utils'
-import AuthApiService from '../../services/auth-api-service'
+import React, { Component } from 'react';
+import { Button, Input, Required } from '../Utils/Utils';
+import AuthApiService from '../../services/auth-api-service';
 
 
 export default class RegistrationForm extends Component {
   static defaultProps = {
     onRegistrationSuccess: () => { }
   }
-
   state = { error: null }
 
   handleSubmit = ev => {
     ev.preventDefault()
-    const { full_name, nick_name, user_name, password } = ev.target
+    const { full_name, nick_name, user_name, password } = ev.target;
     this.setState({ error: null })
     AuthApiService.postUser({
       user_name: user_name.value,
@@ -26,14 +25,14 @@ export default class RegistrationForm extends Component {
         nick_name.value = ''
         user_name.value = ''
         password.value = ''
-        this.props.onRegistrationSuccess()
+        this.props.onRegistrationSuccess();
       })
       .catch(res => {
-        this.setState({ error: res.error })
+        this.setState({ error: res.error });
       })
   }
   render() {
-    const { error } = this.state
+    const { error } = this.state;
     return (
       <form
         className='RegistrationForm'
@@ -90,6 +89,6 @@ export default class RegistrationForm extends Component {
           Register
         </Button>
       </form>
-    )
+    );
   }
 }

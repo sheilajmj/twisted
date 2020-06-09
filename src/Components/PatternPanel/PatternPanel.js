@@ -16,18 +16,18 @@ class PatternPanel extends Component {
 
   handleUserId = () => {
     if (this.props.match.params.userId) {
-      this.setState({ userId: this.props.match.params.userId })
+      this.setState({ userId: this.props.match.params.userId });
     }
     else {
-      this.setState({ userId: null })
+      this.setState({ userId: null });
     }
   }
 
   handleGetPatternData = () => {
     this.props.firebase.db.ref(`/patterns/${this.props.match.params.patternId}`).once("value", (snapshot) => {
-      let patternData = (snapshot.val())
-      this.setState({ patternData: patternData })
-      this.setState({ dataLoaded: true })
+      let patternData = (snapshot.val());
+      this.setState({ patternData: patternData });
+      this.setState({ dataLoaded: true });
       this.handleGetContributorName();
     })
   }
@@ -37,8 +37,8 @@ class PatternPanel extends Component {
       return;
     }
     this.props.firebase.db.ref('users/' + this.state.patternData.contributor_user_id + '/username').once("value", (snapshot) => {
-      let contributor_name = (snapshot.val())
-      this.setState({ contributor_name: contributor_name })
+      let contributor_name = (snapshot.val());
+      this.setState({ contributor_name: contributor_name });
     })
   }
 
@@ -49,7 +49,7 @@ class PatternPanel extends Component {
 
   patternDataReturn = () => {
     if (!this.state.dataLoaded) {
-      return (<div></div>)
+      return <div></div>;
     }
     let pattern = this.state.patternData;
     return (
@@ -67,9 +67,8 @@ class PatternPanel extends Component {
           <PatternDetail pattern={pattern} />
         </div>
       </>
-    )
+    );
   }
-
 
   render() {
     return (
@@ -79,7 +78,9 @@ class PatternPanel extends Component {
           {this.patternDataReturn()}
         </div>
       </>
-    )
+    );
   }
 }
+
+
 export default withFirebase(PatternPanel);

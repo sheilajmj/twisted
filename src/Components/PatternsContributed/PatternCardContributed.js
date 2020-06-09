@@ -15,23 +15,23 @@ class PatternCardContributed extends Component {
     }
 
     getContributedPatterns = () => {
-        let patternArray = []
+        let patternArray = [];
         this.props.firebase.db.ref(`users/${this.props.match.params.userId}`).once("value", (snapshot) => {
-            let userData = snapshot.val()
+            let userData = snapshot.val();
             if (userData.contributed === null || userData.contributed === undefined) {
                 this.setState({ patternArray: false })
                 return;
             }
             else {
-                let contributedPatternIds = Object.keys(userData.contributed)
-                this.setState({ contributedPatternIds: contributedPatternIds })
+                let contributedPatternIds = Object.keys(userData.contributed);
+                this.setState({ contributedPatternIds: contributedPatternIds });
                 let getPatternObjects = contributedPatternIds.forEach(patternId => {
                     this.props.firebase.db.ref(`patterns/${patternId}`).once("value", (snapshot) => {
                         let pattern = (snapshot.val())
                         patternArray.push(pattern)
                         this.setState({ patternArray: patternArray })
                     })
-                })
+                });
                 return getPatternObjects;
             }
         })
@@ -39,11 +39,11 @@ class PatternCardContributed extends Component {
 
     returnPatternCards = () => {
         if (this.state.patternArray === false) {
-            return <div className="null-response mg-md">No patterns have been contributed</div>
+            return <div className="null-response mg-md">No patterns have been contributed</div>;
         }
         else if (this.state.patternArray) {
             let getCards = this.state.patternArray && this.state.patternArray.map((pattern) => {
-                let userId = this.props.match.params.userId
+                let userId = this.props.match.params.userId;
 
                 return (
                     <div key={pattern.pattern_id} className="flex-item">
@@ -55,16 +55,15 @@ class PatternCardContributed extends Component {
                             <button className="btn " onClick={() => { this.context.history.push(`/account/${userId}/patterns/${pattern.pattern_id}/edit`) }}>Edit Pattern</button>
                         </div>
                     </div>
-                )
-            })
-            return getCards
+                );
+            });
+            return getCards;
         }
     }
 
     componentDidMount = () => {
         this.getContributedPatterns();
     }
-
 
     render() {
         return (
@@ -80,8 +79,6 @@ class PatternCardContributed extends Component {
         );
     }
 }
-
-
 
 
 export default withFirebase(PatternCardContributed);

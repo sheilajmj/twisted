@@ -24,13 +24,10 @@ const INTIAL_STATE = {
 class SignUpFormBase extends Component{
     constructor(props){
         super(props);
-
         this.state = {
             ...INTIAL_STATE
         };
-    }
-
-    
+    }    
 
     onSubmit = event => {
         event.preventDefault();
@@ -38,8 +35,7 @@ class SignUpFormBase extends Component{
         const roles = {};
         if (isAdmin) {
           roles[ROLES.ADMIN] = ROLES.ADMIN;
-        }
-    
+        }    
 
         this.props.firebase.doCreateUserWithEmailAndPassword(email, passwordOne)
         .then(authUser => {
@@ -58,7 +54,7 @@ class SignUpFormBase extends Component{
             this.props.history.push(ROUTES.Home);
         })
         .catch(error => {
-            this.setState({ error })
+            this.setState({ error });
         });
     }
 
@@ -113,7 +109,7 @@ class SignUpFormBase extends Component{
             </form>
         );
     }
-};
+}
 
 const SignUpLink = () => (
     <p>

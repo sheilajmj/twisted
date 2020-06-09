@@ -36,13 +36,13 @@ class AddPattern extends Component {
   }
 
   setContributorUserId = () => {
-    this.setState({ contributor_user_id: this.props.match.params.userId }, () => this.setContributorName())
+    this.setState({ contributor_user_id: this.props.match.params.userId }, () => this.setContributorName());
   }
 
   setContributorName = () => {
     this.props.firebase.db.ref(`/users/${this.props.match.params.userId}/username`).once("value", (snapshot) => {
-      let name = snapshot.val()
-      this.setState({ contributor_name: name }, () => this.checkUploadPdf())
+      let name = snapshot.val();
+      this.setState({ contributor_name: name }, () => this.checkUploadPdf());
     })
   }
 
@@ -223,11 +223,11 @@ class AddPattern extends Component {
           
           //this adds the pattern_id to the contributing user's 'contributed' patterns object in the database
           this.props.firebase.db.ref(`/users/${contributor_user_id}/contributed/`).update({ [`${pattern_id}`]: true })
-          return (response);
+          return response;
         })
         .then(() => {
           this.setState({ ...INITIAL_STATE });
-          this.props.history.push('/account/' + contributor_user_id + '/contributed')
+          this.props.history.push('/account/' + contributor_user_id + '/contributed');
         })
         .catch(function (error) {
           console.error("Error writing document: ", error);

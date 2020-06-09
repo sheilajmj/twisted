@@ -33,7 +33,7 @@ class SignInFormBase extends Component{
         this.props.firebase.doSignInWithEmailAndPassword(email, password)
         .then((res) => {
             this.setState({...INITIAL_STATE})
-            return(res)
+            return(res);
         })
         .then((res) => {
             if (!this.props.location.pathname.includes('/pattern')){
@@ -64,10 +64,8 @@ class SignInFormBase extends Component{
                 {error && <p>{error.message}</p>}  
             </form>
             </div>
-        )
+        );
     }
-
-
 }
 
 const  SignInForm = compose(

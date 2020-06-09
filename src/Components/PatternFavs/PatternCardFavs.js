@@ -12,7 +12,7 @@ class PatternCardFavs extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            patternArray: null
         }
     }
 
@@ -20,50 +20,45 @@ class PatternCardFavs extends Component {
         this.props.firebase.db.ref(`users/${this.props.match.params.userId}/favorites`).once("value", (snapshot) => {
             let allFavorites = snapshot.val();
             if (allFavorites === null) {
-                this.setState({ patternArray: false })
+                this.setState({ patternArray: false });
                 return;
             }
-            let allFavoritesArray = Object.entries(allFavorites)
-            let favoritesArrayObjects = allFavoritesArray.map(item => item[1])
-            let trueFavsArray = []
+            let allFavoritesArray = Object.entries(allFavorites);
+            let favoritesArrayObjects = allFavoritesArray.map(item => item[1]);
+            let trueFavsArray = [];
             favoritesArrayObjects.forEach(objItem => {
-                let objItemArray = Object.values(objItem)
-                let objItemKeyArray = Object.keys(objItem)
-
+                let objItemArray = Object.values(objItem);
+                let objItemKeyArray = Object.keys(objItem);
                 if (objItemArray[0] === false) {
                     return;
                 }
                 else {
-                    trueFavsArray.push(objItemKeyArray[0])
+                    trueFavsArray.push(objItemKeyArray[0]);
                 }
             })
-            this.setState({ favPatternIds: trueFavsArray })
+            this.setState({ favPatternIds: trueFavsArray });
         })
             .then((res) => {
                 let patternArray = []
                 this.state.favPatternIds.forEach(patternId => {
                     this.props.firebase.db.ref(`patterns/${patternId}`).once("value", (snapshot) => {
-                        let pattern = (snapshot.val())
-                        patternArray.push(pattern)
-                        this.setState({ patternArray: patternArray })
+                        let pattern = (snapshot.val());
+                        patternArray.push(pattern);
+                        this.setState({ patternArray: patternArray });
                     })
                 })
                 return;
             })
-            .catch((error) => console.log(error))
+            .catch((error) => console.log(error));
     }
-
-
 
     returnPatternCards = () => {
         if (this.state.patternArray === undefined) {
-            return <div className="null-response">You have not marked any patterns as favorites, yet.</div>
+            return <div className="null-response">You have not marked any patterns as favorites, yet.</div>;
         }
         else if (this.state.patternArray) {
             let getCards = this.state.patternArray && this.state.patternArray.map((pattern) => {
                 let userId = this.props.match.params.userId
-                // let signedPath = `/${userId}/patterns/${pattern.pattern_id}`
-                // let unsignedPath = `/patterns/${pattern.pattern_id}`
 
                 return (
                     <div key={pattern.pattern_id} className="flex-item">
@@ -79,18 +74,15 @@ class PatternCardFavs extends Component {
                         </div>
 
                     </div>
-                )
-            })
-            return getCards
+                );
+            });
+            return getCards;
         }
     }
 
-
-
     componentDidMount = () => {
-        this.handleGetAllFavoritesIds()
+        this.handleGetAllFavoritesIds();
     }
-
 
     render() {
         return (
@@ -108,8 +100,6 @@ class PatternCardFavs extends Component {
         );
     }
 }
-
-
 
 
 export default withFirebase(PatternCardFavs);

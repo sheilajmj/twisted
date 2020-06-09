@@ -6,7 +6,6 @@ import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
 
-
 const withAuthorization = condition => Component => {
     class WithAuthorization extends React.Component{
         componentDidMount(){

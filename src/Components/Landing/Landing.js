@@ -7,7 +7,7 @@ class LandingPage extends Component {
   render() {
     return (
       <>
-      <section className="landing container pd-t-md container-sm">
+      <section className="landing container">
         <div className="landing">
           <div className="landing-text-wrap landing-wrap">
             <p className="ta-c landing-text-item"> Twisted is a web application designed to enable yarn lovers to collect, save and explore patterns.  Want to take a test drive? <br /> Use email: test@test.com password: password</p>

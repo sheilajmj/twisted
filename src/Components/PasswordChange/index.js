@@ -10,7 +10,6 @@ const INITIAL_STATE = {
 class PasswordChangeForm extends Component {
   constructor(props) {
     super(props);
- 
     this.state = { ...INITIAL_STATE };
   }
  
@@ -25,7 +24,6 @@ class PasswordChangeForm extends Component {
       .catch(error => {
         this.setState({ error });
       });
- 
     event.preventDefault();
   };
  
@@ -35,7 +33,6 @@ class PasswordChangeForm extends Component {
  
   render() {
     const { passwordOne, passwordTwo, error } = this.state;
- 
     const isInvalid =
       passwordOne !== passwordTwo || passwordOne === '';
  
@@ -59,7 +56,6 @@ class PasswordChangeForm extends Component {
         <button className="btn" disabled={isInvalid} type="submit">
           Reset My Password
         </button>
- 
         {error && <p>{error.message}</p>}
       </form>
       </>

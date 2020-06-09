@@ -16,7 +16,6 @@ class AdminPage extends Component {
     };
   }
 
-
   //Loads users from database and sets the value in state
   componentDidMount() {
     this.setState({ loading: true });
@@ -42,12 +41,12 @@ class AdminPage extends Component {
     return (
       <div>
         <AccountNavigationMain userId={this.props.match.params.userId} />
-        <PageNav userId={this.props.match.params.userId} />
-        <h1>Admin</h1>
-        <p>User Data</p>
-        {loading && <div> Loading ...</div>}
-        <div className="flex-container-column-lg">
-          <UserList users={users} />
+        <PageNav userId={this.props.match.params.userId} pageHeader={"Admin"} />
+        <div className="flex-container">
+          {loading && <div> Loading ...</div>}
+          <div className="flex-item">
+            <UserList users={users} />
+          </div>
         </div>
       </div>
     );
@@ -55,9 +54,9 @@ class AdminPage extends Component {
 }
 
 const UserList = ({ users }) => (
-  <ul className="user-list">
+  <ul className="user-list flex-container">
     {users.map(user => (
-      <li key={user.uid} className="ta-l pad-sm flex-item-md">
+      <li key={user.uid} className="ad-li ta-l pad-sm flex-item-md">
         <div><strong>ID: </strong>{user.uid}</div>
         <div><strong>E-Mail:  </strong>{user.email}</div>
         <div><strong>Username:  </strong>{user.username}</div>
