@@ -257,6 +257,11 @@ class AddPattern extends Component {
     }
 
     //pattern name
+  if (!fields["pattern_name"]) {
+      formIsValid = false;
+      errors["pattern_name"] = "Cannot be empty - please do not use special characters";
+      this.startTimeout(); 
+    }
     if (typeof fields["pattern_name"] !== "undefined" && fields["pattern_name"] !== null) {
       if (!fields["pattern_name"].match(/^[a-zA-Z0-9,.!? ]*$/)) {
         formIsValid = false;
@@ -266,6 +271,12 @@ class AddPattern extends Component {
     }
 
     //author name
+      if (!fields["author_name"]) {
+      formIsValid = false;
+      errors["author_name"] = "Cannot be empty - please do not use special characters";
+      this.startTimeout(); 
+    }
+
     if (typeof fields["author_name"] !== "undefined" && fields["author_name"] !== null) {
       if (!fields["author_name"].match(/^[a-zA-Z0-9,.!? ]*$/)) {
         formIsValid = false;
@@ -284,6 +295,12 @@ class AddPattern extends Component {
     }
 
     //craft
+    if (!fields["craft"]) {
+      formIsValid = false;
+      errors["craft"] = "Cannot be empty - please use letters only";
+      this.startTimeout(); 
+    }
+
     if (typeof fields["craft"] !== "undefined" && fields["craft"] !== null) {
       if (!fields["craft"].match(/^[a-zA-Z ]+$/)) {
         formIsValid = false;
