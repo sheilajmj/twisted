@@ -233,37 +233,37 @@ $ firebase deploy
 ## Page Inventory
 
 ### Landing Page
-<img src="src/assets/readme-assets/LandingPage.png" alt="LandingPage" width="300">
+<img src="src/Assets/readme-assets/LandingPage.png" alt="LandingPage" width="300">
 
 ### Sign Up Page
-<img src="src/assets/readme-assets/SignUp.png" alt="SignUp" width="300">
+<img src="src/Assets/readme-assets/SignUp.png" alt="SignUp" width="300">
 
 ### Sign In Page
 <img src="src/assets/readme-assets/SignIn.png" alt="SignIn" width="300">
 
 ### Password Forgot Page
-<img src="src/assets/readme-assets/PasswordForget.png" alt="PasswordForget" width="300">
+<img src="src/Assets/readme-assets/PasswordForget.png" alt="PasswordForget" width="300">
 
 ### Home
-<img src="src/assets/readme-assets/Home.png" alt="Home" width="300">
+<img src="src/Assets/readme-assets/Home.png" alt="Home" width="300">
 
 ### Favorites
-<img src="src/assets/readme-assets/Favorites.png" alt="Favorites" width="300">
+<img src="src/Assets/readme-assets/Favorites.png" alt="Favorites" width="300">
 
 ### Contributed
-<img src="src/assets/readme-assets/Contributed.png" alt="Contributed" width="300">
+<img src="src/Assets/readme-assets/Contributed.png" alt="Contributed" width="300">
 
 ### Edit
-<img src="src/assets/readme-assets/PatternEdit.png" alt="PatternEdit" width="300">
+<img src="src/Assets/readme-assets/PatternEdit.png" alt="PatternEdit" width="300">
 
 ### Add New
-<img src="src/assets/readme-assets/AddNew.png" alt="AddNew" width="300">
+<img src="src/Assets/readme-assets/AddNew.png" alt="AddNew" width="300">
 
 ### Account Details
-<img src="src/assets/readme-assets/AccountDetails.png" alt="AccountDetails" width="300">
+<img src="src/Assets/readme-assets/AccountDetails.png" alt="AccountDetails" width="300">
 
 ### Admin Page
-<img src="src/assets/readme-assets/Admin.png" alt="Admin" width="300">
+<img src="src/Assets/readme-assets/Admin.png" alt="Admin" width="300">
 
 ## Authors
 Sheila Jagla - SheilaJagla
