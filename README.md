@@ -239,7 +239,7 @@ $ firebase deploy
 <img src="src/Assets/readme-assets/SignUp.png" alt="SignUp" width="500">
 
 ### Sign In Page
-<img src="src/assets/readme-assets/SignIn.png" alt="SignIn" width="500">
+<img src="src/Assets/readme-assets/SignIn.png" alt="SignIn" width="500">
 
 ### Password Forgot Page
 <img src="src/Assets/readme-assets/PasswordForget.png" alt="PasswordForget" width="500">
@@ -260,7 +260,7 @@ $ firebase deploy
 <img src="src/Assets/readme-assets/AddNew.png" alt="AddNew" width="500">
 
 ### Account Details
-<img src="src/Assets/readme-assets/AccountDetails.png" alt="AccountDetails" width="300">
+<img src="src/Assets/readme-assets/AccountDetails.png" alt="AccountDetails" width="500">
 
 ### Admin Page
 <img src="src/Assets/readme-assets/Admin.png" alt="Admin" width="500">
