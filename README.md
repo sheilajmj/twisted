@@ -30,7 +30,7 @@ Storage
 Function
 Hosting
 
-**Folder Structure**
+## Folder Structure
 
 * twisted/
   * .firebase/
