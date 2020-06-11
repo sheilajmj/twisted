@@ -76,7 +76,6 @@ class AddPattern extends Component {
   handleFileChange = (event) => {
     let formIsValid = true;
     if (event.target.files[0]) {
-      console.log(event.target.files[0].type, "TYPE")
       if (event.target.files[0].type !== "application/pdf") {
         let errors = this.state.errors;
         errors["pdf_file"] = "File must be a PDF only";
