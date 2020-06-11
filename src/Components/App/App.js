@@ -88,7 +88,7 @@ class App extends Component {
                 component = {AccountDetails}
                 />
               <Route
-                path={Routes.Admin}
+                path={'/:userId/admin'}
                 component={AdminPage}
               />
               <Route

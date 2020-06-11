@@ -316,7 +316,7 @@ class PatternEdit extends Component {
                             <form noValidate onSubmit={this.handleSubmit}>
                                 <div className="form-space">
                                     <label htmlFor="pattern_name" className="pattern-add">Pattern Name (required):</label>
-                                    <input type="text" name="pattern_name" id="pattern_name" onChange={this.handleChange} placeholder='Pattern Name' defaultValue={pattern.pattern_name} required />
+                                    <input className="form-input" type="text" name="pattern_name" id="pattern_name" onChange={this.handleChange} placeholder='Pattern Name' defaultValue={pattern.pattern_name} required />
                                 </div>
                                 <div className="errorMsg">{this.state.errors.pattern_name}</div>
                                 <div className="form-space">
@@ -326,39 +326,41 @@ class PatternEdit extends Component {
                                 <div className="errorMsg">{this.state.errors.author_name}</div>
                                 <div className="form-space">
                                     <label htmlFor="description" className="pattern-add">Description:</label>
-                                    <br /><textarea type="text" className="description-textarea w-99" name="description" id="description" onChange={this.handleChange} placeholder='Description' defaultValue={pattern.description} required />
+                                    <br /><textarea type="text" className="description-textarea w-99 form-input" name="description" id="description" onChange={this.handleChange} placeholder='Description' defaultValue={pattern.description} required />
                                 </div>
                                 <div className="errorMsg">{this.state.errors.description}</div>
                                 <div className="form-space">
                                     <label htmlFor="craft" className="pattern-add">Craft (required):</label>
-                                    <input type="text" name="craft" id="craft" onChange={this.handleChange} placeholder='Craft' defaultValue={pattern.craft} required />
+                                    <input className="form-input" type="text" name="craft" id="craft" onChange={this.handleChange} placeholder='Craft' defaultValue={pattern.craft} required />
                                 </div>
                                 <div className="errorMsg">{this.state.errors.craft}</div>
                                 <div className="form-space">
                                     <label htmlFor="yarn-weight" className="pattern-add">Yarn Weight (required):</label>
-                                    <input type="text" name="yarn-weight" id="yarn-weight" onChange={this.handleChange} placeholder="Yarn Weight" defaultValue={pattern.yarn_weight} required />
+                                    <input className="form-input" type="text" name="yarn-weight" id="yarn-weight" onChange={this.handleChange} placeholder="Yarn Weight" defaultValue={pattern.yarn_weight} required />
                                 </div>
                                 <div className="errorMsg">{this.state.errors.yarn_weight}</div>
                                 <div className="form-space">
                                     <label htmlFor="needle-size">Needle Size (required):</label>
-                                    <input type="text" name="needle-size" id="needle-size" onChange={this.handleChange} placeholder="Needle Size" defaultValue={pattern.needle_size} required />
+                                    <input className="form-input" type="text" name="needle-size" id="needle-size" onChange={this.handleChange} placeholder="Needle Size" defaultValue={pattern.needle_size} required />
                                 </div>
                                 <div className="errorMsg">{this.state.errors.needle_size}</div>
                                 <hr></hr>
                                 <div className="form-space add-img-form">
                                     <div>To change image file - please select new image to replace existing.</div>
                                     <label htmlFor="image_file" className="pattern-add">Image:</label>
-                                    <input type="file" name="image_file" id="image_file" onChange={this.handleImageChange} />
+                                    <input className="form-input" type="file" name="image_file" id="image_file" onChange={this.handleImageChange} />
                                     <div className="errorMsg">{this.state.errors.image_file}</div>
                                 </div>
                                 <div className="form-space add-file-form">
                                     <div>To change PDF file - please select new file to replace existing.</div>
                                     <label htmlFor="file">PDF file</label>
-                                    <input type="file" name="patterndirections" id="file" onChange={this.handleFileChange} />
+                                    <input className="form-input" type="file" name="patterndirections" id="file" onChange={this.handleFileChange} />
                                     <div className="errorMsg">{this.state.errors.file}</div>
                                 </div>
                                 <hr></hr>
+                                <div className="btn-wrap">
                                 <button className="btn" type="submit" value="submit">Update Pattern</button>
+                                </div>
                             </form>
                         </div>
                     </section>

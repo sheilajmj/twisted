@@ -1,68 +1,269 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Twisted
 
-## Available Scripts
+Twisted is a web application designed to enable yarn lovers to collect, save and explore patterns.  This was built with React and Firebase.  
+[Live link](https://twisted-9a506.web.app/)
 
-In the project directory, you can run:
+## Table Of Contents
+* Stack
+* Folder structure
+* npm commands
+* dependencies
+* Quick start
+* Setup Firebase
+* Install Firebase Tools
+* Connect Project
+* Build and Deploy
+* Data structure
 
-### `npm start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Stack
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+**React**
+Create React App
+React Router    
 
-### `npm test`
+**CSS**
+**Firebase**
+Authentication
+Realtime Database
+Storage
+Function
+Hosting
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Folder Structure**
 
-### `npm run build`
+* twisted/
+  * .firebase/
+  * Build/
+  *	Functions/
+  * node_modules/
+  * public/
+  * src/
+    * Assets/
+    * Components/
+        * AccountDetails/
+        * AccountNavigationMain/
+        * AddPattern/
+        * Admin/
+        * App/
+        * FavoriteIcon/
+        * Firebase/
+        * Landing/
+        * Main/
+        * Navigation/
+        * NotFoundPage/
+        * PasswordChange/
+        * PasswordForget/
+        * PatternCard/
+        * PatternDetail/
+        * PatternEdit/
+        * PatternFavs/
+        * PatternPanel/
+        * PatternsContributed/
+        * Registration/
+        * Services/
+        * Session/
+        * Signin/
+        * SignOut/
+        * SignUp/
+        * Utils/
+  *  constants/	
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## NPM Commands
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Script:      |       Description
+------------ | ---------------------
+npm start    |       Start webpack development server @localhost:3000
+npm install  |       Install dependencies from package.json
+npm run build|      Build the application to ./build directory
+npm test     |       Test the application; watch for changes and retest
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Dependencies
+    @firebase/testing: ^0.20.0
+    @testing-library/jest-dom: ^4.2.4
+    @testing-library/react: ^9.5.0
+    @testing-library/user-event: ^7.2.1
+    cors: ^2.8.5
+    firebase: ^7.14.4
+    firebase-functions: ^3.6.2
+    react: ^16.13.1
+    react-dom: ^16.13.1
+    react-pdf: ^4.1.0
+    react-router-dom: ^5.1.2
+    react-scripts: 3.4.1
+    react-tabs: ^3.1.0
+    recompose: ^0.30.0
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Quick Start    
+$ git clone https://github.com/sheilajmj/twisted.git
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+$ cd twisted
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+$ npm install
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+$ npm start
 
-## Learn More
+## Setup Firebase
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* Create free firebase account [Firebase](https://firebase.google.com)
+* Create a project from your Firebase console.
+* Select Authentication and set up a sign-up method
+* Select Database and choose Realtime Database
+* Select Storage and ‘Get Started’ choose a location and this will create a default bucket
+* Set up Resize Image Extension – from console, choose Extensions.  Locate and Install the Resize Image Extension
+* Review APIs enabled and resources created
+* Click	next
+* Review access granted to this extension
+* Click	next
+* Configure Extension: 
+	* Set storage, access,  and extension configurations
+	* Size of Resized Images: 200x200
+	* Deletion of original files: No
+    * Cloud storage path for resized images: 	thumbnails
+* Click to Install extension
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Install Firebase Tools
+**Install Firebase JavaScript SDK**
 
-### Code Splitting
+If you do not have a package.json file yet use the 'npm init' command in the root directory of your project
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
 
-### Analyzing the Bundle Size
+        $ npm init 
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
 
-### Making a Progressive Web App
+To install firebase npm package
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+        $ npm install --save firebase 
 
-### Advanced Configuration
+**Install Firebase CLI**
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+Install Firebase CLI for deploying project to firebase and using cloud functions and extensions
 
-### Deployment
+        npm install -g firebase-tools
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+**Firebase Functions:**
 
-### `npm run build` fails to minify
+Extensions:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Ext-storage-resize-images-generateResizedImage
+
+
+
+## Connect Project
+Set up project configuration in a new .env file. These variables are used in Component/Firebase/firebase.js to create the firebase config object.
+
+Include:
+
+REACT_APP_API_KEY
+
+REACT_APP_AUTH_DOMAIN
+
+REACT_APP_DATABASE_URL
+
+REACT_APP_PROJECT_ID
+
+REACT_APP_STORAGE_BUCKET
+
+REACT_APP_MESSAGING_SENDER_ID
+
+REACT_APP_APP_ID
+
+REACT_APP_MEASUREMENT_ID
+
+FIREBASE_TOKEN
+
+## Build and Deploy
+$ npm run build
+
+$ firebase login
+
+$ firebase use default
+
+$ firebase deploy
+
+
+
+## Database Data Structure
+**Patterns**  
+* Patterns/
+  * M7_tMzh-15rtBgqPG9n/ 
+    * Author_name: "Nicolor Strick Design"  *(author name)*
+    * contributor_name: "sheilasheila" *(Name of contributor)*
+    * contributor_user_id: "hhtSzlHwCxQwHzXhBldcKBQrOPy1" *(Contributor user Id)*
+    * craft: "Knit"  *(pattern craft)*
+    * description: "Cowl" *(pattern description)*
+    * favorite/  *(list of user ids who have ‘favorited’ the pattern)*
+      * N7J2bUMkTbcmeiLNZyQSGB7IJBO2: false *(User Id/ Boolean value is the pattern marked favorite true/false.  A user ID appears here if they marked the pattern favorite at any point, if it is no longer a favorite the value is changed to false)*
+    * image_file_URL: https://firebasestorage.googleapis.com/v0/b/twi…  *(image file URL – this URL is generated when the image is uploaded the Firebase Storage)*
+    * image_file_name: “IMG_2667_web.jpg”  *(image file name)*
+    * needle_size: “US4 – 3.5mm” *(pattern needle size)*
+    * pattern_id: “-M7_tMzh-15rtBgqPG9n” *(pattern ID (same as record ID – included in the pattern object here, for easier retrieval and use)*
+    * pattern_name: “Don’t Touch Your Face” *(pattern name)*
+    * pdf_file_URL: https://firebasestorage.googleapis.com/v0/b/twi… *(PDF file URL – this URL is generated when the file is uploaded to Firebase Storage)*
+    * pdf_file_name: “DontTouchYourFace_en.pdf” *(pattern PDF file name)*
+    * thumbnail_image_file_URL: https://firebasestorage.googleapis.com/v0/b/twi…” *(The thumbnail image file and corresponding URL are generated when the original image file is uploaded in Firebase.  (See firebase functions and extension above for additional information))*
+    * thumbnail_image_file_name: “IMG_2667_web_200x200.jpg”  *(Thubmnail image file name is generated from the original image name, with the extension (_200x200) applied when firebase generates the thumbnail)*
+    * yarn_weight: “Worsted” *(pattern yarn_weight) *
+
+**Users**
+* users/
+    * f3VkCpSbBXaCwaf2QtUwnmc07wt2  *(record ID which is also the user Id)*
+    * contributed/ *(this is a list of patterns this user has contributed)*
+        * M8Xg2kmAB3YAVeeGFJV: true *(pattern Id and true Boolean value)*
+    * email: anemail@gmail.com  *(user email address)*
+    * favorites/ *(list of pattern id and details that the user has marked as a favorite) *
+        * M7_tMzh-15rtBgqPG9n/  *(record id and pattern Id)*
+            * M7_tMzh-15rtBgqPG9n: true  *(pattern id and boolean value (true currently marked as favorite, false – no longer marked as favorite)*
+            * name: "sheilasheila" *(this name is the pattern contributor username)*
+    * Roles/  *(user roles object)*
+        * ADMIN: "ADMIN"  *(this is the option for user roles)*
+    * username: "sampleUser" *(user’s username)*
+
+
+## Storage Data Structure
+
+* Images/ *(jpg/png only – name matches user submitted file name)*
+    * ImageNames.jpg
+    * Thumbnails/ *(Automatically generated - file name matches user uploaded file, plus _200x200 added before the file extension)*
+        * ImageNames_200x200.jpg
+* pattern-directions/
+    * PatternName.pdf  *(PDF files only – name matches the user submitted file name)*
+
+## Page Inventory
+
+### Landing Page
+<img src="src/assets/readme-assets/LandingPage.png" alt="LandingPage" width="300">
+
+### Sign Up Page
+<img src="src/assets/readme-assets/SignUp.png" alt="SignUp" width="300">
+
+### Sign In Page
+<img src="src/assets/readme-assets/SignIn.png" alt="SignIn" width="300">
+
+### Password Forgot Page
+<img src="src/assets/readme-assets/PasswordForget.png" alt="PasswordForget" width="300">
+
+### Home
+<img src="src/assets/readme-assets/Home.png" alt="Home" width="300">
+
+### Favorites
+<img src="src/assets/readme-assets/Favorites.png" alt="Favorites" width="300">
+
+### Contributed
+<img src="src/assets/readme-assets/Contributed.png" alt="Contributed" width="300">
+
+### Edit
+<img src="src/assets/readme-assets/PatternEdit.png" alt="PatternEdit" width="300">
+
+### Add New
+<img src="src/assets/readme-assets/AddNew.png" alt="AddNew" width="300">
+
+### Account Details
+<img src="src/assets/readme-assets/AccountDetails.png" alt="AccountDetails" width="300">
+
+### Admin Page
+<img src="src/assets/readme-assets/Admin.png" alt="Admin" width="300">
+
+## Authors
+Sheila Jagla - SheilaJagla

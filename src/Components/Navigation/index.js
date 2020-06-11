@@ -66,7 +66,7 @@ class NavigationAuth extends Component {
                                             <Link to={`/account/${authUser.uid}/account`}className="nav-link">Account</Link>
                                         <div>
                                             {!!authUser.roles[ROLES.ADMIN] && (
-                                                <Link to={ROUTES.Admin} className="nav-link">Admin</Link>
+                                                <Link to={`/${authUser.uid}/admin`} className="nav-link">Admin</Link>
                                             )}
                                         </div>
                                         <div>
