@@ -15,7 +15,8 @@ const INITIAL_STATE = {
     yarn_weight: '',
     needle_size: '',
   },
-  errors: {}
+  errors: {},
+  loading: false
 }
 
 class AddPattern extends Component {
@@ -31,7 +32,9 @@ class AddPattern extends Component {
         yarn_weight: '',
         needle_size: '',
       },
-      errors: {}
+      errors: {},
+      loading: false,
+      attempt: 0,
     }
   }
 
@@ -134,7 +137,6 @@ class AddPattern extends Component {
   handleSetThumbnail = () => {
     let fileName = this.state.image_file_name.slice(0, -4);
     let fileExt = this.state.image_file_name.slice(-4);
-
     if (this.state.image_file_URL) {
       this.props.firebase.storage.ref('/images/thumbnails')
         .child(fileName + '_200x200' + fileExt)
@@ -142,6 +144,7 @@ class AddPattern extends Component {
         .then(fireBaseUrl => {
           this.setState({ thumbnail_image_file_URL: fireBaseUrl });
           this.setState({ thumbnail_image_file_name: fileName + '_200x200' + fileExt });
+          return fireBaseUrl
         })
         .then(() => {
           this.createNewPattern();
@@ -185,7 +188,10 @@ class AddPattern extends Component {
             .getDownloadURL()
             .then(fireBaseUrl => {
               this.setState({ image_file_URL: fireBaseUrl });
-              this.handleSetThumbnail();
+              this.startTimeout = () => {
+                setTimeout(() => {this.handleSetThumbnail();}, 5000);
+              }
+              this.startTimeout();
             });
         }
       );
@@ -222,11 +228,11 @@ class AddPattern extends Component {
           
           //this adds the pattern_id to the contributing user's 'contributed' patterns object in the database
           this.props.firebase.db.ref(`/users/${contributor_user_id}/contributed/`).update({ [`${pattern_id}`]: true })
-          return response;
+          return response
         })
         .then(() => {
           this.setState({ ...INITIAL_STATE });
-          this.props.history.push('/account/' + contributor_user_id + '/contributed');
+          this.props.history.push('/account/' + contributor_user_id + '/contributed')
         })
         .catch(function (error) {
           console.error("Error writing document: ", error);
@@ -239,6 +245,14 @@ class AddPattern extends Component {
     e.preventDefault();
     if (this.handleValidation()) {
       this.setContributorUserId();
+      this.setState({ loading : true });
+      // this.startTimeout = () => {
+      //   setTimeout(() => {if(this.state.attempt === 0){
+      //     this.setContributorUserId(); this.setState({attempt: 1})
+      //   } 
+      //   }, 5000);
+      // }
+      // this.startTimeout();
     }
     else {
       console.log(this.state.errors);
@@ -262,7 +276,7 @@ class AddPattern extends Component {
       this.startTimeout(); 
     }
     if (typeof fields["pattern_name"] !== "undefined" && fields["pattern_name"] !== null) {
-      if (!fields["pattern_name"].match(/^[a-zA-Z0-9,.!? ]*$/)) {
+      if (!fields["pattern_name"].match(/^[-a-zA-Z0-9,'".!? ]*$/)) {
         formIsValid = false;
         errors["pattern_name"] = "Please do not use special characters.";
         this.startTimeout();
@@ -277,7 +291,7 @@ class AddPattern extends Component {
     }
 
     if (typeof fields["author_name"] !== "undefined" && fields["author_name"] !== null) {
-      if (!fields["author_name"].match(/^[a-zA-Z0-9,.!? ]*$/)) {
+      if (!fields["author_name"].match(/^[-a-zA-Z0-9,'".!? ]*$/)) {
         formIsValid = false;
         errors["author_name"] = "Please do not use special characters.";
         this.startTimeout();
@@ -286,9 +300,9 @@ class AddPattern extends Component {
 
     // description
     if (typeof fields["description"] !== "undefined" && fields["description"] !== null) {
-      if (!fields["description"].match(/^[a-zA-Z0-9,.!? ]*$/)) {
+      if (!fields["description"].match(/^[-a-zA-Z0-9,'."!? ]*$/)) {
         formIsValid = false;
-        errors["description"] = "Please do not include special characters.";
+        errors["description"] = "Please do not use special characters.";
         this.startTimeout();
       }
     }
@@ -301,24 +315,24 @@ class AddPattern extends Component {
     }
 
     if (typeof fields["craft"] !== "undefined" && fields["craft"] !== null) {
-      if (!fields["craft"].match(/^[a-zA-Z ]+$/)) {
+      if (!fields["craft"].match(/^[-a-zA-Z0-9,'."!? ]*$/)) {
         formIsValid = false;
-        errors["craft"] = "Please use letters only.";
+        errors["craft"] = "Please do not use special characters.";
         this.startTimeout();
       }
     }
 
     //yarn weight
     if (typeof fields["yarn_weight"] !== "undefined" && fields["yarn_weight"] !== null) {
-      if (!fields["yarn_weight"].match(/^[a-zA-Z ]+$/)) {
+      if (!fields["yarn_weight"].match(/^[-a-zA-Z0-9,'."!? ]*$/)) {
         formIsValid = false;
-        errors["yarn_weight"] = "Please use letters only.";
+        errors["yarn_weight"] = "Please do not use special characters.";
       }
     }
 
     //needle size
     if (typeof fields["needle_size"] !== "undefined" && fields["needle_size"] !== null) {
-      if (!fields["needle_size"].match(/^[a-zA-Z0-9,.!? ]*$/)) {
+      if (!fields["needle_size"].match(/^[-a-zA-Z0-9,'."!? ]*$/)) {
         formIsValid = false;
         errors["needle_size"] = "Please do not use special characters.";
         this.startTimeout();
@@ -377,8 +391,9 @@ class AddPattern extends Component {
                   <input className="form-input" type="file" name="pdf_file" id="pdf_file" onChange={this.handleFileChange} />
                 </div>
                 <div className="errorMsg">{this.state.errors.pdf_file}</div>
+            
                 <div className="btn-wrap">
-                  <button className="btn" type="submit" value="submit">Publish Pattern</button>
+                  {this.state.loading === true ? <div><div className='spin1'> </div><div className='spin2'> </div><div className='spin3'> </div><div className="loading"> Loading please wait ...</div></div> :  <button className="btn" type="submit" value="submit">Publish Pattern</button>}
                 </div>
               </form>
             </div>

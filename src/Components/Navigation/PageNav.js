@@ -18,11 +18,11 @@ class PageNav extends Component {
             <>
                 <div className="page-nav mg-lrc">
                     <div className="back-btn-wrap">
-                        <button className="nav-bk" onClick={() => { this.handleBackClick() }}></button>
+                     <div onClick={() => { this.handleBackClick() }}><button className="nav-bk" ></button><div className="wd-md3">Back</div></div>
                     </div>
                     <div className="page-title"><strong>{this.props.pageHeader}</strong></div>
                     <div className="fwd-btn-wrap">
-                        <button className="nav-fw" onClick={() => { this.handleForwardClick() }}></button>
+                    <div onClick={() => { this.handleForwardClick() }}><button className="nav-fw"></button><div className="wd-md3">Forward</div></div>
                     </div>
                 </div>
             </>
