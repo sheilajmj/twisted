@@ -55,6 +55,9 @@ main{
 .acc-menu{
   position: absolute;
   right: .5%;
+  background-color: #f1e8d3;
+  padding: 5%;
+  border-radius: 5px;
 }
 
 .app-title-h{
@@ -472,6 +475,16 @@ ul{
   width: 100%;
 }
 
+.icons-wrap{
+  width: 100%;
+}
+
+.icons{
+  width: 20%;
+  display: inline-flex;
+  align-self: center;
+}
+
 .page-header{
   font-family: 'Open Sans', sans-serif;
 }
@@ -559,6 +572,13 @@ ul{
   display: flex;
   flex-wrap: wrap;
 }
+
+.ic-de{
+  width: 80%;
+  padding-left: 6%;
+}
+
+
 
 .fav-badge{
   background-image: url('./Assets/SVG/my-favorites-badge.svg')

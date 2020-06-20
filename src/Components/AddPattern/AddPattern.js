@@ -34,7 +34,6 @@ class AddPattern extends Component {
       },
       errors: {},
       loading: false,
-      attempt: 0,
     }
   }
 
@@ -110,6 +109,7 @@ class AddPattern extends Component {
         pattern_name: this.state.pattern_name
       };
       const uploadTask = this.props.firebase.storage.ref().child('pattern-directions/' + this.state.pdf_file_name).put(this.state.pdf_file, metadata);
+     
       uploadTask.on(
         "state_changed",
         snapshot => { },
@@ -130,7 +130,6 @@ class AddPattern extends Component {
         }
       );
     };
-
   }
 
   //this gets the thumbnail file name and URL and sets the values in state to be included in the new pattern.
@@ -196,7 +195,7 @@ class AddPattern extends Component {
         }
       );
     };
-  }
+  };
 
 //creates the new pattern and sends it to database
   createNewPattern = () => {
@@ -246,13 +245,6 @@ class AddPattern extends Component {
     if (this.handleValidation()) {
       this.setContributorUserId();
       this.setState({ loading : true });
-      // this.startTimeout = () => {
-      //   setTimeout(() => {if(this.state.attempt === 0){
-      //     this.setContributorUserId(); this.setState({attempt: 1})
-      //   } 
-      //   }, 5000);
-      // }
-      // this.startTimeout();
     }
     else {
       console.log(this.state.errors);
@@ -338,6 +330,21 @@ class AddPattern extends Component {
         this.startTimeout();
       }
     }
+
+    //image file not blank - additional validation in separate function
+    if (!this.state.image_file) {
+      formIsValid = false;
+      errors["image_file"] = "An image file is required.  Please use png or jpg only.";
+      this.startTimeout(); 
+    }
+
+    //PDF file not blank - additional validation in separate function
+    if (!this.state.pdf_file) {
+      formIsValid = false;
+      errors["pdf_file"] = "A PDF file of the pattern directions is required.";
+      this.startTimeout(); 
+    }
+
     this.setState({ errors: errors });
     return formIsValid;
   }

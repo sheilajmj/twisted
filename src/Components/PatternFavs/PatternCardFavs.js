@@ -53,7 +53,7 @@ class PatternCardFavs extends Component {
     }
 
     returnPatternCards = () => {
-        if (this.state.patternArray === undefined) {
+        if (this.state.patternArray === undefined || this.state.patternArray === null) {
             return <div className="null-response">You have not marked any patterns as favorites, yet.</div>;
         }
         else if (this.state.patternArray) {

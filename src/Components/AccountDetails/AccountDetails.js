@@ -46,7 +46,7 @@ class AccountDetails extends Component {
     render() {
         return (
             <>
-                <AccountNavigationMain />
+                <AccountNavigationMain userId={this.props.match.params.userId}/>
                 <section className='home container container-sm'>
                     <PageNav userId={this.props.match.params.userId} pageHeader={"My Account"} />
                     <div className="add-flex-container bkg-color-wt">

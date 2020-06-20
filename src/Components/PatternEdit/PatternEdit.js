@@ -10,7 +10,8 @@ class PatternEdit extends Component {
         super(props);
         this.state = {
             newPattern: {},
-            errors: {}
+            errors: {},
+            loading: false
         }
     }
 
@@ -56,9 +57,9 @@ class PatternEdit extends Component {
                 let errors = this.state.errors
                 errors["file"] = "File must be a PDF only";
                 this.setState({ errors: errors })
-               return formIsValid = false;
+                return formIsValid = false;
             }
-            if(formIsValid) {
+            if (formIsValid) {
                 const { newPattern } = this.state;
                 newPattern["pdf_file"] = event.target.files[0];
                 newPattern["pdf_file_name"] = event.target.files[0].name;
@@ -69,7 +70,7 @@ class PatternEdit extends Component {
     }
 
     checkUploadPdf = () => {
-        if (this.state.pdf_file) {
+        if (this.state.newPattern.pdf_file) {
             this.handleUploadPdf();
         }
         else {
@@ -100,10 +101,11 @@ class PatternEdit extends Component {
                             newPattern["pdf_file_URL"] = fireBaseUrl
                             this.setState({ newPattern });
                         })
-                })
-                .then(() => {
-                    this.checkUploadImage();
-                });
+                        .then(() => {
+                            this.checkUploadImage();
+                        });
+                }
+            );
         }
         else {
             this.checkUploadImage();
@@ -164,15 +166,18 @@ class PatternEdit extends Component {
                         .child(this.state.newPattern.image_file_name)
                         .getDownloadURL()
                         .then(fireBaseUrl => {
-
+                            console.log("got here", fireBaseUrl)
                             const { newPattern } = this.state;
                             newPattern["image_file_URL"] = fireBaseUrl;
                             this.setState({ newPattern });
-                        })
+                            this.startTimeout = () => {
+                                setTimeout(() => { this.handleSetThumbnail(); }, 5000);
+                            }
+                            this.startTimeout();
+                        });
                 }
             );
-            this.handleSetThumbnail();
-        }
+        };
     };
 
     createPattern = () => {
@@ -210,7 +215,6 @@ class PatternEdit extends Component {
                 contributor_name,
                 image_file_URL,
                 pdf_file_URL
-
             };
 
             this.props.firebase.db.ref(`/patterns/`).update({ [`${pattern_id}`]: pattern })
@@ -227,6 +231,7 @@ class PatternEdit extends Component {
         e.preventDefault();
         if (this.handleValidation()) {
             this.checkUploadPdf();
+            this.setState({ loading : true });
         }
         else {
             console.log(this.state.errors);
@@ -249,16 +254,16 @@ class PatternEdit extends Component {
 
         //pattern name
         if (typeof fields["pattern_name"] !== "undefined" && fields["pattern_name"] !== null) {
-            if (!fields["pattern_name"].match(/^[a-zA-Z0-9,.!? ]*$/)) {
+            if (!fields["pattern_name"].match(/^[-a-zA-Z0-9,'".!? ]*$/)) {
                 formIsValid = false;
                 errors["pattern_name"] = "Please do not use special characters.";
                 this.startTimeout();
-              }
+            }
         }
 
         //author name
         if (typeof fields["author_name"] !== "undefined" && fields["author_name"] !== null) {
-            if (!fields["author_name"].match(/^[a-zA-Z0-9,.!? ]*$/)) {
+            if (!fields["author_name"].match(/^[-a-zA-Z0-9,'".!? ]*$/)) {
                 formIsValid = false;
                 errors["author_name"] = "Please do not use special characters.";
                 this.startTimeout();
@@ -267,38 +272,39 @@ class PatternEdit extends Component {
 
         // description
         if (typeof fields["description"] !== "undefined" && fields["description"] !== null) {
-            if (!fields["description"].match(/^[a-zA-Z0-9,.!? ]*$/)) {
+            if (!fields["description"].match(/^[-a-zA-Z0-9,'."!? ]*$/)) {
                 formIsValid = false;
-                errors["description"] = "Please do not include special characters.";
+                errors["description"] = "Please do not use special characters.";
                 this.startTimeout();
             }
         }
 
         //craft
         if (typeof fields["craft"] !== "undefined" && fields["craft"] !== null) {
-            if (!fields["craft"].match(/^[a-zA-Z ]+$/)) {
+            if (!fields["craft"].match(/^[-a-zA-Z0-9,'."!? ]*$/)) {
                 formIsValid = false;
-                errors["craft"] = "Please use letters only.";
+                errors["craft"] = "Please do not use special characters.";
                 this.startTimeout();
             }
         }
 
         //yarn weight
-        if (typeof fields["yarn-weight"] !== "undefined" && fields["yarn-weight"] !== null) {
-            if (!fields["yarn-weight"].match(/^[a-zA-Z ]+$/)) {
+        if (typeof fields["yarn_weight"] !== "undefined" && fields["yarn_weight"] !== null) {
+            if (!fields["yarn_weight"].match(/^[-a-zA-Z0-9,'."!? ]*$/)) {
                 formIsValid = false;
-                errors["yarn_weight"] = "Please use letters only.";
+                errors["yarn_weight"] = "Please do not use special characters.";
             }
         }
 
         //needle size
-        if (typeof fields["needle-size"] !== "undefined" && fields["needle-size"] !== null) {
-            if (!fields["needle-size"].match(/^[a-zA-Z0-9,.!? ]*$/)) {
+        if (typeof fields["needle_size"] !== "undefined" && fields["needle_size"] !== null) {
+            if (!fields["needle_size"].match(/^[-a-zA-Z0-9,'."!? ]*$/)) {
                 formIsValid = false;
                 errors["needle_size"] = "Please do not use special characters.";
                 this.startTimeout();
             }
         }
+
         this.setState({ errors: errors });
         return formIsValid;
     }
@@ -359,7 +365,7 @@ class PatternEdit extends Component {
                                 </div>
                                 <hr></hr>
                                 <div className="btn-wrap">
-                                <button className="btn" type="submit" value="submit">Update Pattern</button>
+                                    {this.state.loading === true ? <div><div className='spin1'> </div><div className='spin2'> </div><div className='spin3'> </div><div className="loading"> Loading please wait ...</div></div> : <button className="btn" type="submit" value="submit">Update Pattern</button>}
                                 </div>
                             </form>
                         </div>
